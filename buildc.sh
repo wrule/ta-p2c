@@ -1,3 +1,3 @@
 #!/bin/bash
-gcc -o hello src/hello.c
-gcc -shared -o hello.so src/hello.c
+gcc -Ofast -o hello src/hello.c
+gcc -Ofast -shared -o hello.so src/hello.c
