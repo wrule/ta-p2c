@@ -160,8 +160,8 @@ double find() {
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double max = -1.0;
-  for (int fast = 0; fast < 200; ++fast) {
-    for (int slow = 0; slow < 200; ++slow) {
+  for (int fast = 2; fast < 2000; ++fast) {
+    for (int slow = fast + 1; slow <= 2000; ++slow) {
       strategy(fast, slow);
       double result = backing_test();
       if (result > max) {
