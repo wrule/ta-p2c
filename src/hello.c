@@ -155,8 +155,14 @@ double backing_test() {
   return funds;
 }
 
+void test_func() {
+  printf("你好，世界\n");
+}
+
 double find() {
   // strategy(8, 44);
+  test_func();
+  return 0;
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double max = -1.0;
