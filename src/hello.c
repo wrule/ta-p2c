@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include "/usr/local/include/ta-lib/ta_libc.h"
 
@@ -14,7 +15,13 @@ typedef struct {
   double indexs[11];
 } OHLCV;
 
-OHLCV hist[HIST_LENGTH] = { };
+double Time[HIST_LENGTH];
+double Open[HIST_LENGTH];
+double High[HIST_LENGTH];
+double Low[HIST_LENGTH];
+double Close[HIST_LENGTH];
+double Volume[HIST_LENGTH];
+double * Indexs[1024];
 
 void fill_ohlcv(
   int index,
@@ -25,53 +32,67 @@ void fill_ohlcv(
   double close,
   double volume
 ) {
-  hist[index].time = time;
-  hist[index].open = open;
-  hist[index].high = high;
-  hist[index].low = low;
-  hist[index].close = close;
-  hist[index].volume = volume;
+  Time[index] = time;
+  Open[index] = open;
+  High[index] = high;
+  Low[index] = low;
+  Close[index] = close;
+  Volume[index] = volume;
 }
 
 void show_ohlcv(int index) {
   printf(
     "%lu %lf %lf %lf %lf %lf\n",
-    hist[index].time,
-    hist[index].open,
-    hist[index].high,
-    hist[index].low,
-    hist[index].close,
-    hist[index].volume
+    Time[index],
+    Open[index],
+    High[index],
+    Low[index],
+    Close[index],
+    Volume[index]
   );
 }
 
+void init_index(int index) {
+  Indexs[index] = malloc(sizeof(double) * 21000);
+}
+
 TA_RetCode strategy() {
-  double closePrices[21000] = { };
-  double result[21000] = { };
   TA_Integer outBeg;
   TA_Integer outNbElement;
   TA_RetCode retCode = TA_MA(
     0,
     21000 - 1,
-    closePrices,
+    Close,
     3,
     TA_MAType_SMA,
     &outBeg,
     &outNbElement,
-    result
+    Indexs[0]
+  );
+  retCode = TA_MA(
+    0,
+    21000 - 1,
+    Close,
+    44,
+    TA_MAType_SMA,
+    &outBeg,
+    &outNbElement,
+    Indexs[1]
   );
   return retCode;
 }
 
 double find() {
+  init_index(0);
+  init_index(1);
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double sum = 0;
-  for (int n2 = 0; n2 < 390; ++n2) {
+  for (int n2 = 0; n2 < 100; ++n2) {
     for (int n1 = 0; n1 < 1000; ++n1) {
       strategy();
       for (int current; current < 20000; ++current) {
-        sum += (hist[current].low - hist[current].open);
+        sum += (Low[current] - Open[current]);
       }
     }
   }
