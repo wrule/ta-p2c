@@ -38,10 +38,10 @@ void init_indexs(int size) {
   }
 }
 
-void init(int len) {
+void init(int len, int index_size) {
   HistLen = len;
   init_hist();
-  init_indexs(2);
+  init_indexs(index_size);
 }
 
 void fill_ohlcv(
