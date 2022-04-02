@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 
 int jimao(int a, int b) {
   int sum = a + b;
@@ -7,16 +8,17 @@ int jimao(int a, int b) {
 }
 
 int find() {
-  printf("开始\n");
+  printf("C >> 开始\n");
+  time_t op = time(NULL);
   int sum = 0;
-  for (int num1 = 0; num1 < 1000; ++num1) {
+  for (int num1 = 0; num1 < 20000; ++num1) {
     for (int num2 = 0; num2 < 1000; ++num2) {
       for (int num3 = 0; num3 < 1000; ++num3) {
         sum += (num1 + num2 - num3);
       }
     }
   }
-  printf("结束\n");
+  printf("C >> 结束 秒数 %ld\n", time(NULL) - op);
   return sum;
 }
 
