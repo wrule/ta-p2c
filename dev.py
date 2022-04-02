@@ -3,4 +3,4 @@ from ctypes import *
 
 print('你好，世界')
 hello = CDLL('hello.so')
-print(hello.jimao(1, 2))
+print(hello.find())
