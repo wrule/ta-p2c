@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "/usr/local/include/ta-lib/ta_libc.h"
+#include "indicators.h"
 
 int HistLen = 0;
 
@@ -157,6 +158,29 @@ double backing_test() {
 
 void test_func() {
   printf("你好，世界\n");
+  /* Order data from oldest to newest (index 0 is oldest) */
+  const double data_in[] = {5,8,12,11,9,8,7,10,11,13};
+  const int input_length = sizeof(data_in) / sizeof(double); /* 10 in this example */
+  const double options[] = {3};
+  /* Find start size for given options. */
+  const int start = ti_sma_start(options);
+  printf("%d\n", start);
+
+  /* Output length is input length minus start size. */
+  const int output_length = input_length - start;
+
+  double *data_out = malloc(output_length * sizeof(double));
+  assert(data_out != 0);
+
+  const double *all_inputs[] = {data_in};
+  double *all_outputs[] = {data_out};
+
+  int error = ti_sma(input_length, all_inputs, options, all_outputs);
+  assert(error == TI_OKAY);
+
+  for (int i = 0; i < output_length; ++i) {
+    printf("%d %lf\n", i, data_out[i]);
+  }
 }
 
 double find() {
