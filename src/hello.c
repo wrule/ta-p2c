@@ -134,9 +134,16 @@ double backing_test() {
   assets = 0;
   for (int cur = 0; cur < HistLen; ++cur) {
     if (cur >= StablePoint) {
-      if (Close[cur] > Open[cur]) {
+      if (
+        Indexs[0][cur] > Indexs[1][cur] &&
+        Indexs[0][cur - 1] <= Indexs[1][cur - 1]
+      ) {
         buy(Close[cur]);
-      } else {
+      }
+      if (
+        Indexs[0][cur] < Indexs[1][cur] &&
+        Indexs[0][cur - 1] >= Indexs[1][cur - 1]
+      ) {
         sell(Close[cur]);
       }
     }
