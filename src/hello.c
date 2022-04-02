@@ -133,6 +133,10 @@ double backing_test() {
   funds = 100.0;
   assets = 0;
   for (int cur = 0; cur < HistLen; ++cur) {
+    if (cur == HistLen - 1) {
+      sell(Close[cur]);
+      break;
+    }
     if (cur >= StablePoint) {
       if (
         Indexs[0][cur] > Indexs[1][cur] &&
