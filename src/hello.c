@@ -3,7 +3,7 @@
 #include <time.h>
 #include "/usr/local/include/ta-lib/ta_libc.h"
 
-#define HIST_LENGTH 1024000
+int HistLen = 0;
 
 typedef struct {
   unsigned long time;
@@ -24,21 +24,22 @@ double * Volume;
 double * Indexs[1024];
 
 void init_hist() {
-  Time = malloc(sizeof(unsigned long) * HIST_LENGTH);
-  Open = malloc(sizeof(double) * HIST_LENGTH);
-  High = malloc(sizeof(double) * HIST_LENGTH);
-  Low = malloc(sizeof(double) * HIST_LENGTH);
-  Close = malloc(sizeof(double) * HIST_LENGTH);
-  Volume = malloc(sizeof(double) * HIST_LENGTH);
+  Time = malloc(sizeof(unsigned long) * HistLen);
+  Open = malloc(sizeof(double) * HistLen);
+  High = malloc(sizeof(double) * HistLen);
+  Low = malloc(sizeof(double) * HistLen);
+  Close = malloc(sizeof(double) * HistLen);
+  Volume = malloc(sizeof(double) * HistLen);
 }
 
 void init_indexs(int size) {
   for (int i = 0; i < size; ++i) {
-    Indexs[i] = malloc(sizeof(double) * HIST_LENGTH);
+    Indexs[i] = malloc(sizeof(double) * HistLen);
   }
 }
 
-void init() {
+void init(int len) {
+  HistLen = len;
   init_hist();
   init_indexs(2);
 }
@@ -77,7 +78,7 @@ TA_RetCode strategy() {
   TA_Integer outNbElement;
   TA_RetCode retCode = TA_MA(
     0,
-    21000 - 1,
+    HistLen - 1,
     Close,
     3,
     TA_MAType_SMA,
@@ -87,7 +88,7 @@ TA_RetCode strategy() {
   );
   retCode = TA_MA(
     0,
-    21000 - 1,
+    HistLen - 1,
     Close,
     44,
     TA_MAType_SMA,
@@ -105,7 +106,7 @@ double find() {
   for (int n2 = 0; n2 < 100; ++n2) {
     for (int n1 = 0; n1 < 1000; ++n1) {
       strategy();
-      for (int current; current < 20000; ++current) {
+      for (int current; current < HistLen; ++current) {
         sum += (Low[current] - Open[current]);
       }
     }
