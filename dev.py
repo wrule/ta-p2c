@@ -5,8 +5,6 @@ hello = CDLL('hello.so')
 
 hist = json.load(open('src/BTC_USDT-2h.json', 'r'))
 
-print(len(hist))
-
 hello.init(len(hist), 2)
 
 for index, item in enumerate(hist):
@@ -20,5 +18,4 @@ for index, item in enumerate(hist):
     c_double(item[5]),
   );
 
-hello.show_ohlcv(0)
 hello.find()

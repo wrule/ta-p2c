@@ -2,6 +2,7 @@
     "files.associations": {
         "chrono": "c",
         "__locale": "c",
-        "iterator": "c"
+        "iterator": "c",
+        "ios": "c"
     }
 }

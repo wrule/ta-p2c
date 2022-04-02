@@ -86,16 +86,12 @@ TA_RetCode strategy() {
     &outNbElement,
     Indexs[0]
   );
-  retCode = TA_MA(
-    0,
-    HistLen - 1,
-    Close,
-    44,
-    TA_MAType_SMA,
-    &outBeg,
-    &outNbElement,
-    Indexs[1]
-  );
+  for (int i = 0; i < 10; ++i) {
+    printf("%lf %lf\n", Close[i], Indexs[0][i]);
+  }
+  for(int i = 0; i < 10; ++i) {
+    printf("天 %d = %f\n", outBeg + i, Indexs[0][i]);
+  }
   return retCode;
 }
 
@@ -135,15 +131,16 @@ double backing_test() {
 }
 
 double find() {
-  printf("C >> 开始\n");
-  time_t op = time(NULL);
+  strategy();
+  // printf("C >> 开始\n");
+  // time_t op = time(NULL);
   double sum = 0;
-  for (int fast = 0; fast < 200; ++fast) {
-    for (int slow = 0; slow < 200; ++slow) {
-      strategy();
-      sum += backing_test();
-    }
-  }
-  printf("C >> 结束 结果 %lf 秒数 %ld\n", sum, time(NULL) - op);
+  // for (int fast = 0; fast < 200; ++fast) {
+  //   for (int slow = 0; slow < 200; ++slow) {
+  //     strategy();
+  //     sum += backing_test();
+  //   }
+  // }
+  // printf("C >> 结束 结果 %lf 秒数 %ld\n", sum, time(NULL) - op);
   return sum;
 }
