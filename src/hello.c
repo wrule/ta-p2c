@@ -103,8 +103,8 @@ double find() {
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double sum = 0;
-  for (int n2 = 0; n2 < 100; ++n2) {
-    for (int n1 = 0; n1 < 1000; ++n1) {
+  for (int fast = 0; fast < 200; ++fast) {
+    for (int slow = 0; slow < 200; ++slow) {
       strategy();
       for (int current; current < HistLen; ++current) {
         sum += (Low[current] - Open[current]);
