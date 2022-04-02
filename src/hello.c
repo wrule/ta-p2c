@@ -45,7 +45,22 @@ void show_ohlcv(int index) {
   );
 }
 
+TA_Real    closePrice[400];
+TA_Real    out[400];
+TA_Integer outBeg;
+TA_Integer outNbElement;
+
 double find() {
+  TA_RetCode retCode = TA_MA(
+    0,
+    399,
+    &closePrice[0],
+    30,
+    TA_MAType_SMA,
+    &outBeg,
+    &outNbElement,
+    &out[0]
+  );
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double sum = 0;
