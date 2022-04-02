@@ -76,8 +76,8 @@ void show_ohlcv(int index) {
 int StablePoint = 0;
 
 void strategy(int fast, int slow) {
-  int ifast = fast >= slow ? fast : slow;
-  int islow = fast >= slow ? slow : fast;
+  int ifast = fast <= slow ? fast : slow;
+  int islow = fast <= slow ? slow : fast;
   StablePoint = islow;
   TA_Integer data_op;
   TA_Integer data_size;
@@ -89,7 +89,7 @@ void strategy(int fast, int slow) {
     TA_MAType_SMA,
     &data_op,
     &data_size,
-    Indexs[0]
+    &Indexs[0][ifast - 1]
   );
   TA_MA(
     0,
@@ -99,11 +99,10 @@ void strategy(int fast, int slow) {
     TA_MAType_SMA,
     &data_op,
     &data_size,
-    Indexs[1]
+    &Indexs[1][islow - 1]
   );
   // for (int i = 0; i < 10; ++i) {
-  //   int a = i - outBeg;
-  //   printf("%d %lf %lf\n", i, Close[i], a >= 0 ? Indexs[0][a] : 0.0);
+  //   printf("%d %lf %lf\n", i, Close[i], Indexs[0][i]);
   // }
   // return retCode;
 }
@@ -146,7 +145,7 @@ double backing_test() {
 }
 
 double find() {
-  // strategy();
+  // strategy(8, 44);
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double sum = 0;
