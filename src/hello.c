@@ -99,18 +99,26 @@ TA_RetCode strategy() {
   return retCode;
 }
 
-double funds = 100.0
-double assets = 0.0
-double fee = 0.999
+double funds = 100.0;
+double assets = 0.0;
+double fee = 0.999;
 
 void buy(double price) {
   assets = funds / price * fee;
-  funds = 0
+  funds = 0;
 }
 
 void sell(double price) {
   funds = assets * price * fee;
-  assets = 0
+  assets = 0;
+}
+
+double backing_test() {
+  double sum = 0;
+  for (int current; current < HistLen; ++current) {
+    sum += (Low[current] - Open[current]);
+  }
+  return sum;
 }
 
 double find() {
@@ -120,9 +128,7 @@ double find() {
   for (int fast = 0; fast < 200; ++fast) {
     for (int slow = 0; slow < 200; ++slow) {
       strategy();
-      for (int current; current < HistLen; ++current) {
-        sum += (Low[current] - Open[current]);
-      }
+      sum += backing_test();
     }
   }
   printf("C >> 结束 结果 %lf 秒数 %ld\n", sum, time(NULL) - op);
