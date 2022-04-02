@@ -1,6 +1,22 @@
 #!/opt/homebrew/bin/python3
 from ctypes import *
-
-print('你好，世界')
+import json
 hello = CDLL('hello.so')
+
+hist = json.load(open('src/BTC_USDT-2h.json', 'r'))
+
+for index, item in enumerate(hist):
+  print(index, item)
+  hello.fill_ohlcv(
+    index,
+    item[0],
+    c_double(item[1]),
+    c_double(item[2]),
+    c_double(item[3]),
+    c_double(item[4]),
+    c_double(item[5]),
+  );
+
+print('你好，世界', len(hist))
+
 print(hello.find())

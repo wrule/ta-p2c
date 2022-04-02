@@ -4,6 +4,7 @@
 #define HIST_LENGTH 1024000
 
 typedef struct {
+  unsigned long time;
   double open;
   double high;
   double low;
@@ -16,12 +17,14 @@ OHLCV hist[HIST_LENGTH] = { };
 
 void fill_ohlcv(
   int index,
+  unsigned long time,
   double open,
   double high,
   double low,
   double close,
   double volume
 ) {
+  hist[index].time = time;
   hist[index].open = open;
   hist[index].high = high;
   hist[index].low = low;
