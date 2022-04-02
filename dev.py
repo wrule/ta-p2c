@@ -6,10 +6,9 @@ hello = CDLL('hello.so')
 hist = json.load(open('src/BTC_USDT-2h.json', 'r'))
 
 for index, item in enumerate(hist):
-  print(index, item)
   hello.fill_ohlcv(
-    index,
-    item[0],
+    c_int(index),
+    c_ulong(item[0]),
     c_double(item[1]),
     c_double(item[2]),
     c_double(item[3]),
@@ -17,6 +16,4 @@ for index, item in enumerate(hist):
     c_double(item[5]),
   );
 
-print('你好，世界', len(hist))
-
-print(hello.find())
+print(hello.show_ohlcv(0))

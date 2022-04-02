@@ -32,6 +32,19 @@ void fill_ohlcv(
   hist[index].volume = volume;
 }
 
+void show_ohlcv(int index) {
+  printf(
+    "%lu %lf %lf %lf %lf %lf\n",
+    hist[index].time,
+    hist[index].open,
+    hist[index].high,
+    hist[index].low,
+    hist[index].close,
+    hist[index].volume
+  );
+}
+
+
 int jimao(int a, int b) {
   int sum = a + b;
   printf("c语言调用: %d\n", sum);
