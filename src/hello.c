@@ -122,11 +122,14 @@ int sell(double price) {
 }
 
 double backing_test() {
-  double sum = 0;
-  for (int cur; cur < HistLen; ++cur) {
-    sum += (Low[cur] - Open[cur]);
+  for (int cur = 0; cur < HistLen; ++cur) {
+    if (Close[cur] > Open[cur]) {
+      buy(Close[cur]);
+    } else {
+      sell(Close[cur]);
+    }
   }
-  return sum;
+  return funds;
 }
 
 double find() {
