@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <time.h>
+#include "/opt/homebrew/opt/ta-lib/include/ta-lib/ta_libc.h"
 
 #define HIST_LENGTH 1024000
 
