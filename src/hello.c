@@ -23,6 +23,10 @@ double Close[HIST_LENGTH];
 double Volume[HIST_LENGTH];
 double * Indexs[1024];
 
+void init_hist() {
+
+}
+
 void fill_ohlcv(
   int index,
   unsigned long time,
