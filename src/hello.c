@@ -159,13 +159,16 @@ double find() {
   // strategy(8, 44);
   printf("C >> 开始\n");
   time_t op = time(NULL);
-  double sum = 0;
+  double max = -1.0;
   for (int fast = 0; fast < 200; ++fast) {
     for (int slow = 0; slow < 200; ++slow) {
       strategy(fast, slow);
-      sum += backing_test();
+      double result = backing_test();
+      if (result > max) {
+        max = result;
+      }
     }
   }
-  printf("C >> 结束 结果 %lf 秒数 %ld\n", sum, time(NULL) - op);
-  return sum;
+  printf("C >> 结束 结果 %lf 秒数 %ld\n", max, time(NULL) - op);
+  return max;
 }
