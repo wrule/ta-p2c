@@ -45,30 +45,31 @@ void show_ohlcv(int index) {
   );
 }
 
-TA_Real    closePrice[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-TA_Real    out[10];
-TA_Integer outBeg;
-TA_Integer outNbElement;
-
-double find() {
+TA_RetCode strategy() {
+  double closePrices[21000] = { };
+  double result[21000] = { };
+  TA_Integer outBeg;
+  TA_Integer outNbElement;
   TA_RetCode retCode = TA_MA(
     0,
-    9,
-    closePrice,
+    21000 - 1,
+    closePrices,
     3,
     TA_MAType_SMA,
     &outBeg,
     &outNbElement,
-    out
+    result
   );
-  for(int i = 0; i < outNbElement; ++i) {
-    printf("Day %d = %f\n", outBeg + i, out[i]);
-  }
+  return retCode;
+}
+
+double find() {
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double sum = 0;
-  for (int n2 = 0; n2 < 1000000; ++n2) {
+  for (int n2 = 0; n2 < 390; ++n2) {
     for (int n1 = 0; n1 < 1000; ++n1) {
+      strategy();
       for (int current; current < 20000; ++current) {
         sum += (hist[current].low - hist[current].open);
       }
