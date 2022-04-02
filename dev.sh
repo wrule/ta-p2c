@@ -1,3 +1,4 @@
 #!/bin/bash
-gcc -Ofast -shared -o hello.so src/hello.c
+rm hello.so
+gcc -shared -o hello.so src/hello.c
 ./dev.py

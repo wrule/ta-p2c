@@ -16,4 +16,5 @@ for index, item in enumerate(hist):
     c_double(item[5]),
   );
 
-print(hello.show_ohlcv(0))
+hello.show_ohlcv(0)
+hello.find()
