@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#define HIST_LENGTH 102400
+#define HIST_LENGTH 1024000
 
 typedef struct {
   double open;
@@ -13,6 +13,21 @@ typedef struct {
 } OHLCV;
 
 OHLCV hist[HIST_LENGTH] = { };
+
+void fill_ohlcv(
+  int index,
+  double open,
+  double high,
+  double low,
+  double close,
+  double volume
+) {
+  hist[index].open = open;
+  hist[index].high = high;
+  hist[index].low = low;
+  hist[index].close = close;
+  hist[index].volume = volume;
+}
 
 int jimao(int a, int b) {
   int sum = a + b;
