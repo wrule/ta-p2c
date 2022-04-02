@@ -73,26 +73,39 @@ void show_ohlcv(int index) {
   );
 }
 
-TA_RetCode strategy() {
-  TA_Integer outBeg;
-  TA_Integer outNbElement;
-  TA_RetCode retCode = TA_MA(
+int StablePoint = 0;
+
+void strategy(int fast, int slow) {
+  int ifast = fast >= slow ? fast : slow;
+  int islow = fast >= slow ? slow : fast;
+  StablePoint = islow;
+  TA_Integer data_op;
+  TA_Integer data_size;
+  TA_MA(
     0,
     HistLen - 1,
     Close,
-    3,
+    ifast,
     TA_MAType_SMA,
-    &outBeg,
-    &outNbElement,
+    &data_op,
+    &data_size,
     Indexs[0]
   );
-  for (int i = 0; i < 10; ++i) {
-    printf("%lf %lf\n", Close[i], Indexs[0][i]);
-  }
-  for(int i = 0; i < 10; ++i) {
-    printf("天 %d = %f\n", outBeg + i, Indexs[0][i]);
-  }
-  return retCode;
+  TA_MA(
+    0,
+    HistLen - 1,
+    Close,
+    islow,
+    TA_MAType_SMA,
+    &data_op,
+    &data_size,
+    Indexs[1]
+  );
+  // for (int i = 0; i < 10; ++i) {
+  //   int a = i - outBeg;
+  //   printf("%d %lf %lf\n", i, Close[i], a >= 0 ? Indexs[0][a] : 0.0);
+  // }
+  // return retCode;
 }
 
 double funds = 100.0;
@@ -121,26 +134,28 @@ double backing_test() {
   funds = 100.0;
   assets = 0;
   for (int cur = 0; cur < HistLen; ++cur) {
-    if (Close[cur] > Open[cur]) {
-      buy(Close[cur]);
-    } else {
-      sell(Close[cur]);
+    if (cur >= StablePoint) {
+      if (Close[cur] > Open[cur]) {
+        buy(Close[cur]);
+      } else {
+        sell(Close[cur]);
+      }
     }
   }
   return funds;
 }
 
 double find() {
-  strategy();
-  // printf("C >> 开始\n");
-  // time_t op = time(NULL);
+  // strategy();
+  printf("C >> 开始\n");
+  time_t op = time(NULL);
   double sum = 0;
-  // for (int fast = 0; fast < 200; ++fast) {
-  //   for (int slow = 0; slow < 200; ++slow) {
-  //     strategy();
-  //     sum += backing_test();
-  //   }
-  // }
-  // printf("C >> 结束 结果 %lf 秒数 %ld\n", sum, time(NULL) - op);
+  for (int fast = 0; fast < 200; ++fast) {
+    for (int slow = 0; slow < 200; ++slow) {
+      strategy(fast, slow);
+      sum += backing_test();
+    }
+  }
+  printf("C >> 结束 结果 %lf 秒数 %ld\n", sum, time(NULL) - op);
   return sum;
 }
