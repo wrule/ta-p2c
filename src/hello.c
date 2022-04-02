@@ -115,8 +115,8 @@ void sell(double price) {
 
 double backing_test() {
   double sum = 0;
-  for (int current; current < HistLen; ++current) {
-    sum += (Low[current] - Open[current]);
+  for (int cur; cur < HistLen; ++cur) {
+    sum += (Low[cur] - Open[cur]);
   }
   return sum;
 }
