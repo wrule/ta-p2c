@@ -1,6 +1,15 @@
 #include <stdio.h>
 #include <time.h>
 
+typedef struct {
+  double open;
+  double high;
+  double low;
+  double close;
+  double volume;
+  double indexs[11];
+} OHLCV;
+
 int jimao(int a, int b) {
   int sum = a + b;
   printf("c语言调用: %d\n", sum);
@@ -24,5 +33,6 @@ int find() {
 
 int main() {
   printf("%d\n", find());
+  printf("%ld\n", sizeof(OHLCV) * 60 * 60 * 24 * 365 * 10 / 1024 / 1024 / 1024);
   return 0;
 }
