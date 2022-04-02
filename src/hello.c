@@ -15,7 +15,7 @@ typedef struct {
   double indexs[11];
 } OHLCV;
 
-double Time[HIST_LENGTH];
+unsigned long Time[HIST_LENGTH];
 double Open[HIST_LENGTH];
 double High[HIST_LENGTH];
 double Low[HIST_LENGTH];
