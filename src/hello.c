@@ -99,6 +99,20 @@ TA_RetCode strategy() {
   return retCode;
 }
 
+double funds = 100.0
+double assets = 0.0
+double fee = 0.999
+
+void buy(double price) {
+  assets = funds / price * fee;
+  funds = 0
+}
+
+void sell(double price) {
+  funds = assets * price * fee;
+  assets = 0
+}
+
 double find() {
   printf("C >> 开始\n");
   time_t op = time(NULL);
