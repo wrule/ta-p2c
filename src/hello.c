@@ -103,14 +103,22 @@ double funds = 100.0;
 double assets = 0.0;
 double fee = 0.999;
 
-void buy(double price) {
-  assets = funds / price * fee;
-  funds = 0;
+int buy(double price) {
+  if (assets == 0) {
+    assets = funds / price * fee;
+    funds = 0;
+    return 0;
+  }
+  return 1;
 }
 
-void sell(double price) {
-  funds = assets * price * fee;
-  assets = 0;
+int sell(double price) {
+  if (funds == 0) {
+    funds = assets * price * fee;
+    assets = 0;
+    return 0;
+  }
+  return 1;
 }
 
 double backing_test() {
