@@ -7,6 +7,8 @@ hist = json.load(open('src/BTC_USDT-2h.json', 'r'))
 
 print(len(hist))
 
+hello.init()
+
 for index, item in enumerate(hist):
   hello.fill_ohlcv(
     c_int(index),

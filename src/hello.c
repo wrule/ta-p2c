@@ -15,16 +15,32 @@ typedef struct {
   double indexs[11];
 } OHLCV;
 
-unsigned long Time[HIST_LENGTH];
-double Open[HIST_LENGTH];
-double High[HIST_LENGTH];
-double Low[HIST_LENGTH];
-double Close[HIST_LENGTH];
-double Volume[HIST_LENGTH];
+unsigned long * Time;
+double * Open;
+double * High;
+double * Low;
+double * Close;
+double * Volume;
 double * Indexs[1024];
 
 void init_hist() {
+  Time = malloc(sizeof(unsigned long) * HIST_LENGTH);
+  Open = malloc(sizeof(double) * HIST_LENGTH);
+  High = malloc(sizeof(double) * HIST_LENGTH);
+  Low = malloc(sizeof(double) * HIST_LENGTH);
+  Close = malloc(sizeof(double) * HIST_LENGTH);
+  Volume = malloc(sizeof(double) * HIST_LENGTH);
+}
 
+void init_indexs(int size) {
+  for (int i = 0; i < size; ++i) {
+    Indexs[i] = malloc(sizeof(double) * HIST_LENGTH);
+  }
+}
+
+void init() {
+  init_hist();
+  init_indexs(2);
 }
 
 void fill_ohlcv(
@@ -56,10 +72,6 @@ void show_ohlcv(int index) {
   );
 }
 
-void init_index(int index) {
-  Indexs[index] = malloc(sizeof(double) * 21000);
-}
-
 TA_RetCode strategy() {
   TA_Integer outBeg;
   TA_Integer outNbElement;
@@ -87,8 +99,6 @@ TA_RetCode strategy() {
 }
 
 double find() {
-  init_index(0);
-  init_index(1);
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double sum = 0;
