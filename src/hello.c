@@ -122,6 +122,8 @@ int sell(double price) {
 }
 
 double backing_test() {
+  funds = 100.0;
+  assets = 0;
   for (int cur = 0; cur < HistLen; ++cur) {
     if (Close[cur] > Open[cur]) {
       buy(Close[cur]);
