@@ -152,7 +152,14 @@ void strategy4(int rsi, int ma) {
   double * all_outputs_rsi[] = { &Indexs[0][start_rsi] };
   ti_rsi(HistLen, all_inputs, options_rsi, all_outputs_rsi);
 
-  StablePoint = start_rsi + 1;
+  const double * all_inputs_ma[] = { &Indexs[0][start_rsi] };
+
+  const double options_ma[] = { ma };
+  const int start_ma = ti_sma_start(options_ma) + start_rsi;
+  double * all_outputs_ma[] = { &Indexs[1][start_ma] };
+  ti_sma(HistLen - start_rsi, all_inputs_ma, options_ma, all_outputs_ma);
+
+  StablePoint = start_ma + 1;
 }
 
 double funds = 100.0;
