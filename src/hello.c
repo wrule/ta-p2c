@@ -157,14 +157,10 @@ double backing_test() {
 }
 
 void test_func() {
-  printf("你好，世界\n");
-  /* Order data from oldest to newest (index 0 is oldest) */
   const double data_in[] = {5,8,12,11,9,8,7,10,11,13};
-  const int input_length = sizeof(data_in) / sizeof(double); /* 10 in this example */
-  const double options[] = {3};
-  /* Find start size for given options. */
+  const int input_length = sizeof(data_in) / sizeof(double);
+  const double options[] = { 3 };
   const int start = ti_sma_start(options);
-  printf("%d\n", start);
 
   /* Output length is input length minus start size. */
   const int output_length = input_length - start;
@@ -185,8 +181,8 @@ void test_func() {
 
 double find() {
   // strategy(8, 44);
-  // test_func();
-  // return 0;
+  test_func();
+  return 0;
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double max = -1.0;
