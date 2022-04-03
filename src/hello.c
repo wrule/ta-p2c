@@ -132,12 +132,12 @@ void strategy3(int fast, int slow) {
   const double * all_inputs[] = { Close };
 
   const double options_fast[] = { ifast };
-  const int start_fast = ti_sma_start(options_fast);
+  const int start_fast = ti_rsi_start(options_fast);
   double * all_outputs_fast[] = { &Indexs[0][start_fast] };
   ti_rsi(HistLen, all_inputs, options_fast, all_outputs_fast);
 
   const double options_slow[] = { islow };
-  const int start_slow = ti_sma_start(options_slow);
+  const int start_slow = ti_rsi_start(options_slow);
   double * all_outputs_slow[] = { &Indexs[1][start_slow] };
   ti_rsi(HistLen, all_inputs, options_slow, all_outputs_slow);
 
@@ -212,7 +212,7 @@ double find() {
   double max = -1.0;
   int max_fast = -1;
   int max_slow = -1;
-  for (int fast = 2; fast < 200; ++fast) {
+  for (int fast = 2; fast < 2000; ++fast) {
     for (int slow = fast + 1; slow <= 2000; ++slow) {
       strategy3(fast, slow);
       double result = backing_test();
