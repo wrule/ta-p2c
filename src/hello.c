@@ -157,25 +157,13 @@ double backing_test() {
 }
 
 void test_func() {
-  const double data_in[] = {5,8,12,11,9,8,7,10,11,13};
-  const int input_length = sizeof(data_in) / sizeof(double);
-  const double options[] = { 3 };
+  const double options[] = { 8 };
   const int start = ti_sma_start(options);
-
-  /* Output length is input length minus start size. */
-  const int output_length = input_length - start;
-
-  double *data_out = malloc(output_length * sizeof(double));
-  assert(data_out != 0);
-
-  const double *all_inputs[] = {data_in};
-  double *all_outputs[] = {data_out};
-
-  int error = ti_sma(input_length, all_inputs, options, all_outputs);
-  assert(error == TI_OKAY);
-
-  for (int i = 0; i < output_length; ++i) {
-    printf("%d %lf\n", i, data_out[i]);
+  const double * all_inputs[] = { Close };
+  double * all_outputs[] = { &Indexs[0][start] };
+  ti_sma(HistLen, all_inputs, options, all_outputs);
+  for (int i = 0; i < 10; ++i) {
+    printf("%d %lf %lf\n", i, Close[i], Indexs[0][i]);
   }
 }
 
