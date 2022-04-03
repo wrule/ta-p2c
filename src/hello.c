@@ -210,15 +210,20 @@ double find() {
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double max = -1.0;
-  for (int fast = 2; fast < 2000; ++fast) {
+  int max_fast = -1;
+  int max_slow = -1;
+  for (int fast = 2; fast < 200; ++fast) {
     for (int slow = fast + 1; slow <= 2000; ++slow) {
       strategy3(fast, slow);
       double result = backing_test();
       if (result > max) {
         max = result;
+        max_fast = fast;
+        max_slow = slow;
       }
     }
   }
-  printf("C >> 结束 结果 %lf 秒数 %ld\n", max, time(NULL) - op);
+  printf("C >> 结束 秒数 %ld\n", time(NULL) - op);
+  printf("C >> 结果 %lf fast %d slow %d\n", max, max_fast, max_slow);
   return max;
 }
