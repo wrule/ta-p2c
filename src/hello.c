@@ -193,12 +193,12 @@ double backing_test() {
 }
 
 void test_func() {
-  const double options[] = { 8 };
-  const int start = ti_sma_start(options);
+  const double options[] = { 6 };
+  const int start = ti_rsi_start(options);
   const double * all_inputs[] = { Close };
   double * all_outputs[] = { &Indexs[0][start] };
-  ti_sma(HistLen, all_inputs, options, all_outputs);
-  for (int i = 0; i < 10; ++i) {
+  ti_rsi(HistLen, all_inputs, options, all_outputs);
+  for (int i = 0; i < 20; ++i) {
     printf("%d %lf %lf\n", i, Close[i], Indexs[0][i]);
   }
 }
