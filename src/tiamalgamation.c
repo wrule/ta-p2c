@@ -3585,6 +3585,10 @@ int ti_stoch_flat(
   TI_REAL const *options,
   TI_REAL *const *outputs
 ) {
+  TI_REAL const *source = inputs[0];
+  for (int i = 0; i < size; ++i) {
+
+  }
   return 0;
 }
 
