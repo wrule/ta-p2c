@@ -9,7 +9,7 @@ hist = list(filter(lambda item: item[0] >= 1609459200000, all_hist))
 
 print(hist[0][0])
 
-hello.init(len(hist), 2)
+hello.init(len(hist), 3)
 
 for index, item in enumerate(hist):
   hello.fill_ohlcv(
