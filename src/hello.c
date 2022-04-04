@@ -173,6 +173,9 @@ void strategy5(
   const int rsi_start = ti_rsi_start(rsi_options);
   double * rsi_outputs[] = { &Indexs[0][rsi_start] };
   ti_rsi(HistLen, rsi_inputs, rsi_options, rsi_outputs);
+  for (int i = 0; i < 20; ++i) {
+    printf("%d %lf %lf\n", i, Close[i], Indexs[0][i]);
+  }
 }
 
 double funds = 100.0;
@@ -224,14 +227,7 @@ double backing_test() {
 }
 
 void test_func() {
-  const double options[] = { 6 };
-  const int start = ti_rsi_start(options);
-  const double * all_inputs[] = { Close };
-  double * all_outputs[] = { &Indexs[0][start] };
-  ti_rsi(HistLen, all_inputs, options, all_outputs);
-  for (int i = 0; i < 20; ++i) {
-    printf("%d %lf %lf\n", i, Close[i], Indexs[0][i]);
-  }
+  strategy5(6, 1, 1, 1);
 }
 
 double find() {
