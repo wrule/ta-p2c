@@ -3,7 +3,11 @@ from ctypes import *
 import json
 hello = CDLL('hello.so')
 
-hist = json.load(open('src/BTC_USDT-2h.json', 'r'))
+all_hist = json.load(open('src/BTC_USDT-2h.json', 'r'))
+
+hist = list(filter(lambda item: item[0] >= 1609459200000, all_hist))
+
+print(hist[0][0])
 
 hello.init(len(hist), 2)
 
