@@ -170,8 +170,8 @@ void strategy5(
 ) {
   const double rsi_options[] = { rsi_length };
   const double * rsi_inputs[] = { Close };
-  const int start_rsi = ti_rsi_start(rsi_options);
-  double * rsi_outputs[] = { &Indexs[0][start_rsi] };
+  const int rsi_start = ti_rsi_start(rsi_options);
+  double * rsi_outputs[] = { &Indexs[0][rsi_start] };
   ti_rsi(HistLen, rsi_inputs, rsi_options, rsi_outputs);
 }
 
