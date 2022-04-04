@@ -3578,6 +3578,16 @@ int ti_stoch(int size, TI_REAL const *const *inputs, TI_REAL const *options, TI_
     assert(stoch_ma - outputs[1] == size - ti_stoch_start(options));
     return TI_OKAY;
 }
+
+int ti_stoch_flat(
+  int size,
+  TI_REAL const *const *inputs,
+  TI_REAL const *options,
+  TI_REAL *const *outputs
+) {
+  return 0;
+}
+
 int ti_stochrsi_start(TI_REAL const *options) {
     return ((int)options[0]) * 2 - 1;
 }
