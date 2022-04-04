@@ -3591,6 +3591,17 @@ int ti_stoch_flat(
   TI_REAL const d = options[2];
   for (int i = length - 1; i < size; ++i) {
     int const start_index = i - length + 1;
+    TI_REAL min = source[start_index];
+    TI_REAL max = source[start_index];
+    for (int n = 1; n < length; ++n) {
+      const num = source[start_index + n];
+      if (num < min) {
+        min = num;
+      }
+      if (num > max) {
+        max = num;
+      }
+    }
   }
   return 0;
 }
