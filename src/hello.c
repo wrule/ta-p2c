@@ -162,6 +162,19 @@ void strategy4(int rsi, int ma) {
   StablePoint = start_ma + 1;
 }
 
+void strategy5(
+  int rsi_length,
+  int length,
+  int k,
+  int d
+) {
+  const double rsi_options[] = { rsi_length };
+  const double * rsi_inputs[] = { Close };
+  const int start_rsi = ti_rsi_start(rsi_options);
+  double * rsi_outputs[] = { &Indexs[0][start_rsi] };
+  ti_rsi(HistLen, rsi_inputs, rsi_options, rsi_outputs);
+}
+
 double funds = 100.0;
 double assets = 0.0;
 double fee = 0.999;
