@@ -231,8 +231,7 @@ double find() {
   int max_fast = -1;
   int max_slow = -1;
   for (int fast = 2; fast < 2000; ++fast) {
-    printf("%d\n", fast);
-    for (int slow = fast + 1; slow <= 2000; ++slow) {
+    for (int slow = 2; slow < 2000; ++slow) {
       strategy4(fast, slow);
       double result = backing_test();
       if (result > max) {
