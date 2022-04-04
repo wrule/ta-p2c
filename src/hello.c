@@ -179,8 +179,8 @@ void strategy5(
   double * stoch_outputs[] = { Indexs[1], Indexs[2] };
   ti_stoch(HistLen - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
 
-  for (int i = 0; i < 20; ++i) {
-    printf("%d %lf %lf\n", i, Close[i], Indexs[0][i]);
+  for (int i = 0; i < 100; ++i) {
+    printf("%d %lf %lf\n", i, Close[i], Indexs[1][i]);
   }
 }
 
