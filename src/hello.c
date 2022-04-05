@@ -183,9 +183,9 @@ void strategy5(
   double * stoch_outputs[] = { &Indexs[0][stoch_start], &Indexs[1][stoch_start] };
   ti_stoch(HistLen - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
   StablePoint = stoch_start + 1;
-  // for (int i = 0; i < 50; ++i) {
-  //   printf("%d %lf %lf %lf\n", i, Close[i], Indexs[0][i], Indexs[1][i]);
-  // }
+  for (int i = 0; i < 100; ++i) {
+    printf("%d %lf %lf %lf\n", i, Close[i], Indexs[0][i], Indexs[1][i]);
+  }
 }
 
 double funds = 100.0;
@@ -238,8 +238,8 @@ double backing_test() {
 
 void test_func() {
   strategy5(8, 49, 8, 27);
-  double result = backing_test();
-  printf("%lf\n", result);
+  // double result = backing_test();
+  // printf("%lf\n", result);
 }
 
 double find() {

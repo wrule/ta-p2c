@@ -21,7 +21,7 @@ df['offset'] = range(len(df.index))
 df = df['2021-01-01':]
 
 df.ta.stochrsi(
-  length = 3,
+  length = 49,
   rsi_length = 8,
   k = 8,
   d = 27,
