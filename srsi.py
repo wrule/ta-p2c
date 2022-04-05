@@ -14,5 +14,5 @@ df.rename(
   },
   inplace = True,
 )
+df.index = pd.to_datetime(df['time'], unit = 'ms')
 print(df)
-
