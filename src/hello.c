@@ -237,13 +237,15 @@ double backing_test() {
 }
 
 void test_func() {
-  strategy5(8, 3, 8, 27);
+  strategy5(8, 49, 8, 27);
+  double result = backing_test();
+  printf("%lf\n", result);
 }
 
 double find() {
   // strategy(8, 44);
-  // test_func();
-  // return 0;
+  test_func();
+  return 0;
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double max = -1.0;
