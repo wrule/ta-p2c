@@ -237,7 +237,7 @@ double backing_test() {
 }
 
 void test_func() {
-  strategy5(13, 49, 8, 27);
+  strategy5(8, 3, 8, 27);
 }
 
 double find() {
