@@ -247,20 +247,21 @@ double find() {
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double max = -1.0;
-  int max_fast = -1;
-  int max_slow = -1;
-  for (int fast = 2; fast < 2000; ++fast) {
-    for (int slow = 2; slow < 2000; ++slow) {
-      strategy4(fast, slow);
-      double result = backing_test();
-      if (result > max) {
-        max = result;
-        max_fast = fast;
-        max_slow = slow;
+  for (int rsi_length = 2; rsi_length < 200; ++rsi_length) {
+    for (int length = 2; length < 200; ++length) {
+      for (int k = 2; k < 100; ++k) {
+        for (int d = 2; d < 100; ++d) {
+          strategy5(rsi_length, length, k, d);
+          double result = backing_test();
+          if (result > max) {
+            max = result;
+            printf("$ %lf %d %d %d %d\n", max, rsi_length, length, k, d);
+          }
+        }
       }
+      printf("# %d %d\n", rsi_length, length);
     }
   }
   printf("C >> 结束 秒数 %ld\n", time(NULL) - op);
-  printf("C >> 结果 %lf fast %d slow %d\n", max, max_fast, max_slow);
   return max;
 }
