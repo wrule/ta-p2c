@@ -18,8 +18,6 @@ df.rename(
 )
 df['offset'] = range(len(df.index))
 
-df = df['2021-01-01':]
-
 df.ta.stochrsi(
   length = 49,
   rsi_length = 8,
