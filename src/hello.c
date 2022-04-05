@@ -248,6 +248,7 @@ double find() {
   time_t op = time(NULL);
   double max = -1.0;
   for (int rsi_length = 2; rsi_length < 200; ++rsi_length) {
+    printf("# %d...\n", rsi_length);
     for (int length = 2; length < 200; ++length) {
       for (int k = 2; k < 100; ++k) {
         for (int d = 2; d < 100; ++d) {
@@ -259,7 +260,6 @@ double find() {
           }
         }
       }
-      printf("# %d %d\n", rsi_length, length);
     }
   }
   printf("C >> 结束 秒数 %ld\n", time(NULL) - op);
