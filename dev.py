@@ -3,7 +3,7 @@ from ctypes import *
 import json
 hello = CDLL('/home/gu/github/ta-p2c/hello.so')
 
-hist = json.load(open('src/ETH_USDT-1h.json', 'r'))
+hist = json.load(open('src/ETH_USDT-2h.json', 'r'))
 
 # hist = list(filter(lambda item: item[0] >= 1609459200000, all_hist))
 
