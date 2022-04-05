@@ -179,11 +179,13 @@ void strategy5(
     &Indexs[2][rsi_start],
     &Indexs[2][rsi_start]
   };
-  double * stoch_outputs[] = { Indexs[0], Indexs[1] };
+  const int stoch_start = ti_stoch_start(stoch_options) + rsi_start;
+  double * stoch_outputs[] = { &Indexs[0][stoch_start], &Indexs[1][stoch_start] };
   ti_stoch(HistLen - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
-  for (int i = 0; i < 20; ++i) {
-    printf("%d %lf %lf %lf\n", i, Close[i], Indexs[0][i], Indexs[1][i]);
-  }
+  StablePoint = stoch_start + 1;
+  // for (int i = 0; i < 50; ++i) {
+  //   printf("%d %lf %lf %lf\n", i, Close[i], Indexs[0][i], Indexs[1][i]);
+  // }
 }
 
 double funds = 100.0;
@@ -240,8 +242,8 @@ void test_func() {
 
 double find() {
   // strategy(8, 44);
-  test_func();
-  return 0;
+  // test_func();
+  // return 0;
   printf("C >> 开始\n");
   time_t op = time(NULL);
   double max = -1.0;
