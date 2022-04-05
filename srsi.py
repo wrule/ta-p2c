@@ -17,12 +17,15 @@ df.rename(
   inplace = True,
 )
 df['offset'] = range(len(df.index))
+
+df = df['2021-01-01':]
+
 df.ta.stochrsi(
-  length = 49,
+  length = 3,
   rsi_length = 8,
   k = 8,
   d = 27,
   append = True,
 )
-df = df[['offset', 'close', 'STOCHRSIk_49_8_8_27', 'STOCHRSId_49_8_8_27']]
-print(df.head(20))
+# df = df[['offset', 'close', 'STOCHRSIk_49_8_8_27', 'STOCHRSId_49_8_8_27']]
+# print(df.head(20))
