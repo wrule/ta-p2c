@@ -171,24 +171,18 @@ void strategy5(
   const double rsi_options[] = { rsi_length };
   const double * rsi_inputs[] = { Close };
   const int rsi_start = ti_rsi_start(rsi_options);
-  double * rsi_outputs[] = { &Indexs[0][rsi_start] };
+  double * rsi_outputs[] = { &Indexs[2][rsi_start] };
   ti_rsi(HistLen, rsi_inputs, rsi_options, rsi_outputs);
-
-  // for (int i = rsi_start + length - 1; i < HistLen; ++i) {
-
-  // }
-
-  const double stoch_options[] = { k, length, d };
+  const double stoch_options[] = { length, k, d };
   const double * stoch_inputs[] = {
-    &Indexs[0][rsi_start],
-    &Indexs[0][rsi_start],
-    &Indexs[0][rsi_start]
+    &Indexs[2][rsi_start],
+    &Indexs[2][rsi_start],
+    &Indexs[2][rsi_start]
   };
-  double * stoch_outputs[] = { Indexs[1], Indexs[2] };
+  double * stoch_outputs[] = { Indexs[0], Indexs[1] };
   ti_stoch(HistLen - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
-
   for (int i = 0; i < 20; ++i) {
-    printf("%d %lf %lf\n", i, Close[i], Indexs[0][i]);
+    printf("%d %lf %lf %lf\n", i, Close[i], Indexs[0][i], Indexs[1][i]);
   }
 }
 
