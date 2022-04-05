@@ -27,5 +27,6 @@ df.ta.stochrsi(
   d = 27,
   append = True,
 )
+df.to_excel('out.xlsx')
 # df = df[['offset', 'close', 'STOCHRSIk_49_8_8_27', 'STOCHRSId_49_8_8_27']]
 # print(df.head(20))
