@@ -258,21 +258,23 @@ void strategy(int cur) {
 }
 // 查找器
 void finder() {
-  for (int rsi_length = 8; rsi_length < 200; ++rsi_length) {
+  for (int rsi_length = 2; rsi_length < 70; ++rsi_length) {
     printf("# %d...\n", rsi_length);
-    for (int length = 2; length < 200; ++length) {
-      for (int k = 2; k < 100; ++k) {
-        for (int d = 2; d < 100; ++d) {
-          indicators(rsi_length, length, k, d, 4);
-          backing_test();
-          if (funds > funds_max) {
-            funds_max = funds;
-            printf(
-              "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
-              funds_max,
-              rsi_length, length, k, d,
-              win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
-            );
+    for (int length = 2; length < 70; ++length) {
+      for (int k = 2; k < 50; ++k) {
+        for (int d = 2; d < 50; ++d) {
+          for (int k_num = 2; k_num < 100; ++k_num) {
+            indicators(rsi_length, length, k, d, k_num);
+            backing_test();
+            if (funds > funds_max) {
+              funds_max = funds;
+              printf(
+                "$ %lf [%d %d %d %d %d] {%d %d:%d %lf}\n",
+                funds_max,
+                rsi_length, length, k, d, k_num,
+                win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
+              );
+            }
           }
         }
       }
