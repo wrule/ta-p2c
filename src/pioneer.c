@@ -264,7 +264,7 @@ void test() {
   backing_test();
   printf(
     "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
-    funds_max,
+    funds,
     rsi_length, length, k, d,
     win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
   );
