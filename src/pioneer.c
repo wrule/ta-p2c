@@ -30,6 +30,9 @@ int win_count = 0;
 // 亏损交易计数
 int loss_count = 0;
 
+void strategy(int cur);
+void finder();
+
 void init_hist() {
   Time = malloc(sizeof(unsigned long) * HistLen);
   Open = malloc(sizeof(double) * HistLen);
@@ -96,38 +99,6 @@ void show_ohlcv(int index) {
   );
 }
 
-
-
-void strategy5(
-  int rsi_length,
-  int length,
-  int k,
-  int d
-) {
-  const double rsi_options[] = { rsi_length };
-  const double * rsi_inputs[] = { Close };
-  const int rsi_start = ti_rsi_start(rsi_options);
-  double * rsi_outputs[] = { &Indexs[2][rsi_start] };
-  ti_rsi(HistLen, rsi_inputs, rsi_options, rsi_outputs);
-  const double stoch_options[] = { length, k, d };
-  const double * stoch_inputs[] = {
-    &Indexs[2][rsi_start],
-    &Indexs[2][rsi_start],
-    &Indexs[2][rsi_start]
-  };
-  const int stoch_start = ti_stoch_start(stoch_options) + rsi_start;
-  double * stoch_outputs[] = { &Indexs[0][stoch_start], &Indexs[1][stoch_start] };
-  ti_stoch(HistLen - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
-  StablePoint = stoch_start + 1;
-  // for (int i = 0; i < 100; ++i) {
-  //   printf("%d %lf %lf %lf\n", i, Close[i], Indexs[0][i], Indexs[1][i]);
-  // }
-}
-
-void populate_indicators() {
-
-}
-
 /**
  * @brief
  * 用于回测的状态重置
@@ -185,7 +156,64 @@ int sell(double price) {
   return 1;
 }
 
-// 临时
+/**
+ * @brief
+ * 回测
+ */
+void backing_test() {
+  reset_backing_test();
+  for (int cur = 0; cur < HistLen; ++cur) {
+    if (cur == HistLen - 1) {
+      sell(Close[cur]);
+      break;
+    }
+    if (cur >= StablePoint) {
+      strategy(cur);
+    }
+  }
+}
+
+/**
+ * @brief
+ * 查找
+ */
+void find() {
+  reset_finder();
+  printf("Finder开始...\n");
+  time_t op = time(NULL);
+  finder();
+  printf("Finder完成 秒数 %ld\n", time(NULL) - op);
+}
+
+
+// 用户代码 ----------------------------------------------------------------
+// 指标
+void indicators(
+  int rsi_length,
+  int length,
+  int k,
+  int d
+) {
+  const double rsi_options[] = { rsi_length };
+  const double * rsi_inputs[] = { Close };
+  const int rsi_start = ti_rsi_start(rsi_options);
+  double * rsi_outputs[] = { &Indexs[2][rsi_start] };
+  ti_rsi(HistLen, rsi_inputs, rsi_options, rsi_outputs);
+  const double stoch_options[] = { length, k, d };
+  const double * stoch_inputs[] = {
+    &Indexs[2][rsi_start],
+    &Indexs[2][rsi_start],
+    &Indexs[2][rsi_start]
+  };
+  const int stoch_start = ti_stoch_start(stoch_options) + rsi_start;
+  double * stoch_outputs[] = { &Indexs[0][stoch_start], &Indexs[1][stoch_start] };
+  ti_stoch(HistLen - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
+  StablePoint = stoch_start + 1;
+  // for (int i = 0; i < 100; ++i) {
+  //   printf("%d %lf %lf %lf\n", i, Close[i], Indexs[0][i], Indexs[1][i]);
+  // }
+}
+// 策略
 void strategy(int cur) {
   if (
     Indexs[0][cur] > Indexs[1][cur] &&
@@ -200,29 +228,14 @@ void strategy(int cur) {
     sell(Close[cur]);
   }
 }
-
-
-void backing_test() {
-  reset_backing_test();
-  for (int cur = 0; cur < HistLen; ++cur) {
-    if (cur == HistLen - 1) {
-      sell(Close[cur]);
-      break;
-    }
-    if (cur >= StablePoint) {
-      strategy(cur);
-    }
-  }
-}
-
-// 临时
+// 查找器
 void finder() {
   for (int rsi_length = 8; rsi_length < 200; ++rsi_length) {
     printf("# %d...\n", rsi_length);
     for (int length = 2; length < 200; ++length) {
       for (int k = 2; k < 100; ++k) {
         for (int d = 2; d < 100; ++d) {
-          strategy5(rsi_length, length, k, d);
+          indicators(rsi_length, length, k, d);
           backing_test();
           if (funds > funds_max) {
             funds_max = funds;
@@ -239,10 +252,3 @@ void finder() {
   }
 }
 
-void find() {
-  reset_finder();
-  printf("Finder开始...\n");
-  time_t op = time(NULL);
-  finder();
-  printf("Finder完成 秒数 %ld\n", time(NULL) - op);
-}
