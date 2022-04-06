@@ -182,10 +182,22 @@ void populate_indicators() {
 
 }
 
+// 初始资金
 double init_funds = 100.0;
+// 实时资金
 double funds = 0.0;
+// 实时资产
 double assets = 0.0;
+// 费率乘数
 double fee = 0.9985;
+// 上一次购买资金
+double funds_buy = 0.0;
+// 历史最大资金
+double funds_max = 0.0;
+// 盈利交易计数
+int win_count = 0;
+// 亏损交易计数
+int loss_count = 0;
 
 /**
  * @brief
@@ -196,6 +208,7 @@ double fee = 0.9985;
 int buy(double price) {
   if (assets == 0) {
     assets = funds / price * fee;
+    funds_buy = funds;
     funds = 0;
     return 0;
   }
@@ -211,6 +224,11 @@ int buy(double price) {
 int sell(double price) {
   if (funds == 0) {
     funds = assets * price * fee;
+    if (funds >= funds_buy) {
+      win_count++;
+    } else {
+      loss_count++;
+    }
     assets = 0;
     return 0;
   }
@@ -234,7 +252,7 @@ void strategy(int cur) {
 }
 
 
-double backing_test() {
+void backing_test() {
   funds = init_funds;
   assets = 0;
   for (int cur = 0; cur < HistLen; ++cur) {
@@ -246,37 +264,34 @@ double backing_test() {
       strategy(cur);
     }
   }
-  return funds;
 }
 
 void test_func() {
   strategy5(8, 49, 8, 27);
-  double result = backing_test();
-  printf("%lf\n", result);
+  backing_test();
+  printf("%lf\n", funds);
 }
 
-double find() {
+void find() {
   // strategy(8, 44);
   // test_func();
   // return 0;
   printf("C >> 开始\n");
   time_t op = time(NULL);
-  double max = -1.0;
   for (int rsi_length = 8; rsi_length < 200; ++rsi_length) {
     printf("# %d...\n", rsi_length);
     for (int length = 2; length < 200; ++length) {
       for (int k = 2; k < 100; ++k) {
         for (int d = 2; d < 100; ++d) {
           strategy5(rsi_length, length, k, d);
-          double result = backing_test();
-          if (result > max) {
-            max = result;
-            printf("$ %lf %d %d %d %d\n", max, rsi_length, length, k, d);
+          backing_test();
+          if (funds > funds_max) {
+            funds_max = funds;
+            printf("$ %lf %d %d %d %d\n", funds_max, rsi_length, length, k, d);
           }
         }
       }
     }
   }
   printf("C >> 结束 秒数 %ld\n", time(NULL) - op);
-  return max;
 }
