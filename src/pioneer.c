@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <float.h>
 #include "/usr/local/include/ta-lib/ta_libc.h"
 #include "indicators.h"
 
@@ -212,12 +213,24 @@ void indicators(
   StablePoint = stoch_start + 1;
 
   for (int i = k_num; i < HistLen; ++i) {
-
+    double min = DBL_MAX;
+    for (int h = i - k_num; h < i; ++h) {
+      if (Low[h] < min) {
+        min = Low[h];
+      }
+    }
+    if (Low[i] < min) {
+      if (High[i] < min) {
+        Indexs[3][i] = High[i];
+      } else {
+        Indexs[3][i] = min;
+      }
+    }
   }
 
-  // for (int i = 0; i < 100; ++i) {
-  //   printf("%d %lf %lf %lf\n", i, Close[i], Indexs[0][i], Indexs[1][i]);
-  // }
+  for (int i = 0; i < 30; ++i) {
+    printf("%d %lf %lf\n", i, Low[i], Indexs[3][i]);
+  }
 }
 // 策略
 void strategy(int cur) {
