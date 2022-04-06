@@ -4,7 +4,7 @@ import json
 hello = CDLL('./pioneer.so')
 
 hist = json.load(open('src/BTC_USDT-2h.json', 'r'))
-hello.init(len(hist), 3)
+hello.init(len(hist), 4)
 
 for index, item in enumerate(hist):
   hello.set_ohlcv(

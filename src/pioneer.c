@@ -192,7 +192,8 @@ void indicators(
   int rsi_length,
   int length,
   int k,
-  int d
+  int d,
+  int k_num
 ) {
   const double rsi_options[] = { rsi_length };
   const double * rsi_inputs[] = { Close };
@@ -209,6 +210,9 @@ void indicators(
   double * stoch_outputs[] = { &Indexs[0][stoch_start], &Indexs[1][stoch_start] };
   ti_stoch(HistLen - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
   StablePoint = stoch_start + 1;
+
+
+
   // for (int i = 0; i < 100; ++i) {
   //   printf("%d %lf %lf %lf\n", i, Close[i], Indexs[0][i], Indexs[1][i]);
   // }
