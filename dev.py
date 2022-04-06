@@ -1,7 +1,7 @@
 #!/opt/homebrew/bin/python3
 from ctypes import *
 import json
-hello = CDLL('./hello.so')
+hello = CDLL('./pioneer.so')
 
 hist = json.load(open('src/BTC_USDT-2h.json', 'r'))
 hello.init(len(hist), 3)
