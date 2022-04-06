@@ -131,6 +131,27 @@ int loss_count = 0;
 
 /**
  * @brief
+ * 用于回测的状态重置
+ */
+void reset_backing_test() {
+  funds = init_funds;
+  assets = 0.0;
+  funds_buy = 0.0;
+  win_count = 0;
+  loss_count = 0;
+}
+
+/**
+ * @brief
+ * 用于查找器的状态重置
+ */
+void reset_finder() {
+  reset_backing_test();
+  funds_max = 0.0;
+}
+
+/**
+ * @brief
  * 现货购买
  * @param price 购买价格
  * @return int 成功：0，失败：1
@@ -183,8 +204,7 @@ void strategy(int cur) {
 
 
 void backing_test() {
-  funds = init_funds;
-  assets = 0;
+  reset_backing_test();
   for (int cur = 0; cur < HistLen; ++cur) {
     if (cur == HistLen - 1) {
       sell(Close[cur]);
@@ -202,12 +222,7 @@ void test_func() {
   printf("%lf\n", funds);
 }
 
-void find() {
-  // strategy(8, 44);
-  // test_func();
-  // return 0;
-  printf("C >> 开始\n");
-  time_t op = time(NULL);
+void finder() {
   for (int rsi_length = 8; rsi_length < 200; ++rsi_length) {
     printf("# %d...\n", rsi_length);
     for (int length = 2; length < 200; ++length) {
@@ -217,11 +232,23 @@ void find() {
           backing_test();
           if (funds > funds_max) {
             funds_max = funds;
-            printf("$ %lf %d %d %d %d\n", funds_max, rsi_length, length, k, d);
+            printf(
+              "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
+              funds_max,
+              rsi_length, length, k, d,
+              win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
+            );
           }
         }
       }
     }
   }
-  printf("C >> 结束 秒数 %ld\n", time(NULL) - op);
+}
+
+void find() {
+  reset_finder();
+  printf("Finder开始...\n");
+  time_t op = time(NULL);
+  finder();
+  printf("Finder完成 秒数 %ld\n", time(NULL) - op);
 }
