@@ -211,7 +211,9 @@ void indicators(
   ti_stoch(HistLen - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
   StablePoint = stoch_start + 1;
 
+  for (int i = k_num; i < HistLen; ++i) {
 
+  }
 
   // for (int i = 0; i < 100; ++i) {
   //   printf("%d %lf %lf %lf\n", i, Close[i], Indexs[0][i], Indexs[1][i]);
@@ -239,7 +241,7 @@ void finder() {
     for (int length = 2; length < 200; ++length) {
       for (int k = 2; k < 100; ++k) {
         for (int d = 2; d < 100; ++d) {
-          indicators(rsi_length, length, k, d);
+          indicators(rsi_length, length, k, d, 4);
           backing_test();
           if (funds > funds_max) {
             funds_max = funds;
@@ -256,3 +258,14 @@ void finder() {
   }
 }
 
+void test() {
+  int rsi_length = 8, length = 49, k = 8, d = 27;
+  indicators(rsi_length, length, k, d, 4);
+  backing_test();
+  printf(
+    "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
+    funds_max,
+    rsi_length, length, k, d,
+    win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
+  );
+}

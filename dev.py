@@ -17,4 +17,4 @@ for index, item in enumerate(hist):
     c_double(item[5]),
   );
 
-hello.find()
+hello.test()
