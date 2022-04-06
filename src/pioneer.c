@@ -6,16 +6,6 @@
 
 int HistLen = 0;
 
-typedef struct {
-  unsigned long time;
-  double open;
-  double high;
-  double low;
-  double close;
-  double volume;
-  double indexs[11];
-} OHLCV;
-
 unsigned long * Time;
 double * Open;
 double * High;
