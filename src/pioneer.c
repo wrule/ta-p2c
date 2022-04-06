@@ -275,23 +275,30 @@ void strategy(int cur) {
     Indexs[0][cur] > Indexs[1][cur] &&
     Indexs[0][cur - 1] <= Indexs[1][cur - 1]
   ) {
-    if (queue_end >= max_len) {
-      if (Close[cur] > queue_max()) {
-        buy(Close[cur]);
-        queue_push(Close[cur]);
-        return;
-      }
-    }
-    queue_push(Close[cur]);
+    // if (queue_end >= max_len) {
+    //   if (Close[cur] > queue_max()) {
+    //     buy(Close[cur]);
+    //     queue_push(Close[cur]);
+    //     return;
+    //   }
+    // }
+    // queue_push(Close[cur]);
+    buy(Close[cur]);
+    return;
   }
   if (
-    // Indexs[0][cur] < Indexs[1][cur] &&
-    // Indexs[0][cur - 1] >= Indexs[1][cur - 1]
     Indexs[3][cur] > 0
   ) {
     sell(Indexs[3][cur]);
     return;
   }
+  // if (
+  //   Indexs[0][cur] < Indexs[1][cur] &&
+  //   Indexs[0][cur - 1] >= Indexs[1][cur - 1]
+  // ) {
+  //   sell(Close[cur]);
+  //   return;
+  // }
 }
 // 查找器
 void finder() {
