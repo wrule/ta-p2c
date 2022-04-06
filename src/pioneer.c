@@ -242,7 +242,7 @@ void indicators(
 
 double queue[1024] = { };
 int queue_end = 0;
-int max_len = 3;
+int max_len = 2;
 void queue_push(double price) {
   if (queue_end < max_len) {
     queue[queue_end] = price;
@@ -275,8 +275,14 @@ void strategy(int cur) {
     Indexs[0][cur] > Indexs[1][cur] &&
     Indexs[0][cur - 1] <= Indexs[1][cur - 1]
   ) {
-    buy(Close[cur]);
-    return;
+    if (queue_end >= max_len) {
+      if (Close[cur] > queue_max()) {
+        buy(Close[cur]);
+        queue_push(Close[cur]);
+        return;
+      }
+    }
+    queue_push(Close[cur]);
   }
   if (
     // Indexs[0][cur] < Indexs[1][cur] &&
@@ -296,6 +302,7 @@ void finder() {
         for (int d = 10; d < 40; ++d) {
           for (int k_num = 2; k_num < 50; ++k_num) {
             indicators(rsi_length, length, k, d, k_num, 2);
+            queue_end = 0;
             backing_test();
             if (funds > funds_max) {
               funds_max = funds;
