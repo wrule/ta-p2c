@@ -258,12 +258,12 @@ void strategy(int cur) {
 }
 // 查找器
 void finder() {
-  for (int rsi_length = 2; rsi_length < 70; ++rsi_length) {
+  for (int rsi_length = 2; rsi_length < 16; ++rsi_length) {
     printf("# %d...\n", rsi_length);
-    for (int length = 2; length < 70; ++length) {
-      for (int k = 2; k < 50; ++k) {
-        for (int d = 2; d < 50; ++d) {
-          for (int k_num = 2; k_num < 100; ++k_num) {
+    for (int length = 30; length < 70; ++length) {
+      for (int k = 2; k < 20; ++k) {
+        for (int d = 10; d < 40; ++d) {
+          for (int k_num = 2; k_num < 50; ++k_num) {
             indicators(rsi_length, length, k, d, k_num);
             backing_test();
             if (funds > funds_max) {
