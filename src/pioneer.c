@@ -216,12 +216,7 @@ void backing_test() {
   }
 }
 
-void test_func() {
-  strategy5(8, 49, 8, 27);
-  backing_test();
-  printf("%lf\n", funds);
-}
-
+// 临时
 void finder() {
   for (int rsi_length = 8; rsi_length < 200; ++rsi_length) {
     printf("# %d...\n", rsi_length);
