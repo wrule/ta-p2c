@@ -3579,32 +3579,32 @@ int ti_stoch(int size, TI_REAL const *const *inputs, TI_REAL const *options, TI_
     return TI_OKAY;
 }
 
-int ti_stoch_flat(
-  int size,
-  TI_REAL const *const *inputs,
-  TI_REAL const *options,
-  TI_REAL *const *outputs
-) {
-  TI_REAL const *source = inputs[0];
-  TI_REAL const length = options[0];
-  TI_REAL const k = options[1];
-  TI_REAL const d = options[2];
-  for (int i = length - 1; i < size; ++i) {
-    int const start_index = i - length + 1;
-    TI_REAL min = source[start_index];
-    TI_REAL max = source[start_index];
-    for (int n = 1; n < length; ++n) {
-      const num = source[start_index + n];
-      if (num < min) {
-        min = num;
-      }
-      if (num > max) {
-        max = num;
-      }
-    }
-  }
-  return 0;
-}
+// int ti_stoch_flat(
+//   int size,
+//   TI_REAL const *const *inputs,
+//   TI_REAL const *options,
+//   TI_REAL *const *outputs
+// ) {
+//   TI_REAL const *source = inputs[0];
+//   TI_REAL const length = options[0];
+//   TI_REAL const k = options[1];
+//   TI_REAL const d = options[2];
+//   for (int i = length - 1; i < size; ++i) {
+//     int const start_index = i - length + 1;
+//     TI_REAL min = source[start_index];
+//     TI_REAL max = source[start_index];
+//     for (int n = 1; n < length; ++n) {
+//       const num = source[start_index + n];
+//       if (num < min) {
+//         min = num;
+//       }
+//       if (num > max) {
+//         max = num;
+//       }
+//     }
+//   }
+//   return 0;
+// }
 
 int ti_stochrsi_start(TI_REAL const *options) {
     return ((int)options[0]) * 2 - 1;
