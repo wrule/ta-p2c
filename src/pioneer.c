@@ -225,12 +225,18 @@ void indicators(
       } else {
         Indexs[3][i] = min;
       }
+    } else {
+      Indexs[3][i] = -1.0;
     }
   }
 
-  for (int i = 0; i < 30; ++i) {
-    printf("%d %lf %lf\n", i, Low[i], Indexs[3][i]);
+  if (StablePoint < k_num) {
+    StablePoint = k_num;
   }
+
+  // for (int i = 0; i < 30; ++i) {
+  //   printf("%d %lf %lf\n", i, Low[i], Indexs[3][i]);
+  // }
 }
 // 策略
 void strategy(int cur) {
@@ -239,12 +245,15 @@ void strategy(int cur) {
     Indexs[0][cur - 1] <= Indexs[1][cur - 1]
   ) {
     buy(Close[cur]);
+    return;
   }
   if (
-    Indexs[0][cur] < Indexs[1][cur] &&
-    Indexs[0][cur - 1] >= Indexs[1][cur - 1]
+    // Indexs[0][cur] < Indexs[1][cur] &&
+    // Indexs[0][cur - 1] >= Indexs[1][cur - 1]
+    Indexs[3][cur] > 0
   ) {
-    sell(Close[cur]);
+    sell(Indexs[3][cur]);
+    return;
   }
 }
 // 查找器
@@ -273,7 +282,7 @@ void finder() {
 
 void test() {
   int rsi_length = 8, length = 49, k = 8, d = 27;
-  indicators(rsi_length, length, k, d, 4);
+  indicators(rsi_length, length, k, d, 25);
   backing_test();
   printf(
     "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
