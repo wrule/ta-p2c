@@ -295,6 +295,7 @@ void strategy(int cur) {
 }
 // 查找器
 void finder() {
+  double rate = 0.0;
   for (int rsi_length = 2; rsi_length < 16; ++rsi_length) {
     printf("# %d...\n", rsi_length);
     for (int length = 30; length < 70; ++length) {
@@ -304,7 +305,9 @@ void finder() {
             indicators(rsi_length, length, k, d, k_num, 2);
             queue_end = 0;
             backing_test();
-            if (funds > funds_max) {
+            const double cur_rate = 100.0 * win_count / (win_count + loss_count);
+            if (cur_rate > rate) {
+              rate = cur_rate;
               funds_max = funds;
               printf(
                 "$ %lf [%d %d %d %d %d] {%d %d:%d %lf}\n",
