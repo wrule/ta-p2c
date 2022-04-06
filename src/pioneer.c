@@ -178,6 +178,10 @@ void strategy5(
   // }
 }
 
+void populate_indicators() {
+
+}
+
 double init_funds = 100.0;
 double funds = 0.0;
 double assets = 0.0;
@@ -213,6 +217,23 @@ int sell(double price) {
   return 1;
 }
 
+// 临时
+void strategy(int cur) {
+  if (
+    Indexs[0][cur] > Indexs[1][cur] &&
+    Indexs[0][cur - 1] <= Indexs[1][cur - 1]
+  ) {
+    buy(Close[cur]);
+  }
+  if (
+    Indexs[0][cur] < Indexs[1][cur] &&
+    Indexs[0][cur - 1] >= Indexs[1][cur - 1]
+  ) {
+    sell(Close[cur]);
+  }
+}
+
+
 double backing_test() {
   funds = init_funds;
   assets = 0;
@@ -222,18 +243,7 @@ double backing_test() {
       break;
     }
     if (cur >= StablePoint) {
-      if (
-        Indexs[0][cur] > Indexs[1][cur] &&
-        Indexs[0][cur - 1] <= Indexs[1][cur - 1]
-      ) {
-        buy(Close[cur]);
-      }
-      if (
-        Indexs[0][cur] < Indexs[1][cur] &&
-        Indexs[0][cur - 1] >= Indexs[1][cur - 1]
-      ) {
-        sell(Close[cur]);
-      }
+      strategy(cur);
     }
   }
   return funds;
