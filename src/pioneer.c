@@ -254,7 +254,7 @@ void queue_push(double price) {
     queue[queue_end - 1] = price;
   }
 }
-void queue_max() {
+double queue_max() {
   double max = DBL_MIN;
   for (int i = 0; i < queue_end; ++i) {
     if (queue[i] > max) {
