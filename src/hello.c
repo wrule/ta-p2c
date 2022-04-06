@@ -192,6 +192,12 @@ double funds = 100.0;
 double assets = 0.0;
 double fee = 0.9985;
 
+/**
+ * @brief
+ * 现货购买
+ * @param price 购买价格
+ * @return int 成功：0，失败：1
+ */
 int buy(double price) {
   if (assets == 0) {
     assets = funds / price * fee;
@@ -201,6 +207,12 @@ int buy(double price) {
   return 1;
 }
 
+/**
+ * @brief
+ * 现货销售
+ * @param price 销售价格
+ * @return int 成功：0，失败：1
+ */
 int sell(double price) {
   if (funds == 0) {
     funds = assets * price * fee;
