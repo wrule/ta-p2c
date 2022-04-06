@@ -188,7 +188,8 @@ void strategy5(
   // }
 }
 
-double funds = 100.0;
+double init_funds = 100.0;
+double funds = 0.0;
 double assets = 0.0;
 double fee = 0.9985;
 
@@ -223,7 +224,7 @@ int sell(double price) {
 }
 
 double backing_test() {
-  funds = 100.0;
+  funds = init_funds;
   assets = 0;
   for (int cur = 0; cur < HistLen; ++cur) {
     if (cur == HistLen - 1) {
