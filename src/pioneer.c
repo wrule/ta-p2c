@@ -194,7 +194,8 @@ void indicators(
   int length,
   int k,
   int d,
-  int k_num
+  int k_num,
+  int cross_num
 ) {
   const double rsi_options[] = { rsi_length };
   const double * rsi_inputs[] = { Close };
@@ -264,7 +265,7 @@ void finder() {
       for (int k = 2; k < 20; ++k) {
         for (int d = 10; d < 40; ++d) {
           for (int k_num = 2; k_num < 50; ++k_num) {
-            indicators(rsi_length, length, k, d, k_num);
+            indicators(rsi_length, length, k, d, k_num, 2);
             backing_test();
             if (funds > funds_max) {
               funds_max = funds;
@@ -284,7 +285,7 @@ void finder() {
 
 void test() {
   int rsi_length = 8, length = 49, k = 8, d = 27;
-  indicators(rsi_length, length, k, d, 25);
+  indicators(rsi_length, length, k, d, 25, 2);
   backing_test();
   printf(
     "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
