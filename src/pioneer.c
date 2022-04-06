@@ -213,10 +213,6 @@ void indicators(
   ti_stoch(HistLen - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
   StablePoint = stoch_start + 1;
 
-  for (int i = StablePoint; i < HistLen; ++i) {
-
-  }
-
   for (int i = k_num; i < HistLen; ++i) {
     double min = DBL_MAX;
     for (int h = i - k_num; h < i; ++h) {
