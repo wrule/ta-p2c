@@ -35,7 +35,18 @@ void init(int len, int index_size) {
   init_indexs(index_size);
 }
 
-void fill_ohlcv(
+/**
+ * @brief
+ * 设置OHLCV数据
+ * @param index 索引
+ * @param time 时间
+ * @param open 开盘价
+ * @param high 最高价
+ * @param low 最低价
+ * @param close 收盘价
+ * @param volume 成交量
+ */
+void set_ohlcv(
   int index,
   unsigned long time,
   double open,
@@ -52,9 +63,14 @@ void fill_ohlcv(
   Volume[index] = volume;
 }
 
+/**
+ * @brief
+ * 显示OHLCV数据
+ * @param index 数据索引
+ */
 void show_ohlcv(int index) {
   printf(
-    "%lu %lf %lf %lf %lf %lf\n",
+    "Time: %lu Open: %lf High: %lf Low: %lf Close: %lf Volume: %lf\n",
     Time[index],
     Open[index],
     High[index],
