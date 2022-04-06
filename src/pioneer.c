@@ -239,6 +239,36 @@ void indicators(
   //   printf("%d %lf %lf\n", i, Low[i], Indexs[3][i]);
   // }
 }
+
+double queue[1024] = { };
+int queue_end = 0;
+int max_len = 3;
+void queue_push(double price) {
+  if (queue_end < max_len) {
+    queue[queue_end] = price;
+    ++queue_end;
+  } else {
+    for (int i = 1; i < queue_end; ++i) {
+      queue[i - 1] = queue[i];
+    }
+    queue[queue_end - 1] = price;
+  }
+}
+void queue_max() {
+  double max = DBL_MIN;
+  for (int i = 0; i < queue_end; ++i) {
+    if (queue[i] > max) {
+      max = queue[i];
+    }
+  }
+  return max;
+}
+void show_queue() {
+  for (int i = 0; i < queue_end; ++i) {
+    printf("%lf\n", queue[i]);
+  }
+}
+
 // 策略
 void strategy(int cur) {
   if (
