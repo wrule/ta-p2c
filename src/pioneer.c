@@ -204,10 +204,18 @@ void indicators(
   };
   ti_macd(HistLen, macd_inputs, macd_options, macd_outputs);
   StablePoint = macd_start + 1;
-  // printf("%d\n", StablePoint);
-  // for (int i = 0; i < 100; ++i) {
-  //   printf("%d %lf %lf %lf %f\n", i, Close[i], Indexs[0][i], Indexs[1][i], Indexs[2][i]);
-  // }
+
+  for (int i = 0; i < k_num; ++i) {
+    Indexs[3][i] = -1.0;
+  }
+  for (int i = k_num; i < HistLen; ++i) {
+    Indexs[3][i] = 0.0;
+  }
+
+  printf("%d\n", StablePoint);
+  for (int i = 0; i < 50; ++i) {
+    printf("%d %lf %lf %lf\n", i, Close[i], Indexs[2][i], Indexs[3][i]);
+  }
 }
 // 策略
 void strategy(int cur) {
@@ -252,7 +260,7 @@ void finder() {
 
 void test() {
   printf("你好，世界\n");
-  indicators(7, 21, 12);
+  indicators(7, 21, 12, 4);
   backing_test();
   printf(
     "$ %lf [%d %d %d] {%d %d:%d %lf}\n",

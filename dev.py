@@ -4,7 +4,7 @@ import json
 hello = CDLL('./pioneer.so')
 
 hist = json.load(open('src/BTC_USDT-2h.json', 'r'))
-hello.init(len(hist), 3)
+hello.init(len(hist), 10)
 
 for index, item in enumerate(hist):
   hello.set_ohlcv(
@@ -17,4 +17,4 @@ for index, item in enumerate(hist):
     c_double(item[5]),
   );
 
-hello.find()
+hello.test()
