@@ -277,6 +277,20 @@ void x_queue_show_tail(int size) {
     );
   }
 }
+void x_queue_high(int size) {
+  int start = x_queue_end - size;
+  if (start < 0) {
+    start = 0;
+  }
+  double max = DBL_MIN;
+  for (int i = start; i < x_queue_end; ++i) {
+    int index = i % X_QUEUE_SIZE;
+    if (x_queue[index][1] > max) {
+      max = x_queue[index][1];
+    }
+  }
+  return max;
+}
 
 // 策略
 void strategy(int cur) {
