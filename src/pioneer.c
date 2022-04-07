@@ -215,7 +215,15 @@ void indicators(
         min = Low[h];
       }
     }
-    Indexs[3][i] = min;
+    if (Low[i] < min) {
+      if (Open[i] < min) {
+        Indexs[3][i] = Open[i];
+      } else {
+        Indexs[3][i] = min;
+      }
+    } else {
+      Indexs[3][i] = -1.0;
+    }
   }
 
   printf("%d\n", StablePoint);
@@ -266,7 +274,7 @@ void finder() {
 
 void test() {
   printf("你好，世界\n");
-  indicators(7, 21, 12, 4);
+  indicators(7, 21, 12, 20);
   backing_test();
   printf(
     "$ %lf [%d %d %d] {%d %d:%d %lf}\n",
