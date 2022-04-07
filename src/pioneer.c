@@ -251,11 +251,14 @@ void indicators(
 }
 
 #define X_QUEUE_SIZE 6
-int x_queue[X_QUEUE_SIZE] = { };
+double x_queue[X_QUEUE_SIZE][4] = { };
 int x_queue_end = 0;
-void x_queue_push(int bar) {
+void x_queue_push(double bar, double high, double low, double atr) {
   int index = x_queue_end % X_QUEUE_SIZE;
-  x_queue[index] = bar;
+  x_queue[index][0] = bar;
+  x_queue[index][1] = high;
+  x_queue[index][2] = low;
+  x_queue[index][3] = atr;
   x_queue_end++;
 }
 void x_queue_show_tail(int size) {
@@ -265,7 +268,13 @@ void x_queue_show_tail(int size) {
   }
   for (int i = start; i < x_queue_end; ++i) {
     int index = i % X_QUEUE_SIZE;
-    printf("%d\n", x_queue[index]);
+    printf(
+      "%lf %lf %lf %lf\n",
+      x_queue[index][0],
+      x_queue[index][1],
+      x_queue[index][2],
+      x_queue[index][3]
+    );
   }
 }
 
@@ -311,27 +320,14 @@ void finder() {
 
 void test() {
   printf("你好，世界\n");
-  x_queue_push(1);
-  x_queue_push(1);
-  x_queue_push(2);
-  x_queue_push(3);
-  x_queue_push(7);
-  x_queue_push(2);
-  x_queue_push(3);
-  x_queue_push(7);
-  x_queue_push(2);
-  x_queue_push(11);
-  x_queue_push(33);
-  x_queue_push(7);
-  x_queue_push(9);
-  x_queue_push(18);
-  x_queue_push(14);
-  x_queue_push(0);
-  x_queue_push(9);
-  x_queue_push(18);
-  x_queue_push(14);
-  x_queue_push(0);
-  x_queue_show_tail(6);
+  x_queue_push(1, 2, 3, 4);
+  x_queue_push(4, 2, 3, 4);
+  x_queue_push(4, 2, 3, 4);
+  x_queue_push(2, 2, 3, 4);
+  x_queue_push(9, 2, 3, 4);
+  x_queue_push(8, 2, 3, 4);
+  x_queue_push(6, 2, 3, 4);
+  x_queue_show_tail(4);
   // indicators(7, 21, 12, 20);
   // backing_test();
   // printf(
