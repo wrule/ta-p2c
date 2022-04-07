@@ -189,29 +189,23 @@ void find() {
 // 用户代码 ----------------------------------------------------------------
 // 指标
 void indicators(
-  int rsi_length,
-  int length,
-  int k,
-  int d
+  int fast,
+  int slow,
+  int size
 ) {
-  const double rsi_options[] = { rsi_length };
-  const double * rsi_inputs[] = { Close };
-  const int rsi_start = ti_rsi_start(rsi_options);
-  double * rsi_outputs[] = { &Indexs[2][rsi_start] };
-  ti_rsi(HistLen, rsi_inputs, rsi_options, rsi_outputs);
-  const double stoch_options[] = { length, k, d };
-  const double * stoch_inputs[] = {
-    &Indexs[2][rsi_start],
-    &Indexs[2][rsi_start],
-    &Indexs[2][rsi_start]
+  const double macd_options[] = { fast, slow, size };
+  const double * macd_inputs[] = { Close };
+  const int macd_start = ti_macd_start(macd_options);
+  double * macd_outputs[] = {
+    &Indexs[0][macd_start],
+    &Indexs[1][macd_start],
+    &Indexs[2][macd_start]
   };
-  const int stoch_start = ti_stoch_start(stoch_options) + rsi_start;
-  double * stoch_outputs[] = { &Indexs[0][stoch_start], &Indexs[1][stoch_start] };
-  ti_stoch(HistLen - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
-  StablePoint = stoch_start + 1;
-  // for (int i = 0; i < 100; ++i) {
-  //   printf("%d %lf %lf %lf\n", i, Close[i], Indexs[0][i], Indexs[1][i]);
-  // }
+  ti_macd(HistLen, macd_inputs, macd_options, macd_outputs);
+
+  for (int i = 0; i < 100; ++i) {
+    printf("%d %lf %lf %lf %f\n", i, Close[i], Indexs[0][i], Indexs[1][i], Indexs[2][i]);
+  }
 }
 // 策略
 void strategy(int cur) {
@@ -235,7 +229,7 @@ void finder() {
     for (int length = 2; length < 200; ++length) {
       for (int k = 2; k < 100; ++k) {
         for (int d = 2; d < 100; ++d) {
-          indicators(rsi_length, length, k, d);
+          // indicators(rsi_length, length, k, d);
           backing_test();
           if (funds > funds_max) {
             funds_max = funds;
@@ -254,4 +248,5 @@ void finder() {
 
 void test() {
   printf("你好，世界\n");
+  indicators(7, 21, 12);
 }
