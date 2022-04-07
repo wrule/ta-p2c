@@ -217,7 +217,7 @@ void backing_test(int valuation) {
       strategy(cur);
     }
     if (valuation) {
-      set_valuation(cur, Close[cur], 100);
+      set_valuation(cur, Close[cur], 31);
     }
   }
 }
