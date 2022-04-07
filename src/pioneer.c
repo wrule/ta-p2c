@@ -396,3 +396,12 @@ void save_valuation() {
   fprintf(file, "]\n");
   fclose(file);
 }
+
+/**
+ * @brief
+ * 根据资金曲线计算夏普率
+ * @param size 计算尺度
+ */
+void sharpe_index(int size) {
+
+}
