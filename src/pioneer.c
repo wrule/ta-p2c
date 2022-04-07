@@ -194,6 +194,7 @@ void indicators(
   int size,
   int k_num
 ) {
+  // MACD指标生成
   const double macd_options[] = { fast, slow, size };
   const double * macd_inputs[] = { Close };
   const int macd_start = ti_macd_start(macd_options);
@@ -203,8 +204,21 @@ void indicators(
     &Indexs[2][macd_start]
   };
   ti_macd(HistLen, macd_inputs, macd_options, macd_outputs);
+
   StablePoint = macd_start + 1;
 
+  // ATR指标生成
+  const double atr_options[] = { 5 };
+  const double * atr_inputs[] = { High, Low, Close };
+  const int atr_start = ti_atr_start(atr_options);
+  double * atr_outputs[] = { &Indexs[4][atr_start] };
+  ti_atr(HistLen, atr_inputs, atr_options, atr_outputs);
+
+  if (StablePoint < atr_start) {
+    StablePoint = atr_start;
+  }
+
+  // 离场指标生成
   for (int i = 0; i < k_num; ++i) {
     Indexs[3][i] = -1.0;
   }
