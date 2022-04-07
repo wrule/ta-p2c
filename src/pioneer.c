@@ -294,7 +294,7 @@ double x_queue_high(int size) {
       atr = x_queue[index][3];
     }
   }
-  return max + atr * 0.5;
+  return max;
 }
 
 // 策略
