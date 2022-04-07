@@ -209,12 +209,18 @@ void indicators(
     Indexs[3][i] = -1.0;
   }
   for (int i = k_num; i < HistLen; ++i) {
-    Indexs[3][i] = 0.0;
+    double min = DBL_MAX;
+    for (int h = i - k_num; h < i; ++h) {
+      if (Low[h] < min) {
+        min = Low[h];
+      }
+    }
+    Indexs[3][i] = min;
   }
 
   printf("%d\n", StablePoint);
   for (int i = 0; i < 50; ++i) {
-    printf("%d %lf %lf %lf\n", i, Close[i], Indexs[2][i], Indexs[3][i]);
+    printf("%d %lf %lf %lf %lf\n", i, Close[i], Indexs[2][i], Low[i], Indexs[3][i]);
   }
 }
 // 策略
