@@ -249,6 +249,16 @@ void indicators(
     printf("%d %lf %lf %lf\n", i, Indexs[2][i], Indexs[4][i], Indexs[3][i]);
   }
 }
+
+#define X_QUEUE_SIZE 10
+double x_queue[X_QUEUE_SIZE] = { };
+int x_queue_end = 0;
+void x_queue_push(int bar) {
+  int index = x_queue_end % X_QUEUE_SIZE;
+  x_queue[index] = bar;
+  x_queue_end++;
+}
+
 // 策略
 void strategy(int cur) {
   if (
