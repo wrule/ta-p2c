@@ -5,13 +5,13 @@
 #include "indicators.h"
 
 #pragma region 高性能队列
-#define X_QUEUE_SIZE 10240
+#define X_QUEUE_SIZE 1024
 #define X_QUEUE_ITEM_SIZE 3
 double x_queue[X_QUEUE_SIZE][X_QUEUE_ITEM_SIZE] = { };
 int x_queue_end = 0;
-void x_queue_push(double bar, double high, double atr) {
+void x_queue_push(double bar_index, double high, double atr) {
   int index = x_queue_end % X_QUEUE_SIZE;
-  x_queue[index][0] = bar;
+  x_queue[index][0] = bar_index;
   x_queue[index][1] = high;
   x_queue[index][2] = atr;
   x_queue_end++;
@@ -24,7 +24,7 @@ void x_queue_show_tail(int size) {
   for (int i = start; i < x_queue_end; ++i) {
     int index = i % X_QUEUE_SIZE;
     printf(
-      "%lf %lf %lf\n",
+      "I:%lf H:%lf A:%lf\n",
       x_queue[index][0],
       x_queue[index][1],
       x_queue[index][2]
@@ -37,15 +37,15 @@ double x_queue_high(int size) {
     start = 0;
   }
   double max = DBL_MIN;
-  double atr = 0;
+  double max_atr = 0;
   for (int i = start; i < x_queue_end; ++i) {
     int index = i % X_QUEUE_SIZE;
     if (x_queue[index][1] > max) {
       max = x_queue[index][1];
-      atr = x_queue[index][3];
+      max_atr = x_queue[index][2];
     }
   }
-  return max;
+  return max + max_atr * 0.5;
 }
 #pragma endregion
 
