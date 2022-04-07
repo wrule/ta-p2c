@@ -286,13 +286,15 @@ double x_queue_high(int size) {
     start = 0;
   }
   double max = DBL_MIN;
+  double atr = 0;
   for (int i = start; i < x_queue_end; ++i) {
     int index = i % X_QUEUE_SIZE;
     if (x_queue[index][1] > max) {
       max = x_queue[index][1];
+      atr = x_queue[index][3];
     }
   }
-  return max;
+  return max + atr * 0.5;
 }
 
 // 策略
