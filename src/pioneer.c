@@ -191,7 +191,8 @@ void find() {
 void indicators(
   int fast,
   int slow,
-  int size
+  int size,
+  int k_num
 ) {
   const double macd_options[] = { fast, slow, size };
   const double * macd_inputs[] = { Close };
@@ -231,16 +232,18 @@ void finder() {
     printf("# %d...\n", fast);
     for (int slow = 2; slow < 200; ++slow) {
       for (int size = 2; size < 200; ++size) {
-        indicators(fast, slow, size);
-        backing_test();
-        if (funds > funds_max) {
-          funds_max = funds;
-          printf(
-            "$ %lf [%d %d %d] {%d %d:%d %lf}\n",
-            funds,
-            fast, slow, size,
-            win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
-          );
+        for (int k_num = 2; k_num < 100; ++k_num) {
+          indicators(fast, slow, size, k_num);
+          backing_test();
+          if (funds > funds_max) {
+            funds_max = funds;
+            printf(
+              "$ %lf [%d %d %d] {%d %d:%d %lf}\n",
+              funds,
+              fast, slow, size,
+              win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
+            );
+          }
         }
       }
     }
