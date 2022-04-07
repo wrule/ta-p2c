@@ -203,10 +203,10 @@ void indicators(
   };
   ti_macd(HistLen, macd_inputs, macd_options, macd_outputs);
   StablePoint = macd_start + 1;
-  printf("%d\n", StablePoint);
-  for (int i = 0; i < 100; ++i) {
-    printf("%d %lf %lf %lf %f\n", i, Close[i], Indexs[0][i], Indexs[1][i], Indexs[2][i]);
-  }
+  // printf("%d\n", StablePoint);
+  // for (int i = 0; i < 100; ++i) {
+  //   printf("%d %lf %lf %lf %f\n", i, Close[i], Indexs[0][i], Indexs[1][i], Indexs[2][i]);
+  // }
 }
 // 策略
 void strategy(int cur) {
@@ -227,22 +227,20 @@ void strategy(int cur) {
 }
 // 查找器
 void finder() {
-  for (int rsi_length = 8; rsi_length < 200; ++rsi_length) {
-    printf("# %d...\n", rsi_length);
-    for (int length = 2; length < 200; ++length) {
-      for (int k = 2; k < 100; ++k) {
-        for (int d = 2; d < 100; ++d) {
-          // indicators(rsi_length, length, k, d);
-          backing_test();
-          if (funds > funds_max) {
-            funds_max = funds;
-            printf(
-              "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
-              funds_max,
-              rsi_length, length, k, d,
-              win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
-            );
-          }
+  for (int fast = 2; fast < 200; ++fast) {
+    printf("# %d...\n", fast);
+    for (int slow = 2; slow < 200; ++slow) {
+      for (int size = 2; size < 200; ++size) {
+        indicators(fast, slow, size);
+        backing_test();
+        if (funds > funds_max) {
+          funds_max = funds;
+          printf(
+            "$ %lf [%d %d %d] {%d %d:%d %lf}\n",
+            funds,
+            fast, slow, size,
+            win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
+          );
         }
       }
     }
