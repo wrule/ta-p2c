@@ -330,11 +330,11 @@ void strategy(int cur) {
 }
 // 查找器
 void finder() {
-  for (int fast = 2; fast < 200; ++fast) {
+  for (int fast = 2; fast < 50; ++fast) {
     printf("# %d...\n", fast);
-    for (int slow = fast + 1; slow < 200; ++slow) {
-      for (int size = 2; size < 200; ++size) {
-        for (int k_num = 2; k_num < 60; ++k_num) {
+    for (int slow = fast + 1; slow < 100; ++slow) {
+      for (int size = 2; size < 100; ++size) {
+        for (int k_num = 2; k_num < 100; ++k_num) {
           indicators(fast, slow, size, k_num);
           backing_test();
           if (funds > funds_max) {
