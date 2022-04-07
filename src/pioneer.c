@@ -325,15 +325,17 @@ void strategy(int cur) {
 }
 // 查找器
 void finder() {
-  for (int fast = 2; fast < 100; ++fast) {
+  double max_rate = 0.0;
+  for (int fast = 8; fast < 100; ++fast) {
     printf("# %d...\n", fast);
     for (int slow = fast + 1; slow < 100; ++slow) {
       for (int size = 2; size < 100; ++size) {
         for (int k_num = 2; k_num < 100; ++k_num) {
           indicators(fast, slow, size, k_num);
           backing_test();
-          if (funds > funds_max) {
-            funds_max = funds;
+          const double cur_rate = 100.0 * win_count / (win_count + loss_count);
+          if (cur_rate > max_rate) {
+            max_rate = cur_rate;
             printf(
               "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
               funds,
