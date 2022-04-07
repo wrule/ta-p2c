@@ -244,10 +244,10 @@ void indicators(
     StablePoint = k_num;
   }
 
-  // printf("%d\n", StablePoint);
-  // for (int i = 0; i < 50; ++i) {
-  //   printf("%d %lf %lf %lf %lf\n", i, Close[i], Indexs[2][i], Low[i], Indexs[3][i]);
-  // }
+  printf("%d\n", StablePoint);
+  for (int i = 0; i < 100; ++i) {
+    printf("%d %lf %lf %lf\n", i, Indexs[2][i], Indexs[4][i], Indexs[3][i]);
+  }
 }
 // 策略
 void strategy(int cur) {
