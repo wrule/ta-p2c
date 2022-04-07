@@ -325,7 +325,7 @@ void strategy(int cur) {
 }
 // 查找器
 void finder() {
-  for (int fast = 5; fast < 50; ++fast) {
+  for (int fast = 2; fast < 100; ++fast) {
     printf("# %d...\n", fast);
     for (int slow = fast + 1; slow < 100; ++slow) {
       for (int size = 2; size < 100; ++size) {

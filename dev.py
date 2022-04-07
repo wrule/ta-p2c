@@ -19,7 +19,7 @@ def main():
       c_double(item[4]),
       c_double(item[5]),
     );
-  # hello.find()
-  hello.test()
+  hello.find()
+  # hello.test()
 
 main()
