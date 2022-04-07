@@ -241,10 +241,9 @@ void strategy(int cur) {
     return;
   }
   if (
-    Indexs[2][cur] < 0 &&
-    Indexs[2][cur - 1] >= 0
+    Indexs[3][cur] > 0
   ) {
-    sell(Close[cur]);
+    sell(Indexs[3][cur]);
     return;
   }
 }
