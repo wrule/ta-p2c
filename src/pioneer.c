@@ -294,12 +294,26 @@ double x_queue_high(int size) {
 
 // 策略
 void strategy(int cur) {
+  // 记录金叉
   if (
     Indexs[2][cur] > 0 &&
     Indexs[2][cur - 1] <= 0
   ) {
-    buy(Close[cur]);
+    if (x_queue_end >= 3) {
+      const double high = x_queue_high(3);
+      if (Close[cur] > high) {
+        buy(Close[cur]);
+      }
+    }
+    x_queue_push(cur, High[cur], Low[cur], Indexs[4][cur]);
     return;
+  }
+  // 记录死叉
+  if (
+    Indexs[2][cur] < 0 &&
+    Indexs[2][cur - 1] >= 0
+  ) {
+    x_queue_push(cur, High[cur], Low[cur], Indexs[4][cur]);
   }
   if (
     Indexs[3][cur] > 0
