@@ -305,6 +305,16 @@ void strategy(int cur) {
   ) {
     x_queue_push(cur, High[cur], Indexs[4][cur]);
   }
+  // 入场
+  const double high = x_queue_high(3);
+  if (High[cur] > high) {
+    if (Open[cur] > high) {
+      buy(Open[cur]);
+    } else {
+      buy(high);
+    }
+    return;
+  }
   // 离场
   if (
     Indexs[3][cur] > 0
