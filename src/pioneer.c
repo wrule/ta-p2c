@@ -4,6 +4,8 @@
 #include "/usr/local/include/ta-lib/ta_libc.h"
 #include "indicators.h"
 
+int x_queue_end;
+
 int HistLen = 0;
 unsigned long * Time;
 double * Open;
