@@ -311,7 +311,7 @@ void strategy(int cur) {
     //     buy(Close[cur]);
     //   }
     // }
-    x_queue_push(cur, High[cur], Low[cur], Indexs[4][cur]);
+    // x_queue_push(cur, High[cur], Low[cur], Indexs[4][cur]);
     return;
   }
   // 记录死叉
@@ -319,7 +319,9 @@ void strategy(int cur) {
     Indexs[2][cur] < 0 &&
     Indexs[2][cur - 1] >= 0
   ) {
-    x_queue_push(cur, High[cur], Low[cur], Indexs[4][cur]);
+    sell(Close[cur]);
+    // x_queue_push(cur, High[cur], Low[cur], Indexs[4][cur]);
+    return;
   }
   if (
     Indexs[3][cur] > 0
@@ -330,11 +332,11 @@ void strategy(int cur) {
 }
 // 查找器
 void finder() {
-  for (int fast = 4; fast < 50; ++fast) {
+  for (int fast = 5; fast < 50; ++fast) {
     printf("# %d...\n", fast);
     for (int slow = fast + 1; slow < 100; ++slow) {
       for (int size = 2; size < 100; ++size) {
-        for (int k_num = 2; k_num < 100; ++k_num) {
+        for (int k_num = 2; k_num < 70; ++k_num) {
           indicators(fast, slow, size, k_num);
           backing_test();
           if (funds > funds_max) {
