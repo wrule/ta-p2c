@@ -315,14 +315,14 @@ void strategy(int cur) {
     return;
   }
   // 记录死叉
-  if (
-    Indexs[2][cur] < 0 &&
-    Indexs[2][cur - 1] >= 0
-  ) {
-    sell(Close[cur]);
-    // x_queue_push(cur, High[cur], Low[cur], Indexs[4][cur]);
-    return;
-  }
+  // if (
+  //   Indexs[2][cur] < 0 &&
+  //   Indexs[2][cur - 1] >= 0
+  // ) {
+  //   sell(Close[cur]);
+  //   // x_queue_push(cur, High[cur], Low[cur], Indexs[4][cur]);
+  //   return;
+  // }
   if (
     Indexs[3][cur] > 0
   ) {
