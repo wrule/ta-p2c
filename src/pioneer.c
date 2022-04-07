@@ -376,6 +376,15 @@ void test() {
 
   FILE * file = fopen("v.json", "w");
   fprintf(file, "[\n");
+  for (int i = 0; i < HistLen; ++i) {
+    fprintf(
+      file,
+      "  { \"type\": \"净值\", \"x\": %lu, \"y\": %lf }%s\n",
+      1,
+      2.0,
+      i < HistLen - 1 ? "," : ""
+    );
+  }
   fprintf(file, "]\n");
   fclose(file);
 }
