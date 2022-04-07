@@ -78,6 +78,7 @@ int loss_count = 0;
 void strategy(int cur);
 void finder();
 void set_valuation(int cur, double price, int index);
+void save_valuation();
 
 void init_hist() {
   Time = malloc(sizeof(unsigned long) * HistLen);
@@ -365,14 +366,19 @@ void finder() {
 }
 
 void test() {
-  indicators(5, 10, 25, 17);
+  const int fast = 5;
+  const int slow = 10;
+  const int size = 25;
+  const int k_num = 17;
+  indicators(fast, slow, size, k_num);
   backing_test(1);
   printf(
     "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
     funds,
-    5, 10, 25, 17,
+    fast, slow, size, k_num,
     win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
   );
+  save_valuation();
 }
 
 void save_valuation() {
