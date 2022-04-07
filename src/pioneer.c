@@ -380,8 +380,8 @@ void test() {
     fprintf(
       file,
       "  { \"type\": \"净值\", \"x\": %lu, \"y\": %lf }%s\n",
-      1,
-      2.0,
+      Time[i],
+      Indexs[31][i],
       i < HistLen - 1 ? "," : ""
     );
   }
