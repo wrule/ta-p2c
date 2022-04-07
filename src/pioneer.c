@@ -298,30 +298,14 @@ void indicators(
 
 // 策略
 void strategy(int cur) {
-  // 记录金叉
+  // 记录金叉死叉
   if (
-    Indexs[2][cur] > 0 &&
-    Indexs[2][cur - 1] <= 0
+    (Indexs[2][cur] > 0 && Indexs[2][cur - 1] <= 0) ||
+    (Indexs[2][cur] < 0 && Indexs[2][cur - 1] >= 0)
   ) {
-    buy(Close[cur]);
-    // if (x_queue_end >= 3) {
-    //   const double high = x_queue_high(3);
-    //   if (Close[cur] > high) {
-    //     buy(Close[cur]);
-    //   }
-    // }
-    // x_queue_push(cur, High[cur], Low[cur], Indexs[4][cur]);
-    return;
+    x_queue_push(cur, High[cur], Indexs[4][cur]);
   }
-  // 记录死叉
-  // if (
-  //   Indexs[2][cur] < 0 &&
-  //   Indexs[2][cur - 1] >= 0
-  // ) {
-  //   sell(Close[cur]);
-  //   // x_queue_push(cur, High[cur], Low[cur], Indexs[4][cur]);
-  //   return;
-  // }
+  // 离场
   if (
     Indexs[3][cur] > 0
   ) {
