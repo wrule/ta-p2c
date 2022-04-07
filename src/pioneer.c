@@ -250,13 +250,23 @@ void indicators(
   }
 }
 
-#define X_QUEUE_SIZE 10
-double x_queue[X_QUEUE_SIZE] = { };
+#define X_QUEUE_SIZE 6
+int x_queue[X_QUEUE_SIZE] = { };
 int x_queue_end = 0;
 void x_queue_push(int bar) {
   int index = x_queue_end % X_QUEUE_SIZE;
   x_queue[index] = bar;
   x_queue_end++;
+}
+void x_queue_show_tail(int size) {
+  int start = x_queue_end - size;
+  if (start < 0) {
+    start = 0;
+  }
+  for (int i = start; i < x_queue_end; ++i) {
+    int index = i % X_QUEUE_SIZE;
+    printf("%d\n", x_queue[index]);
+  }
 }
 
 // 策略
@@ -301,12 +311,33 @@ void finder() {
 
 void test() {
   printf("你好，世界\n");
-  indicators(7, 21, 12, 20);
-  backing_test();
-  printf(
-    "$ %lf [%d %d %d] {%d %d:%d %lf}\n",
-    funds,
-    7, 21, 12,
-    win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
-  );
+  x_queue_push(1);
+  x_queue_push(1);
+  x_queue_push(2);
+  x_queue_push(3);
+  x_queue_push(7);
+  x_queue_push(2);
+  x_queue_push(3);
+  x_queue_push(7);
+  x_queue_push(2);
+  x_queue_push(11);
+  x_queue_push(33);
+  x_queue_push(7);
+  x_queue_push(9);
+  x_queue_push(18);
+  x_queue_push(14);
+  x_queue_push(0);
+  x_queue_push(9);
+  x_queue_push(18);
+  x_queue_push(14);
+  x_queue_push(0);
+  x_queue_show_tail(6);
+  // indicators(7, 21, 12, 20);
+  // backing_test();
+  // printf(
+  //   "$ %lf [%d %d %d] {%d %d:%d %lf}\n",
+  //   funds,
+  //   7, 21, 12,
+  //   win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
+  // );
 }
