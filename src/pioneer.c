@@ -252,3 +252,6 @@ void finder() {
   }
 }
 
+void test() {
+  printf("你好，世界\n");
+}
