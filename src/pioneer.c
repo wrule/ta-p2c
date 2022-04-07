@@ -252,4 +252,11 @@ void finder() {
 void test() {
   printf("你好，世界\n");
   indicators(7, 21, 12);
+  backing_test();
+  printf(
+    "$ %lf [%d %d %d] {%d %d:%d %lf}\n",
+    funds,
+    7, 21, 12,
+    win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
+  );
 }
