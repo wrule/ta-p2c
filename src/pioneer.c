@@ -336,7 +336,7 @@ void finder() {
     printf("# %d...\n", fast);
     for (int slow = fast + 1; slow < 100; ++slow) {
       for (int size = 2; size < 100; ++size) {
-        for (int k_num = 2; k_num < 70; ++k_num) {
+        for (int k_num = 2; k_num < 100; ++k_num) {
           indicators(fast, slow, size, k_num);
           backing_test();
           if (funds > funds_max) {
