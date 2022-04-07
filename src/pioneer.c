@@ -250,7 +250,7 @@ void indicators(
   }
 }
 
-#define X_QUEUE_SIZE 6
+#define X_QUEUE_SIZE 10240
 double x_queue[X_QUEUE_SIZE][4] = { };
 int x_queue_end = 0;
 void x_queue_push(double bar, double high, double low, double atr) {
@@ -277,7 +277,7 @@ void x_queue_show_tail(int size) {
     );
   }
 }
-void x_queue_high(int size) {
+double x_queue_high(int size) {
   int start = x_queue_end - size;
   if (start < 0) {
     start = 0;
@@ -334,14 +334,15 @@ void finder() {
 
 void test() {
   printf("你好，世界\n");
-  x_queue_push(1, 2, 3, 4);
-  x_queue_push(4, 2, 3, 4);
-  x_queue_push(4, 2, 3, 4);
+  x_queue_push(1, 9, 3, 4);
+  x_queue_push(4, 0, 3, 4);
+  x_queue_push(4, 11, 3, 4);
   x_queue_push(2, 2, 3, 4);
-  x_queue_push(9, 2, 3, 4);
-  x_queue_push(8, 2, 3, 4);
+  x_queue_push(9, 4, 3, 4);
+  x_queue_push(8, 3, 3, 4);
   x_queue_push(6, 2, 3, 4);
-  x_queue_show_tail(4);
+  x_queue_show_tail(7);
+  printf("%lf\n", x_queue_high(4));
   // indicators(7, 21, 12, 20);
   // backing_test();
   // printf(
