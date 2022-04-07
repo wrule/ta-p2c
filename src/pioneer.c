@@ -202,7 +202,8 @@ void indicators(
     &Indexs[2][macd_start]
   };
   ti_macd(HistLen, macd_inputs, macd_options, macd_outputs);
-
+  StablePoint = macd_start + 1;
+  printf("%d\n", StablePoint);
   for (int i = 0; i < 100; ++i) {
     printf("%d %lf %lf %lf %f\n", i, Close[i], Indexs[0][i], Indexs[1][i], Indexs[2][i]);
   }
@@ -210,16 +211,18 @@ void indicators(
 // 策略
 void strategy(int cur) {
   if (
-    Indexs[0][cur] > Indexs[1][cur] &&
-    Indexs[0][cur - 1] <= Indexs[1][cur - 1]
+    Indexs[2][cur] > 0 &&
+    Indexs[2][cur - 1] <= 0
   ) {
     buy(Close[cur]);
+    return;
   }
   if (
-    Indexs[0][cur] < Indexs[1][cur] &&
-    Indexs[0][cur - 1] >= Indexs[1][cur - 1]
+    Indexs[2][cur] < 0 &&
+    Indexs[2][cur - 1] >= 0
   ) {
     sell(Close[cur]);
+    return;
   }
 }
 // 查找器
