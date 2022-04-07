@@ -231,6 +231,17 @@ void find() {
   printf("Finder完成 秒数 %ld\n", time(NULL) - op);
 }
 
+/**
+ * @brief
+ * 设置估值
+ * @param cur 当前蜡烛索引
+ * @param price 当前价格
+ * @param index 存储区域索引
+ */
+void set_valuation(int cur, double price, int index) {
+  Indexs[index][cur] = assets * price + funds;
+}
+
 
 // 用户代码 ----------------------------------------------------------------
 // 指标
