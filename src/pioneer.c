@@ -109,6 +109,7 @@ void reset_backing_test() {
   funds_buy = 0.0;
   win_count = 0;
   loss_count = 0;
+  x_queue_end = 0;
 }
 
 /**
