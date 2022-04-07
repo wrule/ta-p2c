@@ -206,7 +206,7 @@ int sell(double price) {
  * @brief
  * 回测
  */
-void backing_test() {
+void backing_test(int valuation) {
   reset_backing_test();
   for (int cur = 0; cur < HistLen; ++cur) {
     if (cur == HistLen - 1) {
@@ -215,6 +215,9 @@ void backing_test() {
     }
     if (cur >= StablePoint) {
       strategy(cur);
+    }
+    if (valuation) {
+      set_valuation(cur, Close[cur], 100);
     }
   }
 }
@@ -343,7 +346,7 @@ void finder() {
       for (int size = 2; size < 100; ++size) {
         for (int k_num = 2; k_num < 100; ++k_num) {
           indicators(fast, slow, size, k_num);
-          backing_test();
+          backing_test(0);
           const double cur_rate = 100.0 * win_count / (win_count + loss_count);
           if (cur_rate > max_rate) {
             max_rate = cur_rate;
@@ -362,7 +365,7 @@ void finder() {
 
 void test() {
   indicators(7, 21, 12, 10);
-  backing_test();
+  backing_test(1);
   printf(
     "$ %lf [%d %d %d] {%d %d:%d %lf}\n",
     funds,
