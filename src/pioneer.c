@@ -348,26 +348,12 @@ void finder() {
 }
 
 void test() {
-  printf("你好，世界\n");
-
-  x_queue_push(0, 3, 1);
-  x_queue_push(1, 1, 1);
-  x_queue_push(2, 4, 2);
-  x_queue_push(3, 10, 0.2);
-  x_queue_push(4, 8, 2);
-  x_queue_push(5, 5, 0.5);
-  x_queue_push(6, 7, 1);
-  x_queue_push(7, 9, 0.6);
-  x_queue_show_tail(3);
-  printf("%lf\n", x_queue_high(5));
-
-
-  // indicators(7, 21, 12, 20);
-  // backing_test();
-  // printf(
-  //   "$ %lf [%d %d %d] {%d %d:%d %lf}\n",
-  //   funds,
-  //   7, 21, 12,
-  //   win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
-  // );
+  indicators(7, 21, 12, 10);
+  backing_test();
+  printf(
+    "$ %lf [%d %d %d] {%d %d:%d %lf}\n",
+    funds,
+    7, 21, 12,
+    win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
+  );
 }
