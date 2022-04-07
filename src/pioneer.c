@@ -226,10 +226,14 @@ void indicators(
     }
   }
 
-  printf("%d\n", StablePoint);
-  for (int i = 0; i < 50; ++i) {
-    printf("%d %lf %lf %lf %lf\n", i, Close[i], Indexs[2][i], Low[i], Indexs[3][i]);
+  if (StablePoint < k_num) {
+    StablePoint = k_num;
   }
+
+  // printf("%d\n", StablePoint);
+  // for (int i = 0; i < 50; ++i) {
+  //   printf("%d %lf %lf %lf %lf\n", i, Close[i], Indexs[2][i], Low[i], Indexs[3][i]);
+  // }
 }
 // 策略
 void strategy(int cur) {
@@ -251,17 +255,17 @@ void strategy(int cur) {
 void finder() {
   for (int fast = 2; fast < 200; ++fast) {
     printf("# %d...\n", fast);
-    for (int slow = 2; slow < 200; ++slow) {
+    for (int slow = fast + 1; slow < 200; ++slow) {
       for (int size = 2; size < 200; ++size) {
-        for (int k_num = 2; k_num < 100; ++k_num) {
+        for (int k_num = 2; k_num < 60; ++k_num) {
           indicators(fast, slow, size, k_num);
           backing_test();
           if (funds > funds_max) {
             funds_max = funds;
             printf(
-              "$ %lf [%d %d %d] {%d %d:%d %lf}\n",
+              "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
               funds,
-              fast, slow, size,
+              fast, slow, size, k_num,
               win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
             );
           }
