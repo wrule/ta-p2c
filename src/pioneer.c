@@ -4,7 +4,50 @@
 #include "/usr/local/include/ta-lib/ta_libc.h"
 #include "indicators.h"
 
-int x_queue_end;
+#pragma region 高性能队列
+#define X_QUEUE_SIZE 10240
+#define X_QUEUE_ITEM_SIZE 3
+double x_queue[X_QUEUE_SIZE][X_QUEUE_ITEM_SIZE] = { };
+int x_queue_end = 0;
+void x_queue_push(double bar, double high, double atr) {
+  int index = x_queue_end % X_QUEUE_SIZE;
+  x_queue[index][0] = bar;
+  x_queue[index][1] = high;
+  x_queue[index][2] = atr;
+  x_queue_end++;
+}
+void x_queue_show_tail(int size) {
+  int start = x_queue_end - size;
+  if (start < 0) {
+    start = 0;
+  }
+  for (int i = start; i < x_queue_end; ++i) {
+    int index = i % X_QUEUE_SIZE;
+    printf(
+      "%lf %lf %lf\n",
+      x_queue[index][0],
+      x_queue[index][1],
+      x_queue[index][2]
+    );
+  }
+}
+double x_queue_high(int size) {
+  int start = x_queue_end - size;
+  if (start < 0) {
+    start = 0;
+  }
+  double max = DBL_MIN;
+  double atr = 0;
+  for (int i = start; i < x_queue_end; ++i) {
+    int index = i % X_QUEUE_SIZE;
+    if (x_queue[index][1] > max) {
+      max = x_queue[index][1];
+      atr = x_queue[index][3];
+    }
+  }
+  return max;
+}
+#pragma endregion
 
 int HistLen = 0;
 unsigned long * Time;
@@ -251,50 +294,6 @@ void indicators(
   // for (int i = 0; i < 100; ++i) {
   //   printf("%d %lf %lf %lf\n", i, Indexs[2][i], Indexs[4][i], Indexs[3][i]);
   // }
-}
-
-#define X_QUEUE_SIZE 10240
-double x_queue[X_QUEUE_SIZE][4] = { };
-int x_queue_end = 0;
-void x_queue_push(double bar, double high, double low, double atr) {
-  int index = x_queue_end % X_QUEUE_SIZE;
-  x_queue[index][0] = bar;
-  x_queue[index][1] = high;
-  x_queue[index][2] = low;
-  x_queue[index][3] = atr;
-  x_queue_end++;
-}
-void x_queue_show_tail(int size) {
-  int start = x_queue_end - size;
-  if (start < 0) {
-    start = 0;
-  }
-  for (int i = start; i < x_queue_end; ++i) {
-    int index = i % X_QUEUE_SIZE;
-    printf(
-      "%lf %lf %lf %lf\n",
-      x_queue[index][0],
-      x_queue[index][1],
-      x_queue[index][2],
-      x_queue[index][3]
-    );
-  }
-}
-double x_queue_high(int size) {
-  int start = x_queue_end - size;
-  if (start < 0) {
-    start = 0;
-  }
-  double max = DBL_MIN;
-  double atr = 0;
-  for (int i = start; i < x_queue_end; ++i) {
-    int index = i % X_QUEUE_SIZE;
-    if (x_queue[index][1] > max) {
-      max = x_queue[index][1];
-      atr = x_queue[index][3];
-    }
-  }
-  return max;
 }
 
 // 策略
