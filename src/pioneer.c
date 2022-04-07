@@ -373,4 +373,9 @@ void test() {
     5, 10, 25, 17,
     win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
   );
+
+  FILE * file = fopen("v.json", "w");
+  fprintf(file, "[\n");
+  fprintf(file, "]\n");
+  fclose(file);
 }
