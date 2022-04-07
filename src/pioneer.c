@@ -304,12 +304,13 @@ void strategy(int cur) {
     Indexs[2][cur] > 0 &&
     Indexs[2][cur - 1] <= 0
   ) {
-    if (x_queue_end >= 3) {
-      const double high = x_queue_high(3);
-      if (Close[cur] > high) {
-        buy(Close[cur]);
-      }
-    }
+    buy(Close[cur]);
+    // if (x_queue_end >= 3) {
+    //   const double high = x_queue_high(3);
+    //   if (Close[cur] > high) {
+    //     buy(Close[cur]);
+    //   }
+    // }
     x_queue_push(cur, High[cur], Low[cur], Indexs[4][cur]);
     return;
   }
