@@ -108,8 +108,8 @@ void indicators(
 void strategy(int cur) {
   // 记录金叉死叉
   if (
-    (Indexs[2][cur] > 0 && Indexs[2][cur - 1] <= 0) ||
-    (Indexs[2][cur] < 0 && Indexs[2][cur - 1] >= 0)
+    (Indexs[MACD_LINE][cur] > 0 && Indexs[MACD_LINE][cur - 1] <= 0) ||
+    (Indexs[MACD_LINE][cur] < 0 && Indexs[MACD_LINE][cur - 1] >= 0)
   ) {
     x_queue_push(cur, High[cur], Indexs[ATR_LINE][cur]);
   }
