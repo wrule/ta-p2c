@@ -135,11 +135,8 @@ void strategy(int cur) {
     return;
   }
 }
-// 查找器
-void finder() {
 
-}
-
+// 测试器
 void test() {
   const int fast = 5;
   const int slow = 10;
@@ -154,4 +151,9 @@ void test() {
     Win_Count + Loss_Count, Win_Count, Loss_Count, 100.0 * Win_Count / (Win_Count + Loss_Count)
   );
   save_valuation();
+}
+
+// 查找器
+void finder() {
+
 }
