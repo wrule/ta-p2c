@@ -135,7 +135,7 @@ void strategy(int cur) {
 // 测试器
 void tester() {
   const int fast = 5, slow = 10, size = 25, k_num = 17;
-  indicators(fast, slow, size, 5, k_num);
+  indicators(fast, slow, size, 4, k_num);
   backing_test(1);
   save_valuation();
   print_state();
