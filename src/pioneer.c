@@ -121,11 +121,11 @@ void show_ohlcv(int index) {
  * 用于回测的状态重置
  */
 void reset_backing_test() {
-  funds = Init_Funds;
-  assets = 0.0;
-  funds_buy = 0.0;
-  win_count = 0;
-  loss_count = 0;
+  Funds = Init_Funds;
+  Assets = 0.0;
+  Funds_Buy = 0.0;
+  Win_Count = 0;
+  Loss_Count = 0;
   x_queue_end = 0;
 }
 
@@ -135,7 +135,7 @@ void reset_backing_test() {
  */
 void reset_finder() {
   reset_backing_test();
-  funds_max = 0.0;
+  Funds_Max = 0.0;
 }
 
 /**
@@ -145,10 +145,10 @@ void reset_finder() {
  * @return int 成功：0，失败：1
  */
 int buy(double price) {
-  if (assets == 0) {
-    assets = funds / price * fee;
-    funds_buy = funds;
-    funds = 0;
+  if (Assets == 0) {
+    Assets = Funds / price * Fee;
+    Funds_Buy = Funds;
+    Funds = 0;
     return 0;
   }
   return 1;
@@ -161,14 +161,14 @@ int buy(double price) {
  * @return int 成功：0，失败：1
  */
 int sell(double price) {
-  if (funds == 0) {
-    funds = assets * price * fee;
-    if (funds >= funds_buy) {
-      win_count++;
+  if (Funds == 0) {
+    Funds = Assets * price * Fee;
+    if (Funds >= Funds_Buy) {
+      Win_Count++;
     } else {
-      loss_count++;
+      Loss_Count++;
     }
-    assets = 0;
+    Assets = 0;
     return 0;
   }
   return 1;
@@ -214,7 +214,7 @@ void find() {
  * @param index 存储区域索引
  */
 void set_valuation(int cur, double price, int index) {
-  Indexs[index][cur] = assets * price + funds;
+  Indexs[index][cur] = Assets * price + Funds;
 }
 
 
@@ -319,14 +319,14 @@ void finder() {
         for (int k_num = 2; k_num < 100; ++k_num) {
           indicators(fast, slow, size, k_num);
           backing_test(0);
-          const double cur_rate = 100.0 * win_count / (win_count + loss_count);
+          const double cur_rate = 100.0 * Win_Count / (Win_Count + Loss_Count);
           if (cur_rate > max_rate) {
             max_rate = cur_rate;
             printf(
               "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
-              funds,
+              Funds,
               fast, slow, size, k_num,
-              win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
+              Win_Count + Loss_Count, Win_Count, Loss_Count, 100.0 * Win_Count / (Win_Count + Loss_Count)
             );
           }
         }
@@ -344,9 +344,9 @@ void test() {
   backing_test(1);
   printf(
     "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
-    funds,
+    Funds,
     fast, slow, size, k_num,
-    win_count + loss_count, win_count, loss_count, 100.0 * win_count / (win_count + loss_count)
+    Win_Count + Loss_Count, Win_Count, Loss_Count, 100.0 * Win_Count / (Win_Count + Loss_Count)
   );
   save_valuation();
 }

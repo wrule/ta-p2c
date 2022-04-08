@@ -19,16 +19,16 @@ int Stable_Point = 0;
 // 初始资金
 double Init_Funds = 100.0;
 // 实时资金
-double funds = 0.0;
+double Funds = 0.0;
 // 实时资产
-double assets = 0.0;
+double Assets = 0.0;
 // 费率乘数
-double fee = 0.9985;
+double Fee = 0.9985;
 // 上一次购买资金
-double funds_buy = 0.0;
+double Funds_Buy = 0.0;
 // 历史最大资金
-double funds_max = 0.0;
+double Funds_Max = 0.0;
 // 盈利交易计数
-int win_count = 0;
+int Win_Count = 0;
 // 亏损交易计数
-int loss_count = 0;
+int Loss_Count = 0;
