@@ -45,28 +45,6 @@ double x_queue_high(int size) {
 }
 #pragma endregion
 
-/**
- * @brief
- * 用于回测的状态重置
- */
-void reset_backing_test() {
-  Funds = Init_Funds;
-  Assets = 0.0;
-  Funds_Buy = 0.0;
-  Win_Count = 0;
-  Loss_Count = 0;
-}
-
-/**
- * @brief
- * 设置估值
- * @param cur 当前蜡烛索引
- * @param price 当前价格
- */
-void set_valuation(int cur, double price) {
-  Indexs[Valuation_Index][cur] = Assets * price + Funds;
-}
-
 
 // 用户代码 ----------------------------------------------------------------
 // 指标
