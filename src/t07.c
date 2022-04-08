@@ -77,14 +77,11 @@ void indicators(
   const int atr_start = ti_atr_start(atr_options);
   double * atr_outputs[] = { &Indexs[ATR_LINE][atr_start] };
   ti_atr(Hist_Len, atr_inputs, atr_options, atr_outputs);
-  if (Stable_Point < atr_start + 1) {
-    Stable_Point = atr_start + 1;
+  if (Stable_Point < atr_start) {
+    Stable_Point = atr_start;
   }
 
   // 离场指标生成
-  for (int i = 0; i < k_num; ++i) {
-    Indexs[LEAVE_LINE][i] = -1.0;
-  }
   for (int i = k_num; i < Hist_Len; ++i) {
     double min = DBL_MAX;
     for (int h = i - k_num; h < i; ++h) {
@@ -102,7 +99,6 @@ void indicators(
       Indexs[LEAVE_LINE][i] = -1.0;
     }
   }
-
   if (Stable_Point < k_num) {
     Stable_Point = k_num;
   }
