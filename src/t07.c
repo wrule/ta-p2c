@@ -51,6 +51,8 @@ double x_queue_high(int size) {
 #define ATR_LINE 3
 #define LEAVE_LINE 4
 
+int Queue_Size = 3;
+
 // 填充指标
 void indicators(
   int fast,
@@ -114,7 +116,7 @@ void strategy(int cur) {
     x_queue_push(cur, High[cur], Indexs[ATR_LINE][cur]);
   }
   // 入场
-  const double high = x_queue_high(3);
+  const double high = x_queue_high(Queue_Size);
   if (High[cur] > high) {
     if (Open[cur] > high) {
       buy(Open[cur]);
@@ -135,7 +137,7 @@ void strategy(int cur) {
 // 测试器
 void tester() {
   const int fast = 5, slow = 10, size = 25, k_num = 17;
-  indicators(fast, slow, size, 4, k_num);
+  indicators(fast, slow, size, 5, k_num);
   backing_test(1);
   save_valuation();
   print_state();
