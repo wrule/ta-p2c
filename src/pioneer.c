@@ -131,18 +131,27 @@ void strategy(int cur) {
   }
 }
 
+void print_state() {
+  const double return_funds = Funds - Init_Funds;
+  const int total_count = Win_Count + Loss_Count;
+  const double win_rate = 100.0 * Win_Count / total_count;
+  printf(
+    "$ 回报: %lf  交易次数: %d[%d:%d]  成功率: %.4lf%%\n",
+    return_funds,
+    total_count,
+    Win_Count,
+    Loss_Count,
+    win_rate
+  );
+}
+
 // 测试器
 void tester() {
   const int fast = 5, slow = 10, size = 25, k_num = 17;
   indicators(fast, slow, size, k_num);
   backing_test(1);
-  printf(
-    "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
-    Funds,
-    fast, slow, size, k_num,
-    Win_Count + Loss_Count, Win_Count, Loss_Count, 100.0 * Win_Count / (Win_Count + Loss_Count)
-  );
   save_valuation();
+  print_state();
 }
 
 // 查找器
