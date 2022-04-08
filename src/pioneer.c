@@ -352,7 +352,7 @@ void test() {
 }
 
 void save_valuation() {
-  printf("存储估值曲线数据...");
+  printf("存储估值曲线数据...\n");
   FILE * file = fopen("valuation.json", "w");
   fprintf(file, "[\n");
   for (int i = 0; i < HistLen; ++i) {
