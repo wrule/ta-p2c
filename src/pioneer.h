@@ -33,6 +33,7 @@ int Win_Count = 0;
 int Loss_Count = 0;
 
 void strategy(int cur);
+void tester();
 void finder();
 void set_valuation(int cur, double price);
 void save_valuation();
@@ -251,6 +252,14 @@ void backing_test(int valuation) {
       set_valuation(cur, Close[cur]);
     }
   }
+}
+
+/**
+ * @brief
+ * 测试
+ */
+void test() {
+  tester();
 }
 
 /**

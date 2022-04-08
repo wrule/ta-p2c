@@ -4,6 +4,8 @@
         "__string": "c",
         "string": "c",
         "string_view": "c",
-        "indicators.h": "c"
+        "indicators.h": "c",
+        "atomic": "c",
+        "bitset": "c"
     }
 }
