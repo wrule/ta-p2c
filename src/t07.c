@@ -45,7 +45,13 @@ double x_queue_high(int size) {
 }
 #pragma endregion
 
-// 指标
+#define FAST_LINE 0
+#define SLOW_LINE 1
+#define MACD_LINE 2
+#define ATR_LINE 3
+#define LEAVE_LINE 4
+
+// 填充指标
 void indicators(
   int fast,
   int slow,
@@ -57,12 +63,11 @@ void indicators(
   const double * macd_inputs[] = { Close };
   const int macd_start = ti_macd_start(macd_options);
   double * macd_outputs[] = {
-    &Indexs[0][macd_start],
-    &Indexs[1][macd_start],
-    &Indexs[2][macd_start]
+    &Indexs[FAST_LINE][macd_start],
+    &Indexs[SLOW_LINE][macd_start],
+    &Indexs[MACD_LINE][macd_start]
   };
   ti_macd(Hist_Len, macd_inputs, macd_options, macd_outputs);
-
   Stable_Point = macd_start + 1;
 
   // ATR指标生成
