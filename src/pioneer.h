@@ -38,6 +38,8 @@ void strategy(int cur);
 void finder();
 void set_valuation(int cur, double price, int index);
 void save_valuation();
+void reset_backing_test();
+void reset_finder();
 
 #pragma region 基础函数
 /**
@@ -119,5 +121,75 @@ void show_ohlcv(int index) {
     Close[index],
     Volume[index]
   );
+}
+#pragma endregion
+
+#pragma region 交易函数
+/**
+ * @brief
+ * 现货购买
+ * @param price 购买价格
+ * @return int 成功：0，失败：1
+ */
+int buy(double price) {
+  if (Assets == 0) {
+    Assets = Funds / price * Fee;
+    Funds_Buy = Funds;
+    Funds = 0;
+    return 0;
+  }
+  return 1;
+}
+
+/**
+ * @brief
+ * 现货销售
+ * @param price 销售价格
+ * @return int 成功：0，失败：1
+ */
+int sell(double price) {
+  if (Funds == 0) {
+    Funds = Assets * price * Fee;
+    if (Funds >= Funds_Buy) {
+      Win_Count++;
+    } else {
+      Loss_Count++;
+    }
+    Assets = 0;
+    return 0;
+  }
+  return 1;
+}
+
+/**
+ * @brief
+ * 回测
+ */
+void backing_test(int valuation) {
+  reset_backing_test();
+  for (int cur = 0; cur < Hist_Len; ++cur) {
+    if (cur == Hist_Len - 1) {
+      sell(Close[cur]);
+      break;
+    }
+    if (cur >= Stable_Point) {
+      strategy(cur);
+    }
+    if (valuation) {
+      set_valuation(cur, Close[cur], 31);
+    }
+  }
+}
+
+/**
+ * @brief
+ * 查找
+ */
+void find() {
+  reset_finder();
+  printf("Finder开始...\n");
+  time_t op = time(NULL);
+  finder();
+  printf("Finder完成 秒数 %ld\n", time(NULL) - op);
 }
 #pragma endregion
