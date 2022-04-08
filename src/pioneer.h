@@ -8,6 +8,7 @@
 #define INDEXS_SIZE 1024
 
 int Hist_Len = 0;
+int Indexs_Size = 0;
 unsigned long * Time;
 double * Open;
 double * High;

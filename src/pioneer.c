@@ -45,6 +45,10 @@ double x_queue_high(int size) {
 }
 #pragma endregion
 
+/**
+ * @brief
+ * 初始化量价数据的存储空间
+ */
 void init_hist() {
   Time = malloc(sizeof(unsigned long) * Hist_Len);
   Open = malloc(sizeof(double) * Hist_Len);
@@ -54,16 +58,27 @@ void init_hist() {
   Volume = malloc(sizeof(double) * Hist_Len);
 }
 
-void init_indexs(int size) {
-  for (int i = 0; i < size; ++i) {
+/**
+ * @brief
+ * 初始化指标数据的存储空间
+ */
+void init_indexs() {
+  for (int i = 0; i < Indexs_Size; ++i) {
     Indexs[i] = malloc(sizeof(double) * Hist_Len);
   }
 }
 
-void init(int len, int index_size) {
-  Hist_Len = len;
+/**
+ * @brief
+ * 初始化
+ * @param hist_len 量价数据长度
+ * @param indexs_size 指标数据个数
+ */
+void init(int hist_len, int indexs_size) {
+  Hist_Len = hist_len;
+  Indexs_Size = indexs_size;
   init_hist();
-  init_indexs(index_size);
+  init_indexs();
 }
 
 /**
