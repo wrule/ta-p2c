@@ -19,7 +19,6 @@ def main():
       c_double(item[4]),
       c_double(item[5]),
     );
-  hello.test()
-  # hello.test()
+  hello.main()
 
 main()

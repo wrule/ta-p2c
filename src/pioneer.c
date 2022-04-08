@@ -137,7 +137,7 @@ void strategy(int cur) {
 }
 
 // 测试器
-void test() {
+void tester() {
   const int fast = 5;
   const int slow = 10;
   const int size = 25;
@@ -156,4 +156,9 @@ void test() {
 // 查找器
 void finder() {
 
+}
+
+int main() {
+  tester();
+  return 0;
 }
