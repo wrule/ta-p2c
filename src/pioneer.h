@@ -5,6 +5,8 @@
 #include "/usr/local/include/ta-lib/ta_libc.h"
 #include "indicators.h"
 
+#define INDEXS_SIZE 1024
+
 int64_t HistLen = 0;
 uint64_t * Time;
 double * Open;
@@ -12,7 +14,7 @@ double * High;
 double * Low;
 double * Close;
 double * Volume;
-double * Indexs[1024];
+double * Indexs[INDEXS_SIZE];
 int64_t StablePoint = 0;
 // 初始资金
 double init_funds = 100.0;
