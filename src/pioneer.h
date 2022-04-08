@@ -171,6 +171,24 @@ void save_valuation() {
 
 /**
  * @brief
+ * 输出交易状态信息
+ */
+void print_state() {
+  const double return_funds = Funds - Init_Funds;
+  const int total_count = Win_Count + Loss_Count;
+  const double win_rate = 100.0 * Win_Count / total_count;
+  printf(
+    "$ 回报: %lf  交易次数: %d[%d:%d]  成功率: %.4lf%%\n",
+    return_funds,
+    total_count,
+    Win_Count,
+    Loss_Count,
+    win_rate
+  );
+}
+
+/**
+ * @brief
  * 根据资金曲线计算夏普率
  * @param size 计算尺度
  */
