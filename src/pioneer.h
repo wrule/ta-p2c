@@ -32,3 +32,8 @@ double Funds_Max = 0.0;
 int Win_Count = 0;
 // 亏损交易计数
 int Loss_Count = 0;
+
+void strategy(int cur);
+void finder();
+void set_valuation(int cur, double price, int index);
+void save_valuation();

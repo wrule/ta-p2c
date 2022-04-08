@@ -45,11 +45,6 @@ double x_queue_high(int size) {
 }
 #pragma endregion
 
-void strategy(int cur);
-void finder();
-void set_valuation(int cur, double price, int index);
-void save_valuation();
-
 void init_hist() {
   Time = malloc(sizeof(unsigned long) * HistLen);
   Open = malloc(sizeof(double) * HistLen);
