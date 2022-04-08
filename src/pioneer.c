@@ -403,5 +403,7 @@ void save_valuation() {
  * @param size 计算尺度
  */
 void sharpe_index(int size) {
+  for (int i = size - 1; i < HistLen; ++i) {
 
+  }
 }
