@@ -83,7 +83,7 @@ void indicators(
 
   // 离场指标生成
   for (int i = 0; i < k_num; ++i) {
-    Indexs[3][i] = -1.0;
+    Indexs[LEAVE_LINE][i] = -1.0;
   }
   for (int i = k_num; i < Hist_Len; ++i) {
     double min = DBL_MAX;
@@ -94,12 +94,12 @@ void indicators(
     }
     if (Low[i] < min) {
       if (Open[i] < min) {
-        Indexs[3][i] = Open[i];
+        Indexs[LEAVE_LINE][i] = Open[i];
       } else {
-        Indexs[3][i] = min;
+        Indexs[LEAVE_LINE][i] = min;
       }
     } else {
-      Indexs[3][i] = -1.0;
+      Indexs[LEAVE_LINE][i] = -1.0;
     }
   }
 
@@ -129,9 +129,9 @@ void strategy(int cur) {
   }
   // 离场
   if (
-    Indexs[3][cur] > 0
+    Indexs[LEAVE_LINE][cur] > 0
   ) {
-    sell(Indexs[3][cur]);
+    sell(Indexs[LEAVE_LINE][cur]);
     return;
   }
 }
