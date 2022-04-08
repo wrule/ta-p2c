@@ -101,11 +101,6 @@ void indicators(
   if (Stable_Point < k_num) {
     Stable_Point = k_num;
   }
-
-  // printf("%d\n", Stable_Point);
-  // for (int i = 0; i < 100; ++i) {
-  //   printf("%d %lf %lf %lf\n", i, Indexs[2][i], Indexs[4][i], Indexs[3][i]);
-  // }
 }
 
 // 策略
@@ -138,10 +133,7 @@ void strategy(int cur) {
 
 // 测试器
 void tester() {
-  const int fast = 5;
-  const int slow = 10;
-  const int size = 25;
-  const int k_num = 17;
+  const int fast = 5, slow = 10, size = 25, k_num = 17;
   indicators(fast, slow, size, k_num);
   backing_test(1);
   printf(
@@ -158,6 +150,7 @@ void finder() {
 
 }
 
+// 主函数
 int main() {
   tester();
   return 0;
