@@ -55,16 +55,6 @@ void reset_backing_test() {
   Funds_Buy = 0.0;
   Win_Count = 0;
   Loss_Count = 0;
-  x_queue_end = 0;
-}
-
-/**
- * @brief
- * 用于查找器的状态重置
- */
-void reset_finder() {
-  reset_backing_test();
-  Funds_Max = 0.0;
 }
 
 /**
@@ -72,10 +62,9 @@ void reset_finder() {
  * 设置估值
  * @param cur 当前蜡烛索引
  * @param price 当前价格
- * @param index 存储区域索引
  */
-void set_valuation(int cur, double price, int index) {
-  Indexs[index][cur] = Assets * price + Funds;
+void set_valuation(int cur, double price) {
+  Indexs[Valuation_Index][cur] = Assets * price + Funds;
 }
 
 

@@ -37,10 +37,9 @@ int Loss_Count = 0;
 
 void strategy(int cur);
 void finder();
-void set_valuation(int cur, double price, int index);
+void set_valuation(int cur, double price);
 void save_valuation();
 void reset_backing_test();
-void reset_finder();
 
 #pragma region 基础函数
 /**
@@ -178,7 +177,7 @@ void backing_test(int valuation) {
       strategy(cur);
     }
     if (valuation) {
-      set_valuation(cur, Close[cur], Valuation_Index);
+      set_valuation(cur, Close[cur]);
     }
   }
 }
@@ -188,7 +187,6 @@ void backing_test(int valuation) {
  * 查找
  */
 void find() {
-  reset_finder();
   printf("Finder开始...\n");
   time_t op = time(NULL);
   finder();
