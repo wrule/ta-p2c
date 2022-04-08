@@ -27,8 +27,6 @@ double Assets = 0.0;
 double Fee = 0.9985;
 // 上一次购买资金
 double Funds_Buy = 0.0;
-// 历史最大资金
-double Funds_Max = 0.0;
 // 盈利交易计数
 int Win_Count = 0;
 // 亏损交易计数
