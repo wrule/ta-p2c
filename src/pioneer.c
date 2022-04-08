@@ -46,22 +46,22 @@ double x_queue_high(int size) {
 #pragma endregion
 
 void init_hist() {
-  Time = malloc(sizeof(unsigned long) * HistLen);
-  Open = malloc(sizeof(double) * HistLen);
-  High = malloc(sizeof(double) * HistLen);
-  Low = malloc(sizeof(double) * HistLen);
-  Close = malloc(sizeof(double) * HistLen);
-  Volume = malloc(sizeof(double) * HistLen);
+  Time = malloc(sizeof(unsigned long) * Hist_Len);
+  Open = malloc(sizeof(double) * Hist_Len);
+  High = malloc(sizeof(double) * Hist_Len);
+  Low = malloc(sizeof(double) * Hist_Len);
+  Close = malloc(sizeof(double) * Hist_Len);
+  Volume = malloc(sizeof(double) * Hist_Len);
 }
 
 void init_indexs(int size) {
   for (int i = 0; i < size; ++i) {
-    Indexs[i] = malloc(sizeof(double) * HistLen);
+    Indexs[i] = malloc(sizeof(double) * Hist_Len);
   }
 }
 
 void init(int len, int index_size) {
-  HistLen = len;
+  Hist_Len = len;
   init_hist();
   init_indexs(index_size);
 }
@@ -175,8 +175,8 @@ int sell(double price) {
  */
 void backing_test(int valuation) {
   reset_backing_test();
-  for (int cur = 0; cur < HistLen; ++cur) {
-    if (cur == HistLen - 1) {
+  for (int cur = 0; cur < Hist_Len; ++cur) {
+    if (cur == Hist_Len - 1) {
       sell(Close[cur]);
       break;
     }
@@ -230,7 +230,7 @@ void indicators(
     &Indexs[1][macd_start],
     &Indexs[2][macd_start]
   };
-  ti_macd(HistLen, macd_inputs, macd_options, macd_outputs);
+  ti_macd(Hist_Len, macd_inputs, macd_options, macd_outputs);
 
   Stable_Point = macd_start + 1;
 
@@ -239,7 +239,7 @@ void indicators(
   const double * atr_inputs[] = { High, Low, Close };
   const int atr_start = ti_atr_start(atr_options);
   double * atr_outputs[] = { &Indexs[4][atr_start] };
-  ti_atr(HistLen, atr_inputs, atr_options, atr_outputs);
+  ti_atr(Hist_Len, atr_inputs, atr_options, atr_outputs);
 
   if (Stable_Point < atr_start) {
     Stable_Point = atr_start;
@@ -249,7 +249,7 @@ void indicators(
   for (int i = 0; i < k_num; ++i) {
     Indexs[3][i] = -1.0;
   }
-  for (int i = k_num; i < HistLen; ++i) {
+  for (int i = k_num; i < Hist_Len; ++i) {
     double min = DBL_MAX;
     for (int h = i - k_num; h < i; ++h) {
       if (Low[h] < min) {
@@ -350,13 +350,13 @@ void save_valuation() {
   printf("存储估值曲线数据...\n");
   FILE * file = fopen("valuation.json", "w");
   fprintf(file, "[\n");
-  for (int i = 0; i < HistLen; ++i) {
+  for (int i = 0; i < Hist_Len; ++i) {
     fprintf(
       file,
       "  { \"type\": \"valuation\", \"x\": %lu, \"y\": %lf }%s\n",
       Time[i],
       Indexs[31][i],
-      i < HistLen - 1 ? "," : ""
+      i < Hist_Len - 1 ? "," : ""
     );
   }
   fprintf(file, "]\n");
@@ -369,7 +369,7 @@ void save_valuation() {
  * @param size 计算尺度
  */
 void sharpe_index(int size) {
-  for (int i = size - 1; i < HistLen; ++i) {
+  for (int i = size - 1; i < Hist_Len; ++i) {
 
   }
 }
