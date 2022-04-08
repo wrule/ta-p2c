@@ -1,4 +1,4 @@
 #!/bin/bash
 rm pioneer.so
-gcc -Ofast -shared -o pioneer.so src/t07.c src/tiamalgamation.c
+gcc -O3 -shared -o pioneer.so src/t07.c src/tiamalgamation.c -fPIC
 ./dev.py
