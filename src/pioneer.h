@@ -15,7 +15,7 @@ double * Low;
 double * Close;
 double * Volume;
 double * Indexs[INDEXS_SIZE];
-int StablePoint = 0;
+int Stable_Point = 0;
 // 初始资金
 double init_funds = 100.0;
 // 实时资金

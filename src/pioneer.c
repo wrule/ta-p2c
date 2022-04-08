@@ -185,7 +185,7 @@ void backing_test(int valuation) {
       sell(Close[cur]);
       break;
     }
-    if (cur >= StablePoint) {
+    if (cur >= Stable_Point) {
       strategy(cur);
     }
     if (valuation) {
@@ -237,7 +237,7 @@ void indicators(
   };
   ti_macd(HistLen, macd_inputs, macd_options, macd_outputs);
 
-  StablePoint = macd_start + 1;
+  Stable_Point = macd_start + 1;
 
   // ATR指标生成
   const double atr_options[] = { 5 };
@@ -246,8 +246,8 @@ void indicators(
   double * atr_outputs[] = { &Indexs[4][atr_start] };
   ti_atr(HistLen, atr_inputs, atr_options, atr_outputs);
 
-  if (StablePoint < atr_start) {
-    StablePoint = atr_start;
+  if (Stable_Point < atr_start) {
+    Stable_Point = atr_start;
   }
 
   // 离场指标生成
@@ -272,11 +272,11 @@ void indicators(
     }
   }
 
-  if (StablePoint < k_num) {
-    StablePoint = k_num;
+  if (Stable_Point < k_num) {
+    Stable_Point = k_num;
   }
 
-  // printf("%d\n", StablePoint);
+  // printf("%d\n", Stable_Point);
   // for (int i = 0; i < 100; ++i) {
   //   printf("%d %lf %lf %lf\n", i, Indexs[2][i], Indexs[4][i], Indexs[3][i]);
   // }
