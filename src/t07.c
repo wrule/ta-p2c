@@ -115,7 +115,7 @@ void strategy(int cur) {
     (Indexs[2][cur] > 0 && Indexs[2][cur - 1] <= 0) ||
     (Indexs[2][cur] < 0 && Indexs[2][cur - 1] >= 0)
   ) {
-    x_queue_push(cur, High[cur], Indexs[4][cur]);
+    x_queue_push(cur, High[cur], Indexs[ATR_LINE][cur]);
   }
   // 入场
   const double high = x_queue_high(3);
