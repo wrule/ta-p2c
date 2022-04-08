@@ -147,6 +147,38 @@ void reset_backing_test() {
 void set_valuation(int cur, double price) {
   Indexs[Valuation_Index][cur] = Assets * price + Funds;
 }
+
+/**
+ * @brief
+ * 存储估值曲线数据
+ */
+void save_valuation() {
+  printf("存储估值曲线数据...\n");
+  FILE * file = fopen("valuation.json", "w");
+  fprintf(file, "[\n");
+  for (int i = 0; i < Hist_Len; ++i) {
+    fprintf(
+      file,
+      "  { \"type\": \"valuation\", \"x\": %lu, \"y\": %lf }%s\n",
+      Time[i],
+      Indexs[Valuation_Index][i],
+      i < Hist_Len - 1 ? "," : ""
+    );
+  }
+  fprintf(file, "]\n");
+  fclose(file);
+}
+
+/**
+ * @brief
+ * 根据资金曲线计算夏普率
+ * @param size 计算尺度
+ */
+void sharpe_index(int size) {
+  for (int i = size - 1; i < Hist_Len; ++i) {
+
+  }
+}
 #pragma endregion
 
 #pragma region 交易函数

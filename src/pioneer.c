@@ -45,8 +45,6 @@ double x_queue_high(int size) {
 }
 #pragma endregion
 
-
-// 用户代码 ----------------------------------------------------------------
 // 指标
 void indicators(
   int fast,
@@ -139,28 +137,7 @@ void strategy(int cur) {
 }
 // 查找器
 void finder() {
-  double max_rate = 0.0;
-  for (int fast = 8; fast < 100; ++fast) {
-    printf("# %d...\n", fast);
-    for (int slow = fast + 1; slow < 100; ++slow) {
-      for (int size = 2; size < 100; ++size) {
-        for (int k_num = 2; k_num < 100; ++k_num) {
-          indicators(fast, slow, size, k_num);
-          backing_test(0);
-          const double cur_rate = 100.0 * Win_Count / (Win_Count + Loss_Count);
-          if (cur_rate > max_rate) {
-            max_rate = cur_rate;
-            printf(
-              "$ %lf [%d %d %d %d] {%d %d:%d %lf}\n",
-              Funds,
-              fast, slow, size, k_num,
-              Win_Count + Loss_Count, Win_Count, Loss_Count, 100.0 * Win_Count / (Win_Count + Loss_Count)
-            );
-          }
-        }
-      }
-    }
-  }
+
 }
 
 void test() {
@@ -177,32 +154,4 @@ void test() {
     Win_Count + Loss_Count, Win_Count, Loss_Count, 100.0 * Win_Count / (Win_Count + Loss_Count)
   );
   save_valuation();
-}
-
-void save_valuation() {
-  printf("存储估值曲线数据...\n");
-  FILE * file = fopen("valuation.json", "w");
-  fprintf(file, "[\n");
-  for (int i = 0; i < Hist_Len; ++i) {
-    fprintf(
-      file,
-      "  { \"type\": \"valuation\", \"x\": %lu, \"y\": %lf }%s\n",
-      Time[i],
-      Indexs[Valuation_Index][i],
-      i < Hist_Len - 1 ? "," : ""
-    );
-  }
-  fprintf(file, "]\n");
-  fclose(file);
-}
-
-/**
- * @brief
- * 根据资金曲线计算夏普率
- * @param size 计算尺度
- */
-void sharpe_index(int size) {
-  for (int i = size - 1; i < Hist_Len; ++i) {
-
-  }
 }
