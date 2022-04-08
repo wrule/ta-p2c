@@ -39,6 +39,7 @@ void finder();
 void set_valuation(int cur, double price, int index);
 void save_valuation();
 
+#pragma region 基础函数
 /**
  * @brief
  * 初始化OHLCV数据的存储空间
@@ -119,3 +120,4 @@ void show_ohlcv(int index) {
     Volume[index]
   );
 }
+#pragma endregion
