@@ -121,7 +121,7 @@ void show_ohlcv(int index) {
  * 用于回测的状态重置
  */
 void reset_backing_test() {
-  funds = init_funds;
+  funds = Init_Funds;
   assets = 0.0;
   funds_buy = 0.0;
   win_count = 0;
