@@ -27,8 +27,28 @@ void x_queue_show_tail(int size) {
     );
   }
 }
-double x_queue_high(int size) {
-  int start = x_queue_end - size;
+double x_queue_high(int cur, int x_num, int bar_num) {
+  // int i = 0;
+  // double max = DBL_MIN;
+  // double max_atr = 0.0;
+  // for (; i < x_num; ++i) {
+  //   const int x_index = x_queue_end - 1 - i;
+  //   if (x_index < 0) {
+  //     break;
+  //   }
+  //   if (cur - x_queue[x_index][0] > bar_num) {
+  //     break;
+  //   }
+  //   if (x_queue[x_index][1] > max) {
+  //     max = x_queue[x_index][1];
+  //     max_atr = x_queue[x_index][2];
+  //   }
+  // }
+  // if (i == x_num) {
+  //   return max + max_atr * 0.5;
+  // }
+  // return DBL_MAX;
+  int start = x_queue_end - x_num;
   if (start < 0) {
     start = 0;
   }
@@ -116,7 +136,7 @@ void strategy(int cur) {
     x_queue_push(cur, High[cur], Indexs[ATR_LINE][cur]);
   }
   // 入场
-  const double high = x_queue_high(Queue_Size);
+  const double high = x_queue_high(cur, Queue_Size, 100000);
   if (High[cur] > high) {
     if (Open[cur] > high) {
       buy(Open[cur]);
