@@ -221,7 +221,7 @@ void save_valuation() {
       file,
       "  { \"type\": \"valuation\", \"x\": %lu, \"y\": %lf }%s\n",
       Time[i],
-      Indexs[31][i],
+      Indexs[Valuation_Index][i],
       i < Hist_Len - 1 ? "," : ""
     );
   }

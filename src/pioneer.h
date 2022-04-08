@@ -9,6 +9,7 @@
 
 int Hist_Len = 0;
 int Indexs_Size = 0;
+int Valuation_Index = 0;
 unsigned long * Time;
 double * Open;
 double * High;
@@ -74,6 +75,7 @@ void init_indexs() {
 void init(int hist_len, int indexs_size) {
   Hist_Len = hist_len;
   Indexs_Size = indexs_size;
+  Valuation_Index = Indexs_Size - 1;
   init_hist();
   init_indexs();
 }
@@ -176,7 +178,7 @@ void backing_test(int valuation) {
       strategy(cur);
     }
     if (valuation) {
-      set_valuation(cur, Close[cur], 31);
+      set_valuation(cur, Close[cur], Valuation_Index);
     }
   }
 }
