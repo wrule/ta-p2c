@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <time.h>
-#include "/usr/local/include/ta-lib/ta_libc.h"
+#include <float.h>
 #include "indicators.h"
 
 #define INDEXS_SIZE 1024
