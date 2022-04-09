@@ -6,6 +6,7 @@
         "string_view": "c",
         "indicators.h": "c",
         "atomic": "c",
-        "bitset": "c"
+        "bitset": "c",
+        "algorithm": "c"
     }
 }

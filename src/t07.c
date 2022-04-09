@@ -72,6 +72,7 @@ double x_queue_high(int cur, int x_num, int bar_num) {
 #define LEAVE_LINE 4
 
 int Queue_Size = 3;
+int Bar_Max = 100;
 
 // 填充指标
 void indicators(
@@ -136,7 +137,7 @@ void strategy(int cur) {
     x_queue_push(cur, High[cur], Indexs[ATR_LINE][cur]);
   }
   // 入场
-  const double high = x_queue_high(cur, Queue_Size, 1e6);
+  const double high = x_queue_high(cur, Queue_Size, Bar_Max);
   if (High[cur] > high) {
     if (Open[cur] > high) {
       buy(Open[cur]);
@@ -165,11 +166,34 @@ void tester() {
 
 // 查找器
 void finder() {
-
+  double funds_max = DBL_MIN;
+  for (int fast = 2; fast < 100; ++fast) {
+    for (int slow = fast + 1; slow < 100; ++slow) {
+      for (int size = 2; size < 100; ++size) {
+        for (int atr = 2; atr < 100; ++atr) {
+          for (int k_num = 2; k_num < 100; ++k_num) {
+            for (int q_size = 2; q_size < 100; ++q_size) {
+              Queue_Size = q_size;
+              for (int bar_size = 2; bar_size < 100; ++bar_size) {
+                Bar_Max = bar_size;
+                indicators(fast, slow, size, atr, k_num);
+                backing_test(0);
+                if (Funds > funds_max) {
+                  funds_max = Funds;
+                  printf("%d %d %d %d %d %d %d\n", fast, slow, size, atr, k_num, q_size, bar_size);
+                  print_state();
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 // 主函数
 int main() {
-  test();
+  find();
   return 0;
 }
