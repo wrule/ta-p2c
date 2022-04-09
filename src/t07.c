@@ -136,7 +136,7 @@ void strategy(int cur) {
     x_queue_push(cur, High[cur], Indexs[ATR_LINE][cur]);
   }
   // 入场
-  const double high = x_queue_high(cur, Queue_Size, 80);
+  const double high = x_queue_high(cur, Queue_Size, 1e6);
   if (High[cur] > high) {
     if (Open[cur] > high) {
       buy(Open[cur]);
