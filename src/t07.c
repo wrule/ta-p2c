@@ -157,8 +157,10 @@ void strategy(int cur) {
 
 // 测试器
 void tester() {
-  const int fast = 5, slow = 10, size = 25, k_num = 17;
-  indicators(fast, slow, size, 5, k_num);
+  const int fast = 5, slow = 10, size = 25, atr = 4, k_num = 17;
+  Queue_Size = 3;
+  Bar_Max = 39;
+  indicators(fast, slow, size, atr, k_num);
   backing_test(1);
   save_valuation();
   print_state();
@@ -171,10 +173,10 @@ void finder() {
     for (int slow = 10; slow < 11; ++slow) {
       for (int size = 25; size < 26; ++size) {
         for (int atr = 2; atr < 50; ++atr) {
-          for (int k_num = 17; k_num < 18; ++k_num) {
-            for (int q_size = 1; q_size < 5; ++q_size) {
+          for (int k_num = 2; k_num < 200; ++k_num) {
+            for (int q_size = 1; q_size < 6; ++q_size) {
               Queue_Size = q_size;
-              for (int bar_size = 50; bar_size < 200; ++bar_size) {
+              for (int bar_size = 20; bar_size < 200; ++bar_size) {
                 Bar_Max = bar_size;
                 indicators(fast, slow, size, atr, k_num);
                 x_queue_end = 0;
