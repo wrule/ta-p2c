@@ -167,16 +167,17 @@ void tester() {
 // 查找器
 void finder() {
   double funds_max = DBL_MIN;
-  for (int fast = 2; fast < 100; ++fast) {
-    for (int slow = fast + 1; slow < 100; ++slow) {
-      for (int size = 2; size < 100; ++size) {
-        for (int atr = 2; atr < 100; ++atr) {
-          for (int k_num = 2; k_num < 100; ++k_num) {
-            for (int q_size = 2; q_size < 100; ++q_size) {
+  for (int fast = 5; fast < 6; ++fast) {
+    for (int slow = 10; slow < 11; ++slow) {
+      for (int size = 25; size < 26; ++size) {
+        for (int atr = 2; atr < 50; ++atr) {
+          for (int k_num = 17; k_num < 18; ++k_num) {
+            for (int q_size = 1; q_size < 5; ++q_size) {
               Queue_Size = q_size;
-              for (int bar_size = 2; bar_size < 100; ++bar_size) {
+              for (int bar_size = 50; bar_size < 200; ++bar_size) {
                 Bar_Max = bar_size;
                 indicators(fast, slow, size, atr, k_num);
+                x_queue_end = 0;
                 backing_test(0);
                 if (Funds > funds_max) {
                   funds_max = Funds;
