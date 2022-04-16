@@ -166,6 +166,7 @@ void tester() {
   indicators(fast, slow, size, atr, k_num);
   backing_test(1);
   save_valuation();
+  save_report();
   print_state();
 }
 

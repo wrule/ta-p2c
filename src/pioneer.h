@@ -169,6 +169,27 @@ void save_valuation() {
 
 /**
  * @brief
+ * 存储报告
+ */
+void save_report() {
+  printf("存储报告...\n");
+  FILE * file = fopen("report.json", "w");
+  fprintf(file, "[\n");
+  // for (int i = 0; i < Hist_Len; ++i) {
+  //   fprintf(
+  //     file,
+  //     "  { \"type\": \"valuation\", \"x\": %lu, \"y\": %lf }%s\n",
+  //     Time[i],
+  //     Indexs[Valuation_Index][i],
+  //     i < Hist_Len - 1 ? "," : ""
+  //   );
+  // }
+  fprintf(file, "]\n");
+  fclose(file);
+}
+
+/**
+ * @brief
  * 输出交易状态信息
  */
 void print_state() {
