@@ -177,7 +177,17 @@ void save_report() {
   fprintf(file, "[\n");
   for (int i = 0; i < Hist_Len; ++i) {
     fprintf(file, "  { ");
-    fprintf(file, " }%s\n", i < Hist_Len - 1 ? "," : "");
+    fprintf(file, "\"time\": %ld, ", Time[i]);
+    fprintf(file, "\"open\": %lf, ", Open[i]);
+    fprintf(file, "\"high\": %lf, ", High[i]);
+    fprintf(file, "\"low\": %lf, ", Low[i]);
+    fprintf(file, "\"close\": %lf, ", Close[i]);
+    fprintf(file, "\"volume\": %lf, ", Volume[i]);
+    fprintf(file, "\"buy\": %lf, ", Volume[i]);
+    fprintf(file, "\"sell\": %lf, ", Volume[i]);
+    fprintf(file, "\"valuation\": %lf, ", Volume[i]);
+    fprintf(file, "\"__\": 0 ");
+    fprintf(file, "}%s\n", i < Hist_Len - 1 ? "," : "");
     // fprintf(
     //   file,
     //   "  { \"type\": \"valuation\", \"x\": %lu, \"y\": %lf }%s\n",
