@@ -175,15 +175,17 @@ void save_report() {
   printf("存储报告...\n");
   FILE * file = fopen("report.json", "w");
   fprintf(file, "[\n");
-  // for (int i = 0; i < Hist_Len; ++i) {
-  //   fprintf(
-  //     file,
-  //     "  { \"type\": \"valuation\", \"x\": %lu, \"y\": %lf }%s\n",
-  //     Time[i],
-  //     Indexs[Valuation_Index][i],
-  //     i < Hist_Len - 1 ? "," : ""
-  //   );
-  // }
+  for (int i = 0; i < Hist_Len; ++i) {
+    fprintf(file, "  { ");
+    fprintf(file, " }%s\n", i < Hist_Len - 1 ? "," : "");
+    // fprintf(
+    //   file,
+    //   "  { \"type\": \"valuation\", \"x\": %lu, \"y\": %lf }%s\n",
+    //   Time[i],
+    //   Indexs[Valuation_Index][i],
+    //   i < Hist_Len - 1 ? "," : ""
+    // );
+  }
   fprintf(file, "]\n");
   fclose(file);
 }
