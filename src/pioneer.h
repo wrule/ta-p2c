@@ -178,15 +178,15 @@ void save_report() {
   for (int i = 0; i < Hist_Len; ++i) {
     fprintf(file, "  { ");
     fprintf(file, "\"time\": %ld, ", Time[i]);
+    fprintf(file, "\"valuation\": %lf, ", Volume[i]);
     fprintf(file, "\"open\": %lf, ", Open[i]);
     fprintf(file, "\"high\": %lf, ", High[i]);
     fprintf(file, "\"low\": %lf, ", Low[i]);
     fprintf(file, "\"close\": %lf, ", Close[i]);
     fprintf(file, "\"volume\": %lf, ", Volume[i]);
+    // 这里调用用户自定义的代码
     fprintf(file, "\"buy\": %lf, ", Volume[i]);
-    fprintf(file, "\"sell\": %lf, ", Volume[i]);
-    fprintf(file, "\"valuation\": %lf, ", Volume[i]);
-    fprintf(file, "\"__\": 0 ");
+    fprintf(file, "\"sell\": %lf ", Volume[i]);
     fprintf(file, "}%s\n", i < Hist_Len - 1 ? "," : "");
     // fprintf(
     //   file,
