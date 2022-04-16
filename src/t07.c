@@ -93,6 +93,9 @@ void indicators(
   };
   ti_macd(Hist_Len, macd_inputs, macd_options, macd_outputs);
   Stable_Point = macd_start + 1;
+  for (int i = 0; i < 100; ++i) {
+    printf("%d %lf %lf %lf %lf\n", i, Close[i], Indexs[FAST_LINE][i], Indexs[SLOW_LINE][i], Indexs[MACD_LINE][i]);
+  }
 
   // ATR指标生成
   const double atr_options[] = { atr };
@@ -197,6 +200,6 @@ void finder() {
 
 // 主函数
 int main() {
-  find();
+  test();
   return 0;
 }
