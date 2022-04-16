@@ -8,7 +8,9 @@
 
 int Hist_Len = 0;
 int Indexs_Size = 0;
-int Valuation_Index = 0;
+int Valuation_Index = -1;
+int Buy_Index = -1;
+int Sell_Index = -1;
 unsigned long * Time;
 double * Open;
 double * High;
@@ -58,7 +60,7 @@ void init_hist() {
  * 初始化指标数据的存储空间
  */
 void init_indexs() {
-  for (int i = 0; i < Indexs_Size; ++i) {
+  for (int i = 0; i < Indexs_Size + 3; ++i) {
     Indexs[i] = malloc(sizeof(double) * Hist_Len);
   }
 }
@@ -72,7 +74,9 @@ void init_indexs() {
 void init(int hist_len, int indexs_size) {
   Hist_Len = hist_len;
   Indexs_Size = indexs_size;
-  Valuation_Index = Indexs_Size - 1;
+  Buy_Index = Indexs_Size;
+  Sell_Index = Indexs_Size + 1;
+  Valuation_Index = Indexs_Size + 2;
   init_hist();
   init_indexs();
 }
