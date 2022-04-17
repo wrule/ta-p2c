@@ -248,6 +248,7 @@ int buy(double price, int cur) {
     Assets = Funds / price * Fee;
     Funds_Buy = Funds;
     Funds = 0;
+    Indexs[Buy_Index][cur] = 1;
     return 0;
   }
   return 1;
@@ -268,6 +269,7 @@ int sell(double price, int cur) {
       Loss_Count++;
     }
     Assets = 0;
+    Indexs[Sell_Index][cur] = 1;
     return 0;
   }
   return 1;
