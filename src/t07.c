@@ -143,9 +143,9 @@ void strategy(int cur) {
   const double high = x_queue_high(cur, Queue_Size, Bar_Max);
   if (High[cur] > high) {
     if (Open[cur] > high) {
-      buy(Open[cur]);
+      buy(Open[cur], cur);
     } else {
-      buy(high);
+      buy(high, cur);
     }
     return;
   }
@@ -153,7 +153,7 @@ void strategy(int cur) {
   if (
     Indexs[LEAVE_LINE][cur] > 0
   ) {
-    sell(Indexs[LEAVE_LINE][cur]);
+    sell(Indexs[LEAVE_LINE][cur], cur);
     return;
   }
 }

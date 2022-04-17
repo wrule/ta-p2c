@@ -243,7 +243,7 @@ void sharpe_index(int size) {
  * @param price 购买价格
  * @return int 成功：0，失败：1
  */
-int buy(double price) {
+int buy(double price, int cur) {
   if (Assets == 0) {
     Assets = Funds / price * Fee;
     Funds_Buy = Funds;
@@ -259,7 +259,7 @@ int buy(double price) {
  * @param price 销售价格
  * @return int 成功：0，失败：1
  */
-int sell(double price) {
+int sell(double price, int cur) {
   if (Funds == 0) {
     Funds = Assets * price * Fee;
     if (Funds >= Funds_Buy) {
@@ -281,7 +281,7 @@ void backing_test(int valuation) {
   reset_backing_test();
   for (int cur = 0; cur < Hist_Len; ++cur) {
     if (cur == Hist_Len - 1) {
-      sell(Close[cur]);
+      sell(Close[cur], cur);
       break;
     }
     if (cur >= Stable_Point) {
