@@ -159,7 +159,11 @@ void strategy(int cur) {
 }
 
 void custom_report(FILE * file, int index) {
-  fprintf(file, "\"haha\": %lf, ", Volume[index]);
+  fprintf(file, "\"FAST\": %lf, ", Indexs[FAST_LINE][index]);
+  fprintf(file, "\"SLOW\": %lf, ", Indexs[SLOW_LINE][index]);
+  fprintf(file, "\"MACD\": %lf, ", Indexs[MACD_LINE][index]);
+  fprintf(file, "\"ATR\": %lf, ", Indexs[ATR_LINE][index]);
+  fprintf(file, "\"LEAVE\": %lf, ", Indexs[LEAVE_LINE][index]);
 }
 
 // 测试器
