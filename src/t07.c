@@ -158,6 +158,10 @@ void strategy(int cur) {
   }
 }
 
+void custom_report(FILE * file, int index) {
+  fprintf(file, "\"haha\": %lf, ", Volume[index]);
+}
+
 // 测试器
 void tester() {
   const int fast = 5, slow = 10, size = 25, atr = 4, k_num = 17;
@@ -166,7 +170,7 @@ void tester() {
   indicators(fast, slow, size, atr, k_num);
   backing_test(1);
   save_valuation();
-  save_report();
+  save_report(custom_report);
   print_state();
 }
 

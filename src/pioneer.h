@@ -175,7 +175,7 @@ void save_valuation() {
  * @brief
  * 存储报告
  */
-void save_report() {
+void save_report(void (* custom_report)(FILE * file, int index)) {
   printf("存储报告...\n");
   FILE * file = fopen("report.json", "w");
   fprintf(file, "[\n");
@@ -188,7 +188,9 @@ void save_report() {
     fprintf(file, "\"low\": %lf, ", Low[i]);
     fprintf(file, "\"close\": %lf, ", Close[i]);
     fprintf(file, "\"volume\": %lf, ", Volume[i]);
-    // 这里调用用户自定义的代码
+    if (custom_report != NULL) {
+      custom_report(file, i);
+    }
     fprintf(file, "\"buy\": %lf, ", Indexs[Buy_Index][i]);
     fprintf(file, "\"sell\": %lf ", Indexs[Sell_Index][i]);
     fprintf(file, "}%s\n", i < Hist_Len - 1 ? "," : "");
