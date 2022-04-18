@@ -205,8 +205,16 @@ void save_report(void (* custom_report)(FILE * file, int index)) {
     if (custom_report != NULL) {
       custom_report(file, i);
     }
-    fprintf(file, "\"buy\": %lf, ", Indexs[Buy_Index][i]);
-    fprintf(file, "\"sell\": %lf ", Indexs[Sell_Index][i]);
+    if (Indexs[Buy_Index][i] > 0) {
+      fprintf(file, "\"buy\": %lf, ", Indexs[Buy_Index][i]);
+    } else {
+      fprintf(file, "\"buy\": null, ");
+    }
+    if (Indexs[Sell_Index][i] > 0) {
+      fprintf(file, "\"sell\": %lf ", Indexs[Sell_Index][i]);
+    } else {
+      fprintf(file, "\"sell\": null ");
+    }
     fprintf(file, "}%s\n", i < Hist_Len - 1 ? "," : "");
     // fprintf(
     //   file,
