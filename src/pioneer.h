@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <float.h>
+#include <string.h>
+#include <time.h>
 #include "indicators.h"
 
 #define INDEXS_SIZE 1024
@@ -64,6 +65,16 @@ void init_hist() {
 void init_indexs() {
   for (int i = 0; i < Indexs_Size + 3; ++i) {
     Indexs[i] = malloc(sizeof(double) * Hist_Len);
+  }
+}
+
+/**
+ * @brief
+ * 初始化指标数据的值为0
+ */
+void init_indexs_value() {
+  for (int i = 0; i < Indexs_Size + 3; ++i) {
+    memset(Indexs[i], 0, sizeof(double) * Hist_Len);
   }
 }
 
