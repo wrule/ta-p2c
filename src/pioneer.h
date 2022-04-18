@@ -318,10 +318,12 @@ void backing_test() {
  * 测试
  */
 void test() {
+  printf("回测开始...\n");
   Report_Mode = 1;
   init_indexs_value();
   tester();
   backing_test();
+  printf("回测结束\n");
   save_report(custom_report);
   print_state();
 }
