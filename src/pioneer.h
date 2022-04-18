@@ -285,7 +285,7 @@ int sell(double price, int cur) {
  * @brief
  * 回测
  */
-void backing_test(int valuation) {
+void backing_test() {
   reset_backing_test();
   for (int cur = 0; cur < Hist_Len; ++cur) {
     if (cur == Hist_Len - 1) {
@@ -295,7 +295,7 @@ void backing_test(int valuation) {
     if (cur >= Stable_Point) {
       strategy(cur);
     }
-    if (valuation) {
+    if (Report_Mode) {
       set_valuation(cur, Close[cur]);
     }
   }
@@ -306,6 +306,7 @@ void backing_test(int valuation) {
  * 测试
  */
 void test() {
+  Report_Mode = 1;
   tester();
 }
 
@@ -314,6 +315,7 @@ void test() {
  * 查找
  */
 void find() {
+  Report_Mode = 0;
   printf("Finder开始...\n");
   time_t op = time(NULL);
   finder();

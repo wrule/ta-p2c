@@ -172,8 +172,7 @@ void tester() {
   Queue_Size = 3;
   Bar_Max = 39;
   indicators(fast, slow, size, atr, k_num);
-  backing_test(1);
-  save_valuation();
+  backing_test();
   save_report(custom_report);
   print_state();
 }
@@ -192,7 +191,7 @@ void finder() {
                 Bar_Max = bar_size;
                 indicators(fast, slow, size, atr, k_num);
                 x_queue_end = 0;
-                backing_test(0);
+                backing_test();
                 if (Funds > funds_max) {
                   funds_max = Funds;
                   printf("%d %d %d %d %d %d %d\n", fast, slow, size, atr, k_num, q_size, bar_size);
