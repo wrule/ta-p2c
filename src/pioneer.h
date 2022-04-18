@@ -210,7 +210,7 @@ void save_report(void (* custom_report)(FILE * file, int index)) {
       fprintf(file, "\"buy\": %lf, ", Indexs[Buy_Index][i]);
     }
     if (Indexs[Sell_Index][i] > 0) {
-      fprintf(file, "\"sell\": %lf ", Indexs[Sell_Index][i]);
+      fprintf(file, "\"sell\": %lf, ", Indexs[Sell_Index][i]);
     }
     fprintf(file, "\"volume\": %lf ", Volume[i]);
     fprintf(file, "}%s\n", i < Hist_Len - 1 ? "," : "");
