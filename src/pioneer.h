@@ -8,9 +8,11 @@
 
 int Hist_Len = 0;
 int Indexs_Size = 0;
-int Valuation_Index = -1;
 int Buy_Index = -1;
 int Sell_Index = -1;
+int Valuation_Index = -1;
+int Report_Mode = 0;
+
 unsigned long * Time;
 double * Open;
 double * High;
@@ -248,7 +250,9 @@ int buy(double price, int cur) {
     Assets = Funds / price * Fee;
     Funds_Buy = Funds;
     Funds = 0;
-    Indexs[Buy_Index][cur] = price;
+    if (Report_Mode) {
+      Indexs[Buy_Index][cur] = price;
+    }
     return 0;
   }
   return 1;
@@ -269,7 +273,9 @@ int sell(double price, int cur) {
       Loss_Count++;
     }
     Assets = 0;
-    Indexs[Sell_Index][cur] = price;
+    if (Report_Mode) {
+      Indexs[Sell_Index][cur] = price;
+    }
     return 0;
   }
   return 1;
