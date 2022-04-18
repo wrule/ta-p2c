@@ -198,8 +198,6 @@ void save_report(void (* custom_report)(FILE * file, int index)) {
     fprintf(file, "\"time\": %ld, ", Time[i]);
     if (Indexs[Valuation_Index][i] > 0) {
       fprintf(file, "\"valuation\": %lf, ", Indexs[Valuation_Index][i]);
-    } else {
-      fprintf(file, "\"valuation\": null, ");
     }
     fprintf(file, "\"open\": %lf, ", Open[i]);
     fprintf(file, "\"high\": %lf, ", High[i]);
@@ -211,13 +209,9 @@ void save_report(void (* custom_report)(FILE * file, int index)) {
     }
     if (Indexs[Buy_Index][i] > 0) {
       fprintf(file, "\"buy\": %lf, ", Indexs[Buy_Index][i]);
-    } else {
-      fprintf(file, "\"buy\": null, ");
     }
     if (Indexs[Sell_Index][i] > 0) {
       fprintf(file, "\"sell\": %lf ", Indexs[Sell_Index][i]);
-    } else {
-      fprintf(file, "\"sell\": null ");
     }
     fprintf(file, "}%s\n", i < Hist_Len - 1 ? "," : "");
     // fprintf(
