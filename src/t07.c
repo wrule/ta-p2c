@@ -172,9 +172,6 @@ void tester() {
   Queue_Size = 3;
   Bar_Max = 39;
   indicators(fast, slow, size, atr, k_num);
-  backing_test();
-  save_report(custom_report);
-  print_state();
 }
 
 // 查找器

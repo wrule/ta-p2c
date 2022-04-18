@@ -43,6 +43,7 @@ void finder();
 void set_valuation(int cur, double price);
 void save_valuation();
 void reset_backing_test();
+void custom_report(FILE * file, int index);
 
 #pragma region 基础函数
 /**
@@ -318,7 +319,11 @@ void backing_test() {
  */
 void test() {
   Report_Mode = 1;
+  init_indexs_value();
   tester();
+  backing_test();
+  save_report(custom_report);
+  print_state();
 }
 
 /**
@@ -327,9 +332,9 @@ void test() {
  */
 void find() {
   Report_Mode = 0;
-  printf("Finder开始...\n");
+  printf("穷举器开始...\n");
   time_t op = time(NULL);
   finder();
-  printf("Finder完成 秒数 %ld\n", time(NULL) - op);
+  printf("穷举器完成 秒数 %ld\n", time(NULL) - op);
 }
 #pragma endregion
