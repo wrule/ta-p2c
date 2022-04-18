@@ -196,7 +196,11 @@ void save_report(void (* custom_report)(FILE * file, int index)) {
   for (int i = 0; i < Hist_Len; ++i) {
     fprintf(file, "  { ");
     fprintf(file, "\"time\": %ld, ", Time[i]);
-    fprintf(file, "\"valuation\": %lf, ", Indexs[Valuation_Index][i]);
+    if (Indexs[Valuation_Index][i] > 0) {
+      fprintf(file, "\"valuation\": %lf, ", Indexs[Valuation_Index][i]);
+    } else {
+      fprintf(file, "\"valuation\": null, ");
+    }
     fprintf(file, "\"open\": %lf, ", Open[i]);
     fprintf(file, "\"high\": %lf, ", High[i]);
     fprintf(file, "\"low\": %lf, ", Low[i]);
