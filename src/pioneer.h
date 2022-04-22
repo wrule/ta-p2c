@@ -36,7 +36,7 @@ int Valuation_Index = -1;
 int Report_Mode = 1;
 #pragma endregion
 
-
+#pragma region 历史时序数据
 unsigned long * Time;
 double * Open;
 double * High;
@@ -44,7 +44,10 @@ double * Low;
 double * Close;
 double * Volume;
 double * Indexs[INDEXS_SIZE];
+// 策略稳定点索引
 int Stable_Point = 0;
+#pragma endregion
+
 // 实时资金
 double Funds = 0.0;
 // 实时资产
