@@ -12,10 +12,13 @@
 #include <time.h>
 #include "indicators.h"
 
+#pragma region 编译时参数
 // 最大指标个数
 #define INDEXS_SIZE 1024
 // 初始资金
 #define INIT_FUNDS 100
+#pragma endregion
+
 
 // 历史时序数据长度
 int Hist_Len = 0;
