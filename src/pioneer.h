@@ -248,15 +248,16 @@ void print_state() {
  * @brief
  * 现货购买
  * @param price 购买价格
+ * @param index 蜡烛索引
  * @return int 成功：0，失败：1
  */
-int buy(double price, int cur) {
+int buy(double price, int index) {
   if (Assets == 0) {
-    Assets = Funds / price * Fee;
     Funds_Buy = Funds;
+    Assets = Funds / price * Fee;
     Funds = 0;
     if (Report_Mode) {
-      Indexs[Buy_Index][cur] = price;
+      Indexs[Buy_Index][index] = price;
     }
     return 0;
   }
