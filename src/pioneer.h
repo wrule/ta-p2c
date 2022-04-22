@@ -61,7 +61,7 @@ int Win_Count = 0;
 int Loss_Count = 0;
 #pragma endregion
 
-
+#pragma region 函数前向声明
 void strategy(int cur);
 void tester();
 void finder();
@@ -69,6 +69,7 @@ void set_valuation(int cur, double price);
 void save_valuation();
 void reset_backing_test();
 void custom_report(FILE * file, int index);
+#pragma endregion
 
 #pragma region 基础函数
 /**
