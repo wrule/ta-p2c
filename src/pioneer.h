@@ -66,7 +66,6 @@ void strategy(int cur);
 void tester();
 void finder();
 void set_valuation(int cur, double price);
-void save_valuation();
 void reset_backing_test();
 void custom_report(FILE * file, int index);
 #pragma endregion
