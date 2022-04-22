@@ -219,13 +219,6 @@ void save_report(void (* custom_report)(FILE * file, int index)) {
     }
     fprintf(file, "\"volume\": %lf ", Volume[i]);
     fprintf(file, "}%s\n", i < Hist_Len - 1 ? "," : "");
-    // fprintf(
-    //   file,
-    //   "  { \"type\": \"valuation\", \"x\": %lu, \"y\": %lf }%s\n",
-    //   Time[i],
-    //   Indexs[Valuation_Index][i],
-    //   i < Hist_Len - 1 ? "," : ""
-    // );
   }
   fprintf(file, "]\n");
   fclose(file);
