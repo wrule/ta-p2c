@@ -241,17 +241,6 @@ void print_state() {
     win_rate
   );
 }
-
-/**
- * @brief
- * 根据资金曲线计算夏普率
- * @param size 计算尺度
- */
-void sharpe_index(int size) {
-  for (int i = size - 1; i < Hist_Len; ++i) {
-
-  }
-}
 #pragma endregion
 
 #pragma region 交易函数
