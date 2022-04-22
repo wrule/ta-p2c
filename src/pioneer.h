@@ -188,7 +188,7 @@ void reset_backing_test() {
  * @param price 当前价格
  */
 void set_valuation(int cur, double price) {
-  Indexs[Valuation_Index][cur] = Assets * price + Funds;
+  Indexs[Valuation_Index][cur] = Assets * price * Fee + Funds;
 }
 
 /**
