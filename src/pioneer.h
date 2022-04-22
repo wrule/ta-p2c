@@ -74,7 +74,7 @@ void custom_report(FILE * file, int index);
 #pragma region 基础函数
 /**
  * @brief
- * 初始化OHLCV数据的存储空间
+ * 初始化时序数据的存储空间
  */
 void init_hist() {
   Time = malloc(sizeof(unsigned long) * Hist_Len);
@@ -108,7 +108,7 @@ void init_indexs_value() {
 /**
  * @brief
  * 初始化
- * @param hist_len OHLCV数据长度
+ * @param hist_len 时序数据长度
  * @param indexs_size 指标数据个数
  */
 void init(int hist_len, int indexs_size) {
@@ -123,7 +123,7 @@ void init(int hist_len, int indexs_size) {
 
 /**
  * @brief
- * 设置OHLCV数据
+ * 设置时序数据
  * @param index 索引
  * @param time 时间
  * @param open 开盘价
@@ -151,7 +151,7 @@ void set_ohlcv(
 
 /**
  * @brief
- * 显示OHLCV数据
+ * 显示时序数据
  * @param index 数据索引
  */
 void show_ohlcv(int index) {
