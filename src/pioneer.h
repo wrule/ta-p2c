@@ -48,6 +48,7 @@ double * Indexs[INDEXS_SIZE];
 int Stable_Point = 0;
 #pragma endregion
 
+#pragma region 回测状态
 // 实时资金
 double Funds = 0.0;
 // 实时资产
@@ -58,6 +59,8 @@ double Funds_Buy = 0.0;
 int Win_Count = 0;
 // 亏损交易计数
 int Loss_Count = 0;
+#pragma endregion
+
 
 void strategy(int cur);
 void tester();
