@@ -12,13 +12,19 @@
 #include <time.h>
 #include "indicators.h"
 
+// 最大指标个数
 #define INDEXS_SIZE 1024
+// 初始资金
+#define INIT_FUNDS 100
 
+// 历史时序数据长度
 int Hist_Len = 0;
+// 初始化指标个数
 int Indexs_Size = 0;
 int Buy_Index = -1;
 int Sell_Index = -1;
 int Valuation_Index = -1;
+// 是否为报告模式
 int Report_Mode = 0;
 
 unsigned long * Time;
@@ -29,8 +35,6 @@ double * Close;
 double * Volume;
 double * Indexs[INDEXS_SIZE];
 int Stable_Point = 0;
-// 初始资金
-double Init_Funds = 100.0;
 // 实时资金
 double Funds = 0.0;
 // 实时资产
@@ -154,7 +158,7 @@ void show_ohlcv(int index) {
  * 用于回测状态重置
  */
 void reset_backing_test() {
-  Funds = Init_Funds;
+  Funds = INIT_FUNDS;
   Assets = 0.0;
   Funds_Buy = 0.0;
   Win_Count = 0;
@@ -238,7 +242,7 @@ void save_report(void (* custom_report)(FILE * file, int index)) {
  * 输出交易状态信息
  */
 void print_state() {
-  const double return_funds = Funds - Init_Funds;
+  const double return_funds = Funds - INIT_FUNDS;
   const int total_count = Win_Count + Loss_Count;
   const double win_rate = 100.0 * Win_Count / total_count;
   printf(
