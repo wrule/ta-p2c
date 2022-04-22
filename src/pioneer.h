@@ -193,27 +193,6 @@ void set_valuation(int cur, double price) {
 
 /**
  * @brief
- * 存储估值曲线数据
- */
-void save_valuation() {
-  printf("存储估值曲线数据...\n");
-  FILE * file = fopen("valuation.json", "w");
-  fprintf(file, "[\n");
-  for (int i = 0; i < Hist_Len; ++i) {
-    fprintf(
-      file,
-      "  { \"type\": \"valuation\", \"x\": %lu, \"y\": %lf }%s\n",
-      Time[i],
-      Indexs[Valuation_Index][i],
-      i < Hist_Len - 1 ? "," : ""
-    );
-  }
-  fprintf(file, "]\n");
-  fclose(file);
-}
-
-/**
- * @brief
  * 存储报告
  */
 void save_report(void (* custom_report)(FILE * file, int index)) {
