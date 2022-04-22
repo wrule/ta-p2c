@@ -24,6 +24,8 @@
 int Hist_Len = 0;
 // 用户初始化指标个数
 int Indexs_Size = 0;
+// 费率乘数
+double Fee = 0.9985;
 // 购买列索引
 int Buy_Index = -1;
 // 出售列索引
@@ -47,8 +49,6 @@ int Stable_Point = 0;
 double Funds = 0.0;
 // 实时资产
 double Assets = 0.0;
-// 费率乘数
-double Fee = 0.9985;
 // 上一次购买资金
 double Funds_Buy = 0.0;
 // 盈利交易计数
