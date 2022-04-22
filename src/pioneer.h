@@ -1,7 +1,7 @@
 /**
  * @file pioneer.h
  * @author jimao（1982775886@qq.com）
- * @brief 迷你高性能量化回测框架
+ * @brief 简易高性能量化回测框架
  * @version 0.0.1
  * @date 2022-04-22
  */
