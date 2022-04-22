@@ -19,16 +19,21 @@
 #define INIT_FUNDS 100
 #pragma endregion
 
-
+#pragma region 环境参数
 // 历史时序数据长度
 int Hist_Len = 0;
-// 初始化指标个数
+// 用户初始化指标个数
 int Indexs_Size = 0;
+// 购买列索引
 int Buy_Index = -1;
+// 出售列索引
 int Sell_Index = -1;
+// 估值列索引
 int Valuation_Index = -1;
 // 是否为报告模式
-int Report_Mode = 0;
+int Report_Mode = 1;
+#pragma endregion
+
 
 unsigned long * Time;
 double * Open;
