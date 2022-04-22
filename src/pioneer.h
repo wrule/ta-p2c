@@ -268,19 +268,20 @@ int buy(double price, int index) {
  * @brief
  * 现货销售
  * @param price 销售价格
+ * @param index 蜡烛索引
  * @return int 成功：0，失败：1
  */
-int sell(double price, int cur) {
+int sell(double price, int index) {
   if (Funds == 0) {
     Funds = Assets * price * Fee;
-    if (Funds >= Funds_Buy) {
+    Assets = 0;
+    if (Funds > Funds_Buy) {
       Win_Count++;
     } else {
       Loss_Count++;
     }
-    Assets = 0;
     if (Report_Mode) {
-      Indexs[Sell_Index][cur] = price;
+      Indexs[Sell_Index][index] = price;
     }
     return 0;
   }
