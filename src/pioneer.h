@@ -119,6 +119,7 @@ void init(int hist_len, int indexs_size) {
   Valuation_Index = Indexs_Size + 2;
   init_hist();
   init_indexs();
+  init_indexs_value();
 }
 
 /**
