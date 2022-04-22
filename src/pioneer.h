@@ -319,8 +319,8 @@ void test() {
   tester();
   backing_test();
   printf("回测结束\n");
-  save_report(custom_report);
   print_state();
+  save_report(custom_report);
 }
 
 /**
