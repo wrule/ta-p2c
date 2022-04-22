@@ -44,7 +44,7 @@ double * Low;
 double * Close;
 double * Volume;
 double * Indexs[INDEXS_SIZE];
-// 策略稳定点索引
+// 策略稳定点
 int Stable_Point = 0;
 #pragma endregion
 
