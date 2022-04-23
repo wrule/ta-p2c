@@ -57,8 +57,8 @@ double x_queue_high(int cur, int x_num, int bar_num) {
 #define ATR_LINE 3
 #define LEAVE_LINE 4
 
-int Queue_Size = 3;
-int Bar_Max = 100;
+int Queue_Size = 0;
+int Bar_Max = 0;
 
 // 填充指标
 void indicators(
@@ -141,6 +141,7 @@ void strategy(int cur) {
   }
 }
 
+// 自定义报告输出
 void custom_report(FILE * file, int index) {
   fprintf(file, "\"FAST\": %lf, ", Indexs[FAST_LINE][index]);
   fprintf(file, "\"SLOW\": %lf, ", Indexs[SLOW_LINE][index]);
