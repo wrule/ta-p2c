@@ -28,9 +28,9 @@ void x_queue_show_tail(int size) {
   }
 }
 double x_queue_high(int cur, int x_num, int bar_num) {
-  int i = 0;
   double max = DBL_MIN;
   double max_atr = 0.0;
+  int i = 0;
   for (; i < x_num; ++i) {
     const int x_index = (x_queue_end - 1 - i) % X_QUEUE_SIZE;
     if (x_index < 0) {
