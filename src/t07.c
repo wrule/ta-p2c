@@ -32,7 +32,7 @@ double x_queue_high(int cur, int x_num, int bar_num) {
   double max = DBL_MIN;
   double max_atr = 0.0;
   for (; i < x_num; ++i) {
-    const int x_index = (x_queue_end - 1 - i) % X_QUEUE_SIZE;;
+    const int x_index = (x_queue_end - 1 - i) % X_QUEUE_SIZE;
     if (x_index < 0) {
       break;
     }
@@ -44,7 +44,7 @@ double x_queue_high(int cur, int x_num, int bar_num) {
       max_atr = x_queue[x_index][2];
     }
   }
-  if (i == x_num) {
+  if (i >= x_num) {
     return max + max_atr * 0.5;
   }
   return DBL_MAX;
