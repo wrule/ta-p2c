@@ -48,20 +48,6 @@ double x_queue_high(int cur, int x_num, int bar_num) {
     return max + max_atr * 0.5;
   }
   return DBL_MAX;
-  // int start = x_queue_end - x_num;
-  // if (start < 0) {
-  //   start = 0;
-  // }
-  // double max = DBL_MIN;
-  // double max_atr = 0;
-  // for (int i = start; i < x_queue_end; ++i) {
-  //   int index = i % X_QUEUE_SIZE;
-  //   if (x_queue[index][1] > max) {
-  //     max = x_queue[index][1];
-  //     max_atr = x_queue[index][2];
-  //   }
-  // }
-  // return max + max_atr * 0.5;
 }
 #pragma endregion
 
