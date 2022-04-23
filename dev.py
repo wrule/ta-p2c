@@ -5,7 +5,7 @@ hello = CDLL('./pioneer.so')
 
 def main():
   print('数据载入中...')
-  hist = json.load(open('src/BTC_USDT-2h.json', 'r'))
+  hist = json.load(open('src/BTC_USDT-1h.json', 'r'))
   # hist = list(filter(lambda item: item[0] >= 1609459200000, hist));
   print('初始化环境...')
   hello.init(len(hist), 32)
