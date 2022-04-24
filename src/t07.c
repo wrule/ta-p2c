@@ -189,6 +189,6 @@ void finder() {
 
 // 主函数
 int main() {
-  find();
+  test();
   return 0;
 }
