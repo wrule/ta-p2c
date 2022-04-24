@@ -170,8 +170,8 @@ void finder() {
               Queue_Size = q_size;
               for (int bar_size = 20; bar_size < 200; ++bar_size) {
                 Bar_Max = bar_size;
-                indicators(fast, slow, size, atr, k_num);
                 x_queue_end = 0;
+                indicators(fast, slow, size, atr, k_num);
                 backing_test();
                 if (Funds > funds_max) {
                   funds_max = Funds;
