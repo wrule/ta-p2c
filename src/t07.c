@@ -220,8 +220,7 @@ double sharpe_ratio(int size) {
   }
   double variance = variance_sum / stage_num;
   double std = sqrt(variance);
-  printf("%lf\n", std / stage_profit);
-  return stage_profit;
+  return 0;
 }
 
 // 主函数
