@@ -25,7 +25,7 @@ int Hist_Len = 0;
 // 用户初始化指标个数
 int Indexs_Size = 0;
 // 费率乘数
-double Fee = 0.9985;
+double Fee = 0.999;
 // 购买列索引
 int Buy_Index = -1;
 // 出售列索引
@@ -108,9 +108,10 @@ void init_indexs_value() {
  * @param hist_len 时序数据长度
  * @param indexs_size 指标数据个数
  */
-void init(int hist_len, int indexs_size) {
+void init(int hist_len, int indexs_size, double fee) {
   Hist_Len = hist_len;
   Indexs_Size = indexs_size;
+  Fee = fee;
   Buy_Index = Indexs_Size;
   Sell_Index = Indexs_Size + 1;
   Valuation_Index = Indexs_Size + 2;

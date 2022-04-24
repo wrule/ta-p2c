@@ -8,7 +8,7 @@ def main():
   hist = json.load(open('src/BTC_USDT-1h.json', 'r'))
   # hist = list(filter(lambda item: item[0] >= 1609459200000, hist));
   print('初始化环境...')
-  hello.init(len(hist), 32)
+  hello.init(len(hist), 32, c_double(0.9985))
   print('填充量价数据...')
   for index, item in enumerate(hist):
     hello.set_ohlcv(
