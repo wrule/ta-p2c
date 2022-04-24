@@ -187,6 +187,16 @@ void finder() {
   }
 }
 
+/**
+ * @brief
+ * 计算夏普率
+ * @param size 计算尺度
+ * @return double 夏普率
+ */
+double sharpe_ratio(int size) {
+  return 0;
+}
+
 // 主函数
 int main() {
   test();
