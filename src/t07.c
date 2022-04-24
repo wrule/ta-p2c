@@ -1,3 +1,4 @@
+#include <math.h>
 #include "pioneer.h"
 
 #pragma region 高性能队列
@@ -194,11 +195,31 @@ void finder() {
  * @return double 夏普率
  */
 double sharpe_ratio(int size) {
-  return 0;
+  double return_rate = Funds / INIT_FUNDS;
+  const int usable_size = Hist_Len - Stable_Point;
+  const int stage_num = usable_size / size;
+  const int extra = usable_size % size;
+  const int start_index = Stable_Point + extra;
+  // 阶段化盈利率
+  const double stage_profit = pow(return_rate, 1.0 / stage_num);
+  double * stage_profit_list = malloc(sizeof(double) * stage_num);
+  for (int i = 0; i < stage_num; ++i) {
+    const int op_index = start_index + i * size;
+    const int ed_index = op_index + size - 1;
+    stage_profit_list[i] = Indexs[Valuation_Index][ed_index] / Indexs[Valuation_Index][op_index];
+  }
+  double stage_profit_sum = 0.0;
+  for (int i = 0; i < stage_num; ++i) {
+    stage_profit_sum += stage_profit_list[i];
+  }
+  double stage_profit_avg = stage_profit_sum / stage_num;
+  printf("%lf %lf %lf\n", stage_profit_list[0], stage_profit_list[1], stage_profit_sum);
+  return stage_profit;
 }
 
 // 主函数
 int main() {
   test();
+  printf("夏普率: %lf\n", sharpe_ratio(7 * 24));
   return 0;
 }
