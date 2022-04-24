@@ -152,9 +152,9 @@ void custom_report(FILE * file, int index) {
 
 // 测试器
 void tester() {
-  const int fast = 5, slow = 10, size = 25, atr = 4, k_num = 17;
-  Queue_Size = 3;
-  Bar_Max = 39;
+  const int fast = 6, slow = 16, size = 22, atr = 3, k_num = 34;
+  Queue_Size = 2;
+  Bar_Max = 51;
   indicators(fast, slow, size, atr, k_num);
 }
 
@@ -189,6 +189,6 @@ void finder() {
 
 // 主函数
 int main() {
-  find();
+  test();
   return 0;
 }
