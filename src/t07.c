@@ -161,9 +161,9 @@ void tester() {
 // 查找器
 void finder() {
   double funds_max = DBL_MIN;
-  for (int fast = 5; fast < 6; ++fast) {
-    for (int slow = 10; slow < 11; ++slow) {
-      for (int size = 25; size < 26; ++size) {
+  for (int fast = 2; fast < 50; ++fast) {
+    for (int slow = fast + 1; slow < 150; ++slow) {
+      for (int size = 2; size < 200; ++size) {
         for (int atr = 3; atr < 4; ++atr) {
           for (int k_num = 34; k_num < 35; ++k_num) {
             for (int q_size = 2; q_size < 3; ++q_size) {
@@ -175,7 +175,7 @@ void finder() {
                 backing_test();
                 if (Funds > funds_max) {
                   funds_max = Funds;
-                  printf("%d %d %d %d\n", atr, k_num, q_size, bar_size);
+                  printf("%d %d %d\n", fast, slow, size);
                   print_state();
                 }
               }
