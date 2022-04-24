@@ -201,18 +201,23 @@ double sharpe_ratio(int size) {
   const int extra = usable_size % size;
   const int start_index = Stable_Point + extra;
   // 阶段化盈利率
-  const double stage_profit = pow(return_rate, 1.0 / stage_num);
+  const double stage_profit = pow(return_rate, 1.0 / stage_num) - 1;
+
+  printf("%lf\n", stage_profit);
+
   double * stage_profit_list = malloc(sizeof(double) * stage_num);
   for (int i = 0; i < stage_num; ++i) {
     const int op_index = start_index + i * size;
     const int ed_index = op_index + size - 1;
-    stage_profit_list[i] = Indexs[Valuation_Index][ed_index] / Indexs[Valuation_Index][op_index];
+    stage_profit_list[i] = Indexs[Valuation_Index][ed_index] / Indexs[Valuation_Index][op_index] - 1;
   }
   double stage_profit_sum = 0.0;
   for (int i = 0; i < stage_num; ++i) {
     stage_profit_sum += stage_profit_list[i];
   }
   double stage_profit_avg = stage_profit_sum / stage_num;
+
+
   double variance_sum = 0.0;
   for (int i = 0; i < stage_num; ++i) {
     const double diff = stage_profit_list[i] - stage_profit_avg;
@@ -220,7 +225,7 @@ double sharpe_ratio(int size) {
   }
   double variance = variance_sum / stage_num;
   double std = sqrt(variance);
-  return 0;
+  return stage_profit / std;
 }
 
 // 主函数
