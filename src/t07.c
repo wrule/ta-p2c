@@ -213,7 +213,14 @@ double sharpe_ratio(int size) {
     stage_profit_sum += stage_profit_list[i];
   }
   double stage_profit_avg = stage_profit_sum / stage_num;
-  printf("%lf %lf %lf\n", stage_profit_list[0], stage_profit_list[1], stage_profit_sum);
+  double variance_sum = 0.0;
+  for (int i = 0; i < stage_num; ++i) {
+    const double diff = stage_profit_list[i] - stage_profit_avg;
+    variance_sum += diff * diff;
+  }
+  double variance = variance_sum / stage_num;
+  double std = sqrt(variance);
+  printf("%lf\n", std / stage_profit);
   return stage_profit;
 }
 
