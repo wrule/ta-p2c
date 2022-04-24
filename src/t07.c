@@ -164,18 +164,18 @@ void finder() {
   for (int fast = 5; fast < 6; ++fast) {
     for (int slow = 10; slow < 11; ++slow) {
       for (int size = 25; size < 26; ++size) {
-        for (int atr = 2; atr < 50; ++atr) {
-          for (int k_num = 2; k_num < 200; ++k_num) {
-            for (int q_size = 1; q_size < 6; ++q_size) {
+        for (int atr = 3; atr < 4; ++atr) {
+          for (int k_num = 34; k_num < 35; ++k_num) {
+            for (int q_size = 2; q_size < 3; ++q_size) {
               Queue_Size = q_size;
-              for (int bar_size = 20; bar_size < 200; ++bar_size) {
+              for (int bar_size = 51; bar_size < 52; ++bar_size) {
                 Bar_Max = bar_size;
                 x_queue_end = 0;
                 indicators(fast, slow, size, atr, k_num);
                 backing_test();
                 if (Funds > funds_max) {
                   funds_max = Funds;
-                  printf("%d %d %d %d %d %d %d\n", fast, slow, size, atr, k_num, q_size, bar_size);
+                  printf("%d %d %d %d\n", atr, k_num, q_size, bar_size);
                   print_state();
                 }
               }
