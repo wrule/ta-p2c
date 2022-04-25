@@ -69,12 +69,14 @@ void indicators(
   int k,
   int d
 ) {
+  // RSI指标计算
   const double rsi_options[] = { rsi_length };
   const double * rsi_inputs[] = { Close };
   const int rsi_start = ti_rsi_start(rsi_options);
   double * rsi_outputs[] = { &Indexs[RSI_LINE][rsi_start] };
   ti_rsi(Hist_Len, rsi_inputs, rsi_options, rsi_outputs);
 
+  // STOCH指标计算
   const double stoch_options[] = { length, k, d };
   const double * stoch_inputs[] = {
     &Indexs[RSI_LINE][rsi_start],
@@ -84,6 +86,8 @@ void indicators(
   const int stoch_start = ti_stoch_start(stoch_options) + rsi_start;
   double * stoch_outputs[] = { &Indexs[K_LINE][stoch_start], &Indexs[D_LINE][stoch_start] };
   ti_stoch(Hist_Len - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
+
+  // 设置稳定点
   Stable_Point = stoch_start + 1;
 }
 
