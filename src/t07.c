@@ -195,28 +195,26 @@ void finder() {
  * @return double 夏普率
  */
 double sharpe_ratio(int size) {
-  double return_rate = Funds / INIT_FUNDS;
   const int usable_size = Hist_Len - Stable_Point;
-  const int stage_num = usable_size / size;
-  const int extra = usable_size % size;
+  const int stage_num = (usable_size - size) / (size - 1) + 1;
+  const int extra = (usable_size - size) % (size - 1);
   const int start_index = Stable_Point + extra;
+  double return_rate = Funds / Indexs[Valuation_Index][start_index];
   // 阶段化盈利率
   const double stage_profit = pow(return_rate, 1.0 / stage_num) - 1;
 
-  printf("%lf\n", stage_profit);
-
   double * stage_profit_list = malloc(sizeof(double) * stage_num);
   for (int i = 0; i < stage_num; ++i) {
-    const int op_index = start_index + i * size;
+    const int op_index = start_index + i * (size - 1);
     const int ed_index = op_index + size - 1;
     stage_profit_list[i] = Indexs[Valuation_Index][ed_index] / Indexs[Valuation_Index][op_index] - 1;
   }
+
   double stage_profit_sum = 0.0;
   for (int i = 0; i < stage_num; ++i) {
     stage_profit_sum += stage_profit_list[i];
   }
   double stage_profit_avg = stage_profit_sum / stage_num;
-
 
   double variance_sum = 0.0;
   for (int i = 0; i < stage_num; ++i) {
@@ -224,7 +222,9 @@ double sharpe_ratio(int size) {
     variance_sum += diff * diff;
   }
   double variance = variance_sum / stage_num;
+
   double std = sqrt(variance);
+
   return stage_profit / std;
 }
 
