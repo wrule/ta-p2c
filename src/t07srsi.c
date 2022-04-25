@@ -52,68 +52,15 @@ double x_queue_high(int cur, int x_num, int bar_num) {
 }
 #pragma endregion
 
-#define FAST_LINE 0
-#define SLOW_LINE 1
-#define MACD_LINE 2
-#define ATR_LINE 3
-#define LEAVE_LINE 4
+#define RSI_LINE 0
+#define K_LINE 1
+#define D_LINE 2
+#define DIFF_LINE 3
+#define ATR_LINE 4
+#define LEAVE_LINE 5
 
 int Queue_Size = 0;
 int Bar_Max = 0;
-
-// 填充指标
-void indicators(
-  int fast,
-  int slow,
-  int size,
-  int atr,
-  int k_num
-) {
-  // MACD指标生成
-  const double macd_options[] = { fast, slow, size };
-  const double * macd_inputs[] = { Close };
-  const int macd_start = ti_macd_start(macd_options);
-  double * macd_outputs[] = {
-    &Indexs[FAST_LINE][macd_start],
-    &Indexs[SLOW_LINE][macd_start],
-    &Indexs[MACD_LINE][macd_start]
-  };
-  ti_macd(Hist_Len, macd_inputs, macd_options, macd_outputs);
-  Stable_Point = macd_start + 1;
-
-  // ATR指标生成
-  const double atr_options[] = { atr };
-  const double * atr_inputs[] = { High, Low, Close };
-  const int atr_start = ti_atr_start(atr_options);
-  double * atr_outputs[] = { &Indexs[ATR_LINE][atr_start] };
-  ti_atr(Hist_Len, atr_inputs, atr_options, atr_outputs);
-  if (Stable_Point < atr_start) {
-    Stable_Point = atr_start;
-  }
-
-  // 离场指标生成
-  for (int i = k_num; i < Hist_Len; ++i) {
-    double min = DBL_MAX;
-    for (int h = i - k_num; h < i; ++h) {
-      if (Low[h] < min) {
-        min = Low[h];
-      }
-    }
-    if (Low[i] < min) {
-      if (Open[i] < min) {
-        Indexs[LEAVE_LINE][i] = Open[i];
-      } else {
-        Indexs[LEAVE_LINE][i] = min;
-      }
-    } else {
-      Indexs[LEAVE_LINE][i] = -1.0;
-    }
-  }
-  if (Stable_Point < k_num) {
-    Stable_Point = k_num;
-  }
-}
-
 
 // 指标
 void indicators(
@@ -125,16 +72,17 @@ void indicators(
   const double rsi_options[] = { rsi_length };
   const double * rsi_inputs[] = { Close };
   const int rsi_start = ti_rsi_start(rsi_options);
-  double * rsi_outputs[] = { &Indexs[2][rsi_start] };
+  double * rsi_outputs[] = { &Indexs[RSI_LINE][rsi_start] };
   ti_rsi(Hist_Len, rsi_inputs, rsi_options, rsi_outputs);
+
   const double stoch_options[] = { length, k, d };
   const double * stoch_inputs[] = {
-    &Indexs[2][rsi_start],
-    &Indexs[2][rsi_start],
-    &Indexs[2][rsi_start]
+    &Indexs[RSI_LINE][rsi_start],
+    &Indexs[RSI_LINE][rsi_start],
+    &Indexs[RSI_LINE][rsi_start]
   };
   const int stoch_start = ti_stoch_start(stoch_options) + rsi_start;
-  double * stoch_outputs[] = { &Indexs[0][stoch_start], &Indexs[1][stoch_start] };
+  double * stoch_outputs[] = { &Indexs[K_LINE][stoch_start], &Indexs[D_LINE][stoch_start] };
   ti_stoch(Hist_Len - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
   Stable_Point = stoch_start + 1;
 }
@@ -144,8 +92,8 @@ void indicators(
 void strategy(int cur) {
   // 记录金叉死叉
   if (
-    (Indexs[MACD_LINE][cur] > 0 && Indexs[MACD_LINE][cur - 1] <= 0) ||
-    (Indexs[MACD_LINE][cur] < 0 && Indexs[MACD_LINE][cur - 1] >= 0)
+    (Indexs[DIFF_LINE][cur] > 0 && Indexs[DIFF_LINE][cur - 1] <= 0) ||
+    (Indexs[DIFF_LINE][cur] < 0 && Indexs[DIFF_LINE][cur - 1] >= 0)
   ) {
     x_queue_push(cur, High[cur], Indexs[ATR_LINE][cur]);
   }
@@ -170,9 +118,9 @@ void strategy(int cur) {
 
 // 自定义报告输出
 void custom_report(FILE * file, int index) {
-  fprintf(file, "\"FAST\": %lf, ", Indexs[FAST_LINE][index]);
-  fprintf(file, "\"SLOW\": %lf, ", Indexs[SLOW_LINE][index]);
-  fprintf(file, "\"MACD\": %lf, ", Indexs[MACD_LINE][index]);
+  fprintf(file, "\"FAST\": %lf, ", Indexs[K_LINE][index]);
+  fprintf(file, "\"SLOW\": %lf, ", Indexs[D_LINE][index]);
+  fprintf(file, "\"MACD\": %lf, ", Indexs[DIFF_LINE][index]);
   fprintf(file, "\"ATR\": %lf, ", Indexs[ATR_LINE][index]);
   fprintf(file, "\"LEAVE\": %lf, ", Indexs[LEAVE_LINE][index]);
 }
@@ -182,7 +130,7 @@ void tester() {
   const int fast = 5, slow = 10, size = 25, atr = 4, k_num = 17;
   Queue_Size = 3;
   Bar_Max = 39;
-  indicators(fast, slow, size, atr, k_num);
+  indicators(fast, slow, size, atr);
 }
 
 // 查找器
@@ -198,7 +146,7 @@ void finder() {
               for (int bar_size = 51; bar_size < 52; ++bar_size) {
                 Bar_Max = bar_size;
                 x_queue_end = 0;
-                indicators(fast, slow, size, atr, k_num);
+                indicators(fast, slow, size, atr);
                 backing_test();
                 if (Funds > funds_max) {
                   funds_max = Funds;
