@@ -231,6 +231,6 @@ double sharpe_ratio(int size) {
 // 主函数
 int main() {
   test();
-  printf("夏普率: %lf\n", sharpe_ratio(7 * 24));
+  printf("夏普率: %lf\n", sharpe_ratio(7 * 12));
   return 0;
 }
