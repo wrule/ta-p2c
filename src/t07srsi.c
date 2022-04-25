@@ -67,7 +67,8 @@ void indicators(
   int rsi_length,
   int length,
   int k,
-  int d
+  int d,
+  int k_num
 ) {
   // RSI指标计算
   const double rsi_options[] = { rsi_length };
@@ -87,8 +88,35 @@ void indicators(
   double * stoch_outputs[] = { &Indexs[K_LINE][stoch_start], &Indexs[D_LINE][stoch_start] };
   ti_stoch(Hist_Len - rsi_start, stoch_inputs, stoch_options, stoch_outputs);
 
+  // KD差值计算
+  for (int i = stoch_start; i < Hist_Len; ++i) {
+    Indexs[DIFF_LINE][i] = Indexs[K_LINE][i] - Indexs[D_LINE][i];
+  }
+
   // 设置稳定点
   Stable_Point = stoch_start + 1;
+
+  // 离场指标生成
+  for (int i = k_num; i < Hist_Len; ++i) {
+    double min = DBL_MAX;
+    for (int h = i - k_num; h < i; ++h) {
+      if (Low[h] < min) {
+        min = Low[h];
+      }
+    }
+    if (Low[i] < min) {
+      if (Open[i] < min) {
+        Indexs[LEAVE_LINE][i] = Open[i];
+      } else {
+        Indexs[LEAVE_LINE][i] = min;
+      }
+    } else {
+      Indexs[LEAVE_LINE][i] = -1.0;
+    }
+  }
+  if (Stable_Point < k_num) {
+    Stable_Point = k_num;
+  }
 }
 
 
@@ -134,7 +162,7 @@ void tester() {
   const int fast = 5, slow = 10, size = 25, atr = 4, k_num = 17;
   Queue_Size = 3;
   Bar_Max = 39;
-  indicators(fast, slow, size, atr);
+  indicators(fast, slow, size, atr, k_num);
 }
 
 // 查找器
@@ -150,7 +178,7 @@ void finder() {
               for (int bar_size = 51; bar_size < 52; ++bar_size) {
                 Bar_Max = bar_size;
                 x_queue_end = 0;
-                indicators(fast, slow, size, atr);
+                indicators(fast, slow, size, atr, k_num);
                 backing_test();
                 if (Funds > funds_max) {
                   funds_max = Funds;
