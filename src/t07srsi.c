@@ -68,6 +68,7 @@ void indicators(
   int length,
   int k,
   int d,
+  int atr,
   int k_num
 ) {
   // RSI指标计算
@@ -95,6 +96,16 @@ void indicators(
 
   // 设置稳定点
   Stable_Point = stoch_start + 1;
+
+  // ATR指标生成
+  const double atr_options[] = { atr };
+  const double * atr_inputs[] = { High, Low, Close };
+  const int atr_start = ti_atr_start(atr_options);
+  double * atr_outputs[] = { &Indexs[ATR_LINE][atr_start] };
+  ti_atr(Hist_Len, atr_inputs, atr_options, atr_outputs);
+  if (Stable_Point < atr_start) {
+    Stable_Point = atr_start;
+  }
 
   // 离场指标生成
   for (int i = k_num; i < Hist_Len; ++i) {
@@ -159,10 +170,10 @@ void custom_report(FILE * file, int index) {
 
 // 测试器
 void tester() {
-  const int rsi_length = 5, length = 10, k = 25, d = 4, k_num = 17;
+  const int rsi_length = 5, length = 10, k = 25, d = 4, atr = 10, k_num = 17;
   Queue_Size = 3;
   Bar_Max = 50;
-  indicators(rsi_length, length, k, d, k_num);
+  indicators(rsi_length, length, k, d, atr, k_num);
 }
 
 // 查找器
@@ -178,7 +189,7 @@ void finder() {
               for (int bar_size = 51; bar_size < 52; ++bar_size) {
                 Bar_Max = bar_size;
                 x_queue_end = 0;
-                indicators(fast, slow, size, atr, k_num);
+                indicators(fast, slow, size, atr, atr, k_num);
                 backing_test();
                 if (Funds > funds_max) {
                   funds_max = Funds;
