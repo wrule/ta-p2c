@@ -159,10 +159,10 @@ void custom_report(FILE * file, int index) {
 
 // 测试器
 void tester() {
-  const int fast = 5, slow = 10, size = 25, atr = 4, k_num = 17;
+  const int rsi_length = 5, length = 10, k = 25, d = 4, k_num = 17;
   Queue_Size = 3;
-  Bar_Max = 39;
-  indicators(fast, slow, size, atr, k_num);
+  Bar_Max = 50;
+  indicators(rsi_length, length, k, d, k_num);
 }
 
 // 查找器
@@ -237,6 +237,6 @@ double sharpe_ratio(int size) {
 // 主函数
 int main() {
   test();
-  printf("夏普率: %lf\n", sharpe_ratio(7 * 12));
+  printf("夏普率: %lf\n", sharpe_ratio(30 * 12));
   return 0;
 }
