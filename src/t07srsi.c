@@ -170,24 +170,24 @@ void custom_report(FILE * file, int index) {
 
 // 测试器
 void tester() {
-  const int rsi_length = 5, length = 10, k = 25, d = 4, atr = 10, k_num = 17;
-  Queue_Size = 3;
-  Bar_Max = 50;
+  const int rsi_length = 10, length = 50, k = 5, d = 26, atr = 2, k_num = 17;
+  Queue_Size = 2;
+  Bar_Max = 55;
   indicators(rsi_length, length, k, d, atr, k_num);
 }
 
 // 查找器
 void finder() {
   double funds_max = DBL_MIN;
-  for (int rsi_length = 2; rsi_length < 50; ++rsi_length) {
-    for (int length = 2; length < 50; ++length) {
-      for (int k = 2; k < 50; ++k) {
-        for (int d = 2; d < 50; ++d) {
-          for (int atr = 2; atr < 50; ++atr) {
-            for (int k_num = 18; k_num < 19; ++k_num) {
-              for (int q_size = 3; q_size < 4; ++q_size) {
+  for (int rsi_length = 10; rsi_length < 11; ++rsi_length) {
+    for (int length = 50; length < 51; ++length) {
+      for (int k = 5; k < 6; ++k) {
+        for (int d = 26; d < 27; ++d) {
+          for (int atr = 2; atr < 3; ++atr) {
+            for (int k_num = 2; k_num < 60; ++k_num) {
+              for (int q_size = 2; q_size < 5; ++q_size) {
                 Queue_Size = q_size;
-                for (int bar_size = 51; bar_size < 52; ++bar_size) {
+                for (int bar_size = 20; bar_size < 80; ++bar_size) {
                   Bar_Max = bar_size;
                   x_queue_end = 0;
                   indicators(rsi_length, length, k, d, atr, k_num);
@@ -195,6 +195,7 @@ void finder() {
                   if (Funds > funds_max) {
                     funds_max = Funds;
                     printf("%d %d %d %d %d\n", rsi_length, length, k, d, atr);
+                    printf("%d %d %d\n", k_num, q_size, bar_size);
                     print_state();
                   }
                 }
@@ -249,7 +250,7 @@ double sharpe_ratio(int size) {
 
 // 主函数
 int main() {
-  find();
-  printf("夏普率: %lf\n", sharpe_ratio(30 * 12));
+  test();
+  printf("夏普率: %lf\n", sharpe_ratio(60 * 12));
   return 0;
 }
