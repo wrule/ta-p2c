@@ -8,22 +8,26 @@ double short_funds = 0.0;
 
 double funds = 100.0;
 
-void open_long(double amount, double price) {
+void long_open(double price, double amount) {
   long_assets += amount;
-  const double use_funds = amount * price;
+  const double use_funds = price * amount;
   long_funds += use_funds;
+}
+
+void long_close(double price) {
+  funds += long_assets * price - long_funds;
+  long_assets = 0.0;
+  long_funds = 0.0;
+}
+
+double long_price() {
+  return long_funds / long_assets;
 }
 
 void open_short(double amount, double price) {
   short_assets += amount;
   const double use_funds = amount * price;
   short_funds += use_funds;
-}
-
-void close_long(double price) {
-  funds += long_assets * price - long_funds;
-  long_assets = 0.0;
-  long_funds = 0.0;
 }
 
 void close_short(double price) {
@@ -34,11 +38,7 @@ void close_short(double price) {
 
 int main() {
   printf("你好，世界\n");
-  open_long(100, 10);
-  close_long(11);
-  printf("%lf\n", funds);
-  open_short(100, 10);
-  close_short(8);
+  long_open(100, 10);
   printf("%lf\n", funds);
   return 0;
 }
