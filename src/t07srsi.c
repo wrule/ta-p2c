@@ -179,15 +179,15 @@ void tester() {
 // 查找器
 void finder() {
   double funds_max = DBL_MIN;
-  for (int rsi_length = 10; rsi_length < 11; ++rsi_length) {
-    for (int length = 50; length < 51; ++length) {
-      for (int k = 5; k < 6; ++k) {
-        for (int d = 26; d < 27; ++d) {
+  for (int rsi_length = 5; rsi_length < 15; ++rsi_length) {
+    for (int length = 45; length < 55; ++length) {
+      for (int k = 5; k < 15; ++k) {
+        for (int d = 25; d < 35; ++d) {
           for (int atr = 2; atr < 3; ++atr) {
-            for (int k_num = 2; k_num < 60; ++k_num) {
-              for (int q_size = 2; q_size < 5; ++q_size) {
+            for (int k_num = 10; k_num < 11; ++k_num) {
+              for (int q_size = 2; q_size < 3; ++q_size) {
                 Queue_Size = q_size;
-                for (int bar_size = 20; bar_size < 80; ++bar_size) {
+                for (int bar_size = 55; bar_size < 56; ++bar_size) {
                   Bar_Max = bar_size;
                   x_queue_end = 0;
                   indicators(rsi_length, length, k, d, atr, k_num);
@@ -250,7 +250,7 @@ double sharpe_ratio(int size) {
 
 // 主函数
 int main() {
-  test();
+  find();
   printf("夏普率: %lf\n", sharpe_ratio(30 * 12));
   return 0;
 }
