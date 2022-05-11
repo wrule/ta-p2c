@@ -25,6 +25,23 @@ double long_price() {
 }
 
 
+void short_open(double price, double asset) {
+  short_assets += asset;
+  const double use_funds = asset * price;
+  short_funds += use_funds;
+}
+
+void short_close(double price) {
+  funds += -(short_assets * price - long_funds);
+  short_assets = 0.0;
+  short_funds = 0.0;
+}
+
+double short_price() {
+  return short_funds / short_assets;
+}
+
+
 int main() {
   printf("你好，世界\n");
   long_open(100, 10);
