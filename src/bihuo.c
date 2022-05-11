@@ -8,9 +8,9 @@ double short_funds = 0.0;
 
 double funds = 100.0;
 
-void long_open(double price, double amount) {
-  long_assets += amount;
-  const double use_funds = price * amount;
+void long_open(double price, double asset) {
+  long_assets += asset;
+  const double use_funds = asset * price;
   long_funds += use_funds;
 }
 
