@@ -24,17 +24,6 @@ double long_price() {
   return long_funds / long_assets;
 }
 
-void open_short(double amount, double price) {
-  short_assets += amount;
-  const double use_funds = amount * price;
-  short_funds += use_funds;
-}
-
-void close_short(double price) {
-  funds += -(short_assets * price - short_funds);
-  short_assets = 0.0;
-  short_funds = 0.0;
-}
 
 int main() {
   printf("你好，世界\n");
