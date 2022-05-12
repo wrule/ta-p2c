@@ -102,6 +102,6 @@ void finder() {
 // 主函数
 int main() {
   test();
-  printf("胜率: %lf\n", (double)win_count / (win_count + fail_count));
+  printf("%d %d 胜率: %lf\n", win_count, fail_count, (double)win_count / (win_count + fail_count));
   return 0;
 }
