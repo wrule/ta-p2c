@@ -65,7 +65,7 @@ void custom_report(FILE * file, int index) {
 
 // 测试器
 void tester() {
-  const int rsi_length = 10, length = 50, k = 5, d = 26, atr = 2;
+  const int rsi_length = 27, length = 54, k = 2, d = 6, atr = 2;
   indicators(rsi_length, length, k, d, atr);
 }
 
