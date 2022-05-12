@@ -13,8 +13,7 @@ void indicators(
   int length,
   int k,
   int d,
-  int atr,
-  int k_num
+  int atr
 ) {
   // RSI指标计算
   const double rsi_options[] = { rsi_length };
@@ -66,8 +65,8 @@ void custom_report(FILE * file, int index) {
 
 // 测试器
 void tester() {
-  const int rsi_length = 10, length = 50, k = 5, d = 26, atr = 2, k_num = 17;
-  indicators(rsi_length, length, k, d, atr, k_num);
+  const int rsi_length = 10, length = 50, k = 5, d = 26, atr = 2;
+  indicators(rsi_length, length, k, d, atr);
 }
 
 // 查找器
