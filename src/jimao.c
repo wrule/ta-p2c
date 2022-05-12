@@ -52,10 +52,35 @@ void indicators(
   }
 }
 
+int win_count = 0;
+int fail_count = 0;
 
 // 策略
 void strategy(int cur) {
-
+  if (Assets == 0) {
+    if (Indexs[DIFF_LINE][cur] > 0 && Indexs[DIFF_LINE][cur - 1] <= 0) {
+      buy(Close[cur], cur);
+    }
+  } else {
+    const double open_ratio = (Assets * Open[cur] - Funds_Buy) / Funds_Buy;
+    const double high_ratio = (Assets * High[cur] - Funds_Buy) / Funds_Buy;
+    const double low_ratio = (Assets * Low[cur] - Funds_Buy) / Funds_Buy;
+    if (open_ratio >= 0.00510) {
+      win_count++;
+    } else if (open_ratio <= -0.0075) {
+      fail_count++;
+    } else if (high_ratio >= 0.00510) {
+      win_count++;
+    } else if (low_ratio <= -0.0075) {
+      fail_count++;
+    } else {
+      return;
+    }
+    sell(Close[cur], cur);
+    Assets = 0;
+    Funds = 100;
+    Funds_Buy = 0;
+  }
 }
 
 // 自定义报告输出
@@ -77,5 +102,6 @@ void finder() {
 // 主函数
 int main() {
   test();
+  printf("胜率: %lf\n", (double)win_count / (win_count + fail_count));
   return 0;
 }
