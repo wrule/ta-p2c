@@ -67,11 +67,11 @@ void strategy(int cur) {
     const double low_ratio = (Assets * Low[cur] - Funds_Buy) / Funds_Buy;
     if (open_ratio >= 0.00510) {
       win_count++;
-    } else if (open_ratio <= -0.0075) {
+    } else if (open_ratio <= -0.0045) {
       fail_count++;
     } else if (high_ratio >= 0.00510) {
       win_count++;
-    } else if (low_ratio <= -0.0075) {
+    } else if (low_ratio <= -0.0045) {
       fail_count++;
     } else {
       return;
@@ -90,7 +90,7 @@ void custom_report(FILE * file, int index) {
 
 // 测试器
 void tester() {
-  const int rsi_length = 27, length = 54, k = 2, d = 6, atr = 2;
+  const int rsi_length = 27, length = 49, k = 8, d = 8, atr = 2;
   indicators(rsi_length, length, k, d, atr);
 }
 
