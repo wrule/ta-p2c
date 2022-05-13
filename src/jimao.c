@@ -40,16 +40,6 @@ void indicators(
 
   // 设置稳定点
   Stable_Point = stoch_start + 1;
-
-  // ATR指标生成
-  const double atr_options[] = { atr };
-  const double * atr_inputs[] = { High, Low, Close };
-  const int atr_start = ti_atr_start(atr_options);
-  double * atr_outputs[] = { &Indexs[ATR_LINE][atr_start] };
-  ti_atr(Hist_Len, atr_inputs, atr_options, atr_outputs);
-  if (Stable_Point < atr_start) {
-    Stable_Point = atr_start;
-  }
 }
 
 int win_count = 0;
@@ -76,9 +66,8 @@ void strategy(int cur) {
     } else {
       return;
     }
-    sell(Close[cur], cur);
-    Assets = 0;
     Funds = 100;
+    Assets = 0;
     Funds_Buy = 0;
   }
 }
