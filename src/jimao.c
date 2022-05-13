@@ -46,21 +46,21 @@ int fail_count = 0;
 // 策略
 void strategy(int cur) {
   if (Assets == 0) {
-    if (Indexs[DIFF_LINE][cur] > 0 && Indexs[DIFF_LINE][cur - 1] <= 0) {
+    if (Indexs[DIFF_LINE][cur] < 0 && Indexs[DIFF_LINE][cur - 1] >= 0) {
       buy(Close[cur], cur);
     }
   } else {
     const double open_ratio = (Assets * Open[cur] - Funds_Buy) / Funds_Buy;
     const double high_ratio = (Assets * High[cur] - Funds_Buy) / Funds_Buy;
     const double low_ratio = (Assets * Low[cur] - Funds_Buy) / Funds_Buy;
-    if (open_ratio >= 0.00510) {
-      win_count++;
-    } else if (open_ratio <= -0.0045) {
+    if (open_ratio >= 0.00450) {
       fail_count++;
-    } else if (high_ratio >= 0.00510) {
+    } else if (open_ratio <= -0.00510) {
       win_count++;
-    } else if (low_ratio <= -0.0045) {
+    } else if (high_ratio >= 0.00450) {
       fail_count++;
+    } else if (low_ratio <= -0.00510) {
+      win_count++;
     } else {
       return;
     }
@@ -83,12 +83,30 @@ void tester() {
 
 // 查找器
 void finder() {
-
+  double max_win_ratio = 0.0;
+  for (int rsi_length = 4; rsi_length < 80; ++rsi_length) {
+    for (int length = 4; length < 70; ++length) {
+      for (int k = 3; k < 60; ++k) {
+        for (int d = 3; d < 60; ++d) {
+          indicators(rsi_length, length, k, d);
+          win_count = 0;
+          fail_count = 0;
+          backing_test();
+          printf("%d %d %d %lf\n", rsi_length, length, k, max_win_ratio);
+          const int count = win_count + fail_count;
+          const double win_ratio = (double)win_count / (win_count + fail_count);
+          if (win_ratio > max_win_ratio && count > 6000) {
+            max_win_ratio = win_ratio;
+          }
+        }
+      }
+    }
+  }
 }
 
 // 主函数
 int main() {
-  test();
-  printf("%d %d 胜率: %lf\n", win_count, fail_count, (double)win_count / (win_count + fail_count));
+  find();
+  // printf("%d %d 胜率: %lf\n", win_count, fail_count, (double)win_count / (win_count + fail_count));
   return 0;
 }
