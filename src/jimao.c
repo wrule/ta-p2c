@@ -78,7 +78,7 @@ void custom_report(FILE * file, int index) {
 // 测试器
 void tester() {
   const int rsi_length = 27, length = 49, k = 8, d = 8, atr = 2;
-  indicators(rsi_length, length, k, d, atr);
+  indicators(rsi_length, length, k, d);
 }
 
 // 查找器
