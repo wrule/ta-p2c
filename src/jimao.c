@@ -5,15 +5,13 @@
 #define K_LINE 1
 #define D_LINE 2
 #define DIFF_LINE 3
-#define ATR_LINE 4
 
 // 指标
 void indicators(
   int rsi_length,
   int length,
   int k,
-  int d,
-  int atr
+  int d
 ) {
   // RSI指标计算
   const double rsi_options[] = { rsi_length };
